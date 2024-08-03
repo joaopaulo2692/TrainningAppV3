@@ -6,9 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using System.Security.Claims;
 using System.Text.Json;
+using TrainningApp.Core.Entities;
 using TrainningAppV3.Components.Account.Pages;
 using TrainningAppV3.Components.Account.Pages.Manage;
-using TrainningAppV3.Data;
+
 
 namespace Microsoft.AspNetCore.Routing
 {

@@ -2,10 +2,12 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
+using TrainningApp.Core.Entities;
+using TrainningApp.Infrastructure.Data;
 using TrainningAppV3.Client.Pages;
 using TrainningAppV3.Components;
 using TrainningAppV3.Components.Account;
-using TrainningAppV3.Data;
+using TrainningApp.Core.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -7,7 +7,7 @@ using Microsoft.Extensions.Options;
 using System.Diagnostics;
 using System.Security.Claims;
 using TrainningAppV3.Client;
-using TrainningAppV3.Data;
+using TrainningApp.Core.Entities;
 
 namespace TrainningAppV3.Components.Account
 {

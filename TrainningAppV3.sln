@@ -9,6 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainningAppV3.Client", "Tr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainningApp.Core", "TrainningApp.Core\TrainningApp.Core.csproj", "{F855E248-D98E-4BF2-9FE9-18C767927030}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainningApp.Infrastructure", "TrainningApp.API\TrainningApp.Infrastructure.csproj", "{2A482331-953F-4CB7-B35A-0F1BD66586D1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F855E248-D98E-4BF2-9FE9-18C767927030} = {F855E248-D98E-4BF2-9FE9-18C767927030}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +32,10 @@ Global
 		{F855E248-D98E-4BF2-9FE9-18C767927030}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F855E248-D98E-4BF2-9FE9-18C767927030}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F855E248-D98E-4BF2-9FE9-18C767927030}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A482331-953F-4CB7-B35A-0F1BD66586D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A482331-953F-4CB7-B35A-0F1BD66586D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A482331-953F-4CB7-B35A-0F1BD66586D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A482331-953F-4CB7-B35A-0F1BD66586D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

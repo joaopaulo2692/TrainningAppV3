@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using TrainningAppV3.Data;
+using TrainningApp.Core.Entities;
+
 
 namespace TrainningAppV3.Components.Account
 {

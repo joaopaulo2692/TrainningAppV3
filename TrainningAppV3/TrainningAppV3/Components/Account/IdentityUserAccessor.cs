@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Identity;
-using TrainningAppV3.Data;
+using TrainningApp.Core.Entities;
 
 namespace TrainningAppV3.Components.Account
 {
