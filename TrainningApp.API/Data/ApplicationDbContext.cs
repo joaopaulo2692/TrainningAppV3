@@ -18,6 +18,8 @@ namespace TrainningApp.Infrastructure.Data
         }
         public DbSet<Trainning> Trainnings { get; set; } 
 
+        public DbSet<Management> Managements { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
