@@ -35,6 +35,24 @@ namespace TrainningApp.Infrastructure.Data
               .WithMany(t => t.Users)
               .UsingEntity(j => j.ToTable("UserManagements"));
 
+            modelBuilder.Entity<Exercise>()
+                .HasMany(x => x.Muscles)
+                .WithMany(x => x.Exercises);
+
+            modelBuilder.Entity<TrainningExercise>()
+                .HasOne(x => x.Exercise)
+                .WithMany(x => x.TrainningExercises);
+
+            modelBuilder.Entity<TrainningExercise>()
+                .HasOne(x => x.TrainningDay)
+                .WithMany(x => x.TrainningExercises);
+
+            modelBuilder.Entity<Trainning>()
+                .HasMany(x => x.TrainningDays)
+                .WithOne(x => x.Trainning);
+
+
+
             //modelBuilder.Entity<ApplicationUser>().HasMany(t => t.Trainnings).WithMany(x => x.Users);
             //modelBuilder.Entity<Trainning>().HasMany(x => x.Users).WithMany(x => x.Trainnings).UsingEntity(j => j.ToTable("UserTrainning"));
         }

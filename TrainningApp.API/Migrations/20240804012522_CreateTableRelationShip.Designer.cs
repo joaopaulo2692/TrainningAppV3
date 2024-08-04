@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrainningApp.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using TrainningApp.Infrastructure.Data;
 namespace TrainningApp.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240804012522_CreateTableRelationShip")]
+    partial class CreateTableRelationShip
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -406,40 +409,6 @@ namespace TrainningApp.Infrastructure.Migrations
                     b.ToTable("Trainnings");
                 });
 
-            modelBuilder.Entity("TrainningApp.Core.Entities.TrainningDay", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("created_at");
-
-                    b.Property<DateTime?>("DisabledAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("disabled_at");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TrainningId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("updated_at");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TrainningId");
-
-                    b.ToTable("TrainningDay");
-                });
-
             modelBuilder.Entity("TrainningApp.Core.Entities.TrainningExercise", b =>
                 {
                     b.Property<int>("Id")
@@ -463,16 +432,10 @@ namespace TrainningApp.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Ordenation")
-                        .HasColumnType("int");
-
                     b.Property<int>("Reps")
                         .HasColumnType("int");
 
                     b.Property<int>("Set")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TrainningDayId")
                         .HasColumnType("int");
 
                     b.Property<int>("TrainningId")
@@ -486,7 +449,7 @@ namespace TrainningApp.Infrastructure.Migrations
 
                     b.HasIndex("ExerciseId");
 
-                    b.HasIndex("TrainningDayId");
+                    b.HasIndex("TrainningId");
 
                     b.ToTable("TrainningExercise");
                 });
@@ -587,17 +550,6 @@ namespace TrainningApp.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TrainningApp.Core.Entities.TrainningDay", b =>
-                {
-                    b.HasOne("TrainningApp.Core.Entities.Trainning", "Trainning")
-                        .WithMany("TrainningDays")
-                        .HasForeignKey("TrainningId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Trainning");
-                });
-
             modelBuilder.Entity("TrainningApp.Core.Entities.TrainningExercise", b =>
                 {
                     b.HasOne("TrainningApp.Core.Entities.Exercise", "Exercise")
@@ -606,15 +558,15 @@ namespace TrainningApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TrainningApp.Core.Entities.TrainningDay", "TrainningDay")
+                    b.HasOne("TrainningApp.Core.Entities.Trainning", "Trainning")
                         .WithMany("TrainningExercises")
-                        .HasForeignKey("TrainningDayId")
+                        .HasForeignKey("TrainningId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Exercise");
 
-                    b.Navigation("TrainningDay");
+                    b.Navigation("Trainning");
                 });
 
             modelBuilder.Entity("TrainningApp.Core.Entities.Exercise", b =>
@@ -623,11 +575,6 @@ namespace TrainningApp.Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("TrainningApp.Core.Entities.Trainning", b =>
-                {
-                    b.Navigation("TrainningDays");
-                });
-
-            modelBuilder.Entity("TrainningApp.Core.Entities.TrainningDay", b =>
                 {
                     b.Navigation("TrainningExercises");
                 });
