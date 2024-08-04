@@ -51,6 +51,12 @@ namespace TrainningApp.Infrastructure.Data
                 .HasMany(x => x.TrainningDays)
                 .WithOne(x => x.Trainning);
 
+            modelBuilder.Entity<Trainning>()
+               .HasOne(x => x.Personal)
+               .WithMany(x => x.Trainnings)
+               .HasForeignKey(x => x.IdPersonal);
+
+
 
 
             //modelBuilder.Entity<ApplicationUser>().HasMany(t => t.Trainnings).WithMany(x => x.Users);
