@@ -22,6 +22,8 @@ namespace TrainningApp.Infrastructure.Repositories
 
         public async Task<Result> CreateAsync(Trainning model)
         {
+            model.CreatedAt = DateTime.Now;
+            model.UpdatedAt = DateTime.Now;
             _db.Trainnings.Add(model);
             await _db.SaveChangesAsync();
             return Result.Ok();

@@ -1,8 +1,17 @@
 ﻿@page "/personal"
 
-<br />
-<br />
 
+<MudCarousel Class="mud-width-full" Style="height:300px;" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
+    <MudCarouselItem Transition="transition" Color="@Color.Primary">
+        <MudImage Src="images/treino-edit.jpg" Alt="Mony the dog" Elevation="25" Class="rounded-lg" />
+    </MudCarouselItem>
+    <MudCarouselItem Transition="transition" Color="@Color.Secondary">
+        <MudImage Src="images/treino-edit3.jpg" Alt="Mony the dog" Elevation="25" Class="rounded-lg" />
+    </MudCarouselItem>
+    <MudCarouselItem Transition="transition" Color="@Color.Tertiary">
+        <MudImage Src="images/treino-edit2.jpg" Alt="Mony the dog" Elevation="25" Class="rounded-lg" />
+    </MudCarouselItem>
+</MudCarousel>
 
 <br />
 <MudText Style="animation-delay" Typo="Typo.h3" Align="Align.Center">COMO FUNCIONA?</MudText>
@@ -17,14 +26,14 @@
         <MudGrid>
             <!-- Usando 5 unidades para cada coluna -->
             <MudItem xs="5" class="image-item">
-                <MudPaper Height="370px" Width="97%" Square="true" Class="mud-theme-info">
+                <MudPaper Height="370px" Width="97%" Square="true" Class="mud-paper-zoom mud-theme-primary">
                     <MudImage Src="images/instrutor-na-academia.jpg" Style="width: 100%; height: auto;" />
                     <MudText Typo="Typo.h5" Align="Align.Center">1º passo</MudText>
                     <MudText Typo="Typo.h6" Align="Align.Center">Faça o cadastro e espera sua aprovação.</MudText>
                 </MudPaper>
             </MudItem>
             <MudItem onmousemove="" xs="5" class="image-item">
-                <MudPaper Height="370px" Width="100%" Square="true" Class="mud-theme-info">
+                <MudPaper Height="370px" Width="100%" Square="true" Class="mud-paper-zoom mud-theme-primary">
                     <MudImage Src="images/instrutor-na-academia2.jpg" Style="width: 100%; height: auto;" />
                     <MudText Typo="Typo.h5" Align="Align.Center">2º passo</MudText>
                     <MudText Typo="Typo.h6" Align="Align.Center">Aguardar a requisição dos alunos para montar suas fichas</MudText>
@@ -34,31 +43,31 @@
     </MudContainer>
 </MudPaper>
 
-@* 
-<MudGrid>
-    <MudItem xs="6">
-        <MudImage Src="images/academia_musculacao.webp" Style="width: 100%; height: auto;" />
-    </MudItem>
-    <MudItem xs="6">
-        <MudText Typo="Typo.h6">
-            <p>
-                Cadastre-se rapidamente em nossa plataforma, crie um perfil e configure seus planos de vendas.
-                Compartilhe sua página de Ficha de Treino em suas redes sociais, mídias ou onde preferir.
-            </p>
-            <p>
-                Alunos de todo o mundo acessam o perfil de cada Personal Trainer, escolhem um dos planos de treino disponíveis,
-                contratam e realizam o pagamento diretamente pela nossa plataforma.
-            </p>
-            <p>
-                Após a confirmação do pagamento, você poderá prescrever um plano de treinos personalizado para o aluno, de acordo com seus objetivos e perfil.
-                Em seguida, o treino estará disponível no aplicativo do aluno!
-            </p>
-        </MudText>
-    </MudItem>
-</MudGrid> *@
+<style>
+    .image-item:hover .mud-paper-zoom {
+        transform: scale(1.05);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .mud-paper-zoom {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .mud-theme-purple-darken {
+        background-color: darkmagenta /* Roxo escuro */
+        color: white; /* Contraste de texto claro */
+    }
+
+</style>
+
+
 
 
 
 @code {
-
+    private bool arrows = true;
+    private bool bullets = true;
+    private bool enableSwipeGesture = true;
+    private bool autocycle = true;
+    private Transition transition = Transition.Slide;
 }

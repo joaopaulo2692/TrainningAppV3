@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentResults;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace TrainningApp.Core.RepositoriesInterface
 {
     public interface IApplicationUserRepository
     {
-        public Task<ApplicationUser> GetUserById(string id);
+        public Task<Result> CreateAsync(ApplicationUser user);
+        public Task<ApplicationUser> GetById(string id);
     }
 }
