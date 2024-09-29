@@ -1,9 +1,11 @@
-﻿using FluentResults;
+﻿using AutoMapper;
+using FluentResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TrainningApp.Core.Constants;
 using TrainningApp.Core.DTO;
 using TrainningApp.Core.Entities;
 using TrainningApp.Core.RepositoriesInterface;
@@ -15,45 +17,119 @@ namespace TrainningApp.Infrastructure.Services
     {
         private readonly ITrainningRepository _trainningRepo;
         private readonly IApplicationUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public TrainningService(ITrainningRepository trainningRepo, IApplicationUserRepository userRepository)
+        public TrainningService(ITrainningRepository trainningRepo, IApplicationUserRepository userRepository, IMapper mapper)
         {
             _trainningRepo = trainningRepo;
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
-        public Task<List<TrainningVO>> GetAllAsync()
+        public async Task<List<TrainningVO>> GetAllAsync(string idUser)
         {
-            throw new NotImplementedException();
+            ApplicationUser userPersonal = await _userRepository.GetById(idUser);
+            if (userPersonal == null) throw new Exception(ConstantsMessageApplicationUser.ErrorGetById);
+
+            if (!userPersonal.Managements.Select(x => x.Name).Contains(ConstantsMessageManagement.Adm))
+            {
+                throw new Exception(ConstantsMessageManagement.ErrorNotAdmManagement);
+            }
+
+            List<Trainning> trainningsList = await _trainningRepo.FindAllAsync();
+            List<TrainningVO> trainningVOs = _mapper.Map<List<TrainningVO>>(trainningsList);
+
+            return trainningVOs;
         }
 
-        public Task<TrainningVO> GetByIdAsync(int id)
+        public async Task<List<TrainningVO>> GetAllByIdPersonalAsync(string idPersonal)
         {
-            throw new NotImplementedException();
+            ApplicationUser userPersonal = await _userRepository.GetById(idPersonal);
+            if (userPersonal == null) throw new Exception(ConstantsMessageApplicationUser.ErrorGetById);
+
+            if (!userPersonal.Managements.Select(x => x.Name).Contains(ConstantsMessageManagement.Personal))
+            {
+                throw new Exception(ConstantsMessageManagement.ErrorNotPersonalManagement);
+            }
+
+            List<Trainning> trainningsList = await _trainningRepo.FindAllByIdPersonalAsync(idPersonal);
+            List<TrainningVO> trainningVOs = _mapper.Map<List<TrainningVO>>(trainningsList);
+
+            return trainningVOs;
         }
 
-        public Task<Result> RemoveAsync(TrainningVO model, string idUser)
+        public async Task<TrainningVO> GetByIdAsync(int id, string idUser)
         {
-            throw new NotImplementedException();
+            ApplicationUser userPersonal = await _userRepository.GetById(idUser);
+            if (userPersonal == null) throw new Exception(ConstantsMessageApplicationUser.ErrorGetById);
+
+            Trainning trainning = await _trainningRepo.FindByIdAsync(id);
+            if(trainning == null) throw new Exception(ConstantsMessageTrainning.ErrorGetById);
+
+            TrainningVO trainningVO = _mapper.Map<TrainningVO>(trainning);
+
+            return trainningVO;
+        }
+
+        public async Task<Result> RemoveAsync(int trainningId, string idUser)
+        {
+            ApplicationUser user = await _userRepository.GetById(idUser);
+            if (user == null) return Result.Fail(ConstantsMessageApplicationUser.ErrorGetById);
+
+            Trainning trainning = await _trainningRepo.FindByIdAsync(trainningId);
+            if (trainning == null) throw new Exception(ConstantsMessageTrainning.ErrorGetById);
+
+            if (!user.Managements.Select(x => x.Name).Contains(ConstantsMessageManagement.Adm))
+            {
+                if(trainning.Personal != user)
+                {
+                    return Result.Fail(ConstantsMessageManagement.ErrorNotAllowedManagement);
+                }                   
+            }
+
+            Result response = await _trainningRepo.DeleteAsync(trainning);
+
+            return response;
         }
 
         public async Task<Result> SaveAsync(TrainningVO model, string idUser)
         {
-            ApplicationUser userPersonal = await _userRepository.GetById(idUser);
-            if(userPersonal == null) return Result.Fail("Erro");
+            ApplicationUser user = await _userRepository.GetById(idUser);
+            if(user == null) return Result.Fail(ConstantsMessageApplicationUser.ErrorGetById);
 
-
-            Trainning newTrainning = new Trainning()
+            if (!user.Managements.Select(x => x.Name).Contains(ConstantsMessageManagement.Personal))
             {
-                Goal = model.Goal,
-                Personal = userPersonal,
-                FirstDay = model.FirstDay,
-                LastDay = model.LastDay
-            };
+                throw new Exception(ConstantsMessageManagement.ErrorNotPersonalManagement);
+            }
+            Result response = new Result();
+            if (model.Id == 0)
+            {
+                Trainning newTrainning = new Trainning()
+                {
+                    Goal = model.Goal,
+                    Personal = user,
+                    FirstDay = model.FirstDay,
+                    LastDay = model.LastDay
+                };
 
-            Result response = await _trainningRepo.CreateAsync(newTrainning);
-            if (response.IsFailed) return Result.Fail("Erro");
+                response = await _trainningRepo.CreateAsync(newTrainning);
+                if (response.IsFailed) return Result.Fail(ConstantsMessageTrainning.ErrorCreate);
 
+                return response;
+            }
+
+            Trainning trainning = await _trainningRepo.FindByIdAsync(model.Id);
+            if (trainning == null) throw new Exception(ConstantsMessageTrainning.ErrorGetById);
+
+            if (!user.Managements.Select(x => x.Name).Contains(ConstantsMessageManagement.Adm))
+            {
+                if (trainning.Personal != user)
+                {
+                    return Result.Fail(ConstantsMessageManagement.ErrorNotAllowedManagement);
+                }
+            }
+
+            response = await _trainningRepo.UpdateAsync(trainning);
             return response;
 
         }

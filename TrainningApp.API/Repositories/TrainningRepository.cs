@@ -50,10 +50,31 @@ namespace TrainningApp.Infrastructure.Repositories
             return trainning;
         }
 
+        public async Task<List<Trainning>> FindAllByIdPersonalAsync(string idPersonal)
+        {
+            List<Trainning> trainning = await _db.Trainnings.Where(x => x.DisabledAt == null && x.Personal.Id == idPersonal).ToListAsync();
+            return trainning;
+        }
+
         public async Task<Trainning> FindByIdAsync(int id)
         {
             Trainning trainning = await _db.Trainnings.Where(x => x.Id == id && x.DisabledAt == null).FirstOrDefaultAsync();
             return trainning;
+        }
+
+        public async Task<Result> UpdateAsync(Trainning model)
+        {
+            Trainning trainning = await _db.Trainnings.Where(x => x.Id == model.Id && x.DisabledAt == null).FirstOrDefaultAsync();
+            trainning.UpdatedAt = DateTime.Now;
+            trainning.FirstDay = model.FirstDay;
+            trainning.LastDay = model.LastDay;
+            trainning.Goal = model.Goal;
+            trainning.Users = model.Users;
+            trainning.TrainningDays = model.TrainningDays;
+
+            _db.SaveChangesAsync();
+
+            return Result.Ok();
         }
     }
 }
