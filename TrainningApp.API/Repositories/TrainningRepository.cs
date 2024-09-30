@@ -62,6 +62,13 @@ namespace TrainningApp.Infrastructure.Repositories
             return trainning;
         }
 
+        public async Task<Trainning> FindByIdUserAsync(string userId)
+        {
+            Trainning trainning = await _db.Trainnings.Where(x => x.Users.Select(x => x.Id).Contains(userId)
+                                                            && x.DisabledAt == null).FirstOrDefaultAsync();
+            return trainning;
+        }
+
         public async Task<Result> UpdateAsync(Trainning model)
         {
             Trainning trainning = await _db.Trainnings.Where(x => x.Id == model.Id && x.DisabledAt == null).FirstOrDefaultAsync();

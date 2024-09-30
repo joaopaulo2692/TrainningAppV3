@@ -13,6 +13,7 @@ namespace TrainningApp.Core.Constants
     {{
         public static string ErrorGetById = "Treino não localizado";
         public static string ErrorCreate = "Erro ao criar treino";
+        public static string ErrorUserWithoutTrainning = "Usuário não possui treino";
     }
     
     public static class ConstantsMessageApplicationUser

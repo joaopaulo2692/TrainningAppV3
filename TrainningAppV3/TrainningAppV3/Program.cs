@@ -8,6 +8,10 @@ using TrainningAppV3.Client.Pages;
 using TrainningAppV3.Components;
 using TrainningAppV3.Components.Account;
 using TrainningApp.Core.Entities;
+using TrainningApp.Core.RepositoriesInterface;
+using TrainningApp.Core.ServicesInterface;
+using TrainningApp.Infrastructure.Services;
+using TrainningApp.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +27,9 @@ builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAuthenticationStateProvider>();
+builder.Services.AddScoped<IManagementRepository, ManagementRepository>();
+builder.Services.AddScoped<ITrainningRepository, TrainningRepository>();
+builder.Services.AddScoped<ITrainningService, TrainningService>();
 
 builder.Services.AddAuthentication(options =>
     {

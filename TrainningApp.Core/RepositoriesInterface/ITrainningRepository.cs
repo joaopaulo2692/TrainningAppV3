@@ -15,6 +15,7 @@ namespace TrainningApp.Core.RepositoriesInterface
         public Task<Result> UpdateAsync(Trainning model);
         public Task<Result> DeleteAsync(Trainning model);
         public Task<Trainning> FindByIdAsync(int id);
+        public Task<Trainning> FindByIdUserAsync(string userId);
         public Task<List<Trainning>> FindAllAsync();
         public Task<List<Trainning>> FindAllByIdPersonalAsync(string idPersonal);
 

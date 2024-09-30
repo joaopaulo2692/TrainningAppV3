@@ -47,10 +47,14 @@ namespace TrainningApp.Infrastructure.Services
             ApplicationUser userPersonal = await _userRepository.GetById(idPersonal);
             if (userPersonal == null) throw new Exception(ConstantsMessageApplicationUser.ErrorGetById);
 
-            if (!userPersonal.Managements.Select(x => x.Name).Contains(ConstantsMessageManagement.Personal))
+            if (!userPersonal.Managements.Select(x => x.Name).Contains(ConstantsMessageManagement.Adm))
             {
-                throw new Exception(ConstantsMessageManagement.ErrorNotPersonalManagement);
+                if (!userPersonal.Managements.Select(x => x.Name).Contains(ConstantsMessageManagement.Personal))
+                {
+                    throw new Exception(ConstantsMessageManagement.ErrorNotPersonalManagement);
+                }
             }
+          
 
             List<Trainning> trainningsList = await _trainningRepo.FindAllByIdPersonalAsync(idPersonal);
             List<TrainningVO> trainningVOs = _mapper.Map<List<TrainningVO>>(trainningsList);
@@ -65,6 +69,26 @@ namespace TrainningApp.Infrastructure.Services
 
             Trainning trainning = await _trainningRepo.FindByIdAsync(id);
             if(trainning == null) throw new Exception(ConstantsMessageTrainning.ErrorGetById);
+
+            TrainningVO trainningVO = _mapper.Map<TrainningVO>(trainning);
+
+            return trainningVO;
+        }
+
+        public async Task<TrainningVO> GetByIdUserAsync(string idUser)
+        {
+            ApplicationUser user = await _userRepository.GetById(idUser);
+            if (user == null) throw new Exception(ConstantsMessageApplicationUser.ErrorGetById);
+            if(!user.Managements.Select(x => x.Name).Contains(ConstantsMessageManagement.Adm))
+            {
+                if (!user.Managements.Select(x => x.Name).Contains(ConstantsMessageManagement.Student))
+                {
+                    throw new Exception(ConstantsMessageManagement.ErrorNotAllowedManagement);
+                }
+            }
+
+            Trainning trainning = await _trainningRepo.FindByIdUserAsync(idUser);
+            if (trainning == null) throw new Exception(ConstantsMessageTrainning.ErrorUserWithoutTrainning);
 
             TrainningVO trainningVO = _mapper.Map<TrainningVO>(trainning);
 

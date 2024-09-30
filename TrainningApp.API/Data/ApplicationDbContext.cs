@@ -17,7 +17,10 @@ namespace TrainningApp.Infrastructure.Data
         {
         }
         public DbSet<Trainning> Trainnings { get; set; } 
-
+        public DbSet<TrainningDay> TrainningDays{ get; set; } 
+        public DbSet<Exercise> Exercises{ get; set; } 
+        public DbSet<Muscle> Muscles {get; set; } 
+        public DbSet<TrainningExercise> TrainningExercises { get; set; }
         public DbSet<Management> Managements { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
