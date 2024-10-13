@@ -8,12 +8,12 @@ namespace TrainningAppV3.Controller
 {
     [Route("[controller]")]
     [ApiController]
-    public class TrainningControllercs : ControllerBase
+    public class TrainningController : ControllerBase
     {
         public readonly ITrainningService _trainningService;
         private readonly AuthenticationStateProvider _auth;
 
-        public TrainningControllercs(ITrainningService trainningService, AuthenticationStateProvider auth)
+        public TrainningController(ITrainningService trainningService, AuthenticationStateProvider auth)
         {
             _trainningService = trainningService;
             _auth = auth;
