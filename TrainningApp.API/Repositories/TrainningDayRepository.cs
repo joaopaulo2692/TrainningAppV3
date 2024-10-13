@@ -40,7 +40,7 @@ namespace TrainningApp.Infrastructure.Repositories
 
         public async Task<List<TrainningDay>> FindAllTrainningIdAsync(int trainningId)
         {
-            List<TrainningDay> trainningDays = await _db.TrainningDays.Where(x => x.Trainning.Id == trainningId)
+            List<TrainningDay> trainningDays = await _db.TrainningDays.Where(x => x.Trainning.Id == trainningId && x.DisabledAt == null)
                 .OrderBy(x => x.Name)
                 .ToListAsync();
 
