@@ -10,12 +10,19 @@ namespace TrainningApp.Core.Constants
     {
     }
     public static class ConstantsMessageTrainning
-    {{
+    {
         public static string ErrorGetById = "Treino não localizado";
         public static string ErrorCreate = "Erro ao criar treino";
         public static string ErrorUserWithoutTrainning = "Usuário não possui treino";
+        public static string ErrorTrainningNotByPersonal = "Este treino não foi criado pelo Personal logado";
+        public static string ErrorTrainningNotByUser = "Este treino não foi criado para esse usuário.";
     }
-    
+    public static class ConstantsMessageTrainningDay
+    {
+        public static string ErrorGetById = "Treino do dia não localizado";
+        public static string ErrorCreate = "Erro ao criar treino do dia";
+     
+    }
     public static class ConstantsMessageApplicationUser
     {
         public static string ErrorGetById = "Usuário não localizado";

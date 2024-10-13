@@ -40,14 +40,19 @@ namespace TrainningApp.Infrastructure.Repositories
 
         public async Task<List<TrainningDay>> FindAllTrainningIdAsync(int trainningId)
         {
-            List<TrainningDay> trainningDays = await _db.TrainningDays.Where(x => x.Trainning.Id == trainningId).ToListAsync();
+            List<TrainningDay> trainningDays = await _db.TrainningDays.Where(x => x.Trainning.Id == trainningId)
+                .OrderBy(x => x.Name)
+                .ToListAsync();
 
             return trainningDays;
         }
 
         public async Task<TrainningDay> FindByIdAsync(int id)
         {
-            TrainningDay trainningDay = await _db.TrainningDays.Where(x => x.DisabledAt == null && x.Id == id).FirstOrDefaultAsync();
+            TrainningDay trainningDay = await _db.TrainningDays.Where(x => x.DisabledAt == null && x.Id == id)
+                .Include(x =>x.Trainning)
+                .ThenInclude(x => x.Personal)
+                .FirstOrDefaultAsync();
 
             return trainningDay;
         }

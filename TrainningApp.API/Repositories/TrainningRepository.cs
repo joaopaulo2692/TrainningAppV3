@@ -58,7 +58,9 @@ namespace TrainningApp.Infrastructure.Repositories
 
         public async Task<Trainning> FindByIdAsync(int id)
         {
-            Trainning trainning = await _db.Trainnings.Where(x => x.Id == id && x.DisabledAt == null).FirstOrDefaultAsync();
+            Trainning trainning = await _db.Trainnings.Where(x => x.Id == id && x.DisabledAt == null)
+                .Include(x => x.TrainningDays)
+                .FirstOrDefaultAsync();
             return trainning;
         }
 

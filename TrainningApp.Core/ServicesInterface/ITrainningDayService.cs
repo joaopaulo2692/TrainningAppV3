@@ -14,6 +14,6 @@ namespace TrainningApp.Core.ServicesInterface
         public Task<Result> SaveAsync(TrainningDayVO model, string idUser);
         public Task<Result> DeleteAsync(int trainningDayId, string idUser);
         public Task<TrainningDayVO> FindByIdAsync(int id, string idUser);
-        public Task<List<TrainningDayVO>> FindAllTrainningIdAsync(int trainningId, string idUser);
+        public Task<List<TrainningDayVO>> FindAllByTrainningIdIdAsync(int trainningId, string idUser);
     }
 }
