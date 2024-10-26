@@ -28,10 +28,10 @@ namespace TrainningApp.Infrastructure.Services
 
         public async Task<List<TrainningVO>> GetAllAsync(string idUser)
         {
-            ApplicationUser userPersonal = await _userRepository.GetById(idUser);
-            if (userPersonal == null) throw new Exception(ConstantsMessageApplicationUser.ErrorGetById);
+            ApplicationUser user = await _userRepository.GetById(idUser);
+            if (user == null) throw new Exception(ConstantsMessageApplicationUser.ErrorGetById);
 
-            if (!userPersonal.Managements.Select(x => x.Name).Contains(ConstantsMessageManagement.Adm))
+            if (!user.Managements.Select(x => x.Name).Contains(ConstantsMessageManagement.Adm))
             {
                 throw new Exception(ConstantsMessageManagement.ErrorNotAdmManagement);
             }

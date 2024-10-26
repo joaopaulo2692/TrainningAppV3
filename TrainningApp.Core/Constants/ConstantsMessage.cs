@@ -37,4 +37,10 @@ namespace TrainningApp.Core.Constants
         public static string ErrorNotAdmManagement = "Usuário não é Administrador";
         public static string ErrorNotAllowedManagement = "Usuário sem permissão";
     }
+
+    public static class ConstantsMessageTrainningExercise
+    {
+        public static string ErroFindById = "Erro ao buscar exercicio do treino";
+
+    }
 }

@@ -52,6 +52,9 @@ namespace TrainningApp.Infrastructure.Repositories
             TrainningDay trainningDay = await _db.TrainningDays.Where(x => x.DisabledAt == null && x.Id == id)
                 .Include(x =>x.Trainning)
                 .ThenInclude(x => x.Personal)
+                .Include(x => x.Trainning)
+                .ThenInclude(x => x.Users)
+                .Include(x => x.TrainningExercises)
                 .FirstOrDefaultAsync();
 
             return trainningDay;

@@ -14,7 +14,7 @@ namespace TrainningApp.Core.DTO.TrainningExercise
         public int Ordenation { get; set; }
         public string Info { get; set; }
         public int ExerciseId { get; set; }
-        public int TrainningId { get; set; }
+        public int TrainningDayId { get; set; }
 
     }
 }

@@ -29,7 +29,7 @@ builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAuthenticationStateProvider>();
 builder.Services.AddScoped<ITrainningService, TrainningService>();
 builder.Services.AddScoped<ITrainningDayService, TrainningDayService>();
-
+builder.Services.AddScoped<ITrainningExerciseService, TrainningExerciseService>();
 
 builder.Services.AddScoped<IManagementRepository, ManagementRepository>();
 builder.Services.AddScoped<ITrainningRepository, TrainningRepository>();
@@ -37,6 +37,10 @@ builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
 builder.Services.AddScoped<ITrainningDayRepository, TrainningDayRepository>();
 builder.Services.AddScoped<ITrainningExerciseRepository, TrainningExerciseRepository>();
 builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
+
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 
 builder.Services.AddAuthentication(options =>
     {

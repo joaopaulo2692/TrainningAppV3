@@ -46,7 +46,8 @@ namespace TrainningApp.Infrastructure.Repositories
 
         public async Task<TrainningExercise> FindByIdAsync(int trainningExerciseId)
         {
-            TrainningExercise dbTrainningExercise = await _db.TrainningExercises.Where(x => x.Id == trainningExerciseId).FirstOrDefaultAsync();
+            TrainningExercise dbTrainningExercise = await _db.TrainningExercises.Where(x => x.Id == trainningExerciseId)
+                                                    .FirstOrDefaultAsync();
 
             return dbTrainningExercise;
         }
