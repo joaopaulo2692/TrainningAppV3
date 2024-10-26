@@ -20,7 +20,7 @@ namespace TrainningAppV3.Controller
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveAsync(TrainningVO model)
+        public async Task<IActionResult> SaveAsync([FromBody]TrainningVO model)
         {
             try
             {

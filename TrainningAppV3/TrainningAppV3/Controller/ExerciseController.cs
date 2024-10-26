@@ -1,26 +1,28 @@
 ﻿using FluentResults;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TrainningApp.Core.DTO.TrainningDay;
+using TrainningApp.Core.DTO;
+using TrainningApp.Core.DTO.Exercise;
 using TrainningApp.Core.ServicesInterface;
+using TrainningApp.Infrastructure.Services;
 
 namespace TrainningAppV3.Controller
 {
-    [ApiController]
     [Route("[controller]")]
-    public class TrainningDayController : ControllerBase
+    [ApiController]
+    public class ExerciseController : ControllerBase
     {
         private readonly AuthenticationStateProvider _auth;
-        private readonly ITrainningDayService _trainningDayService;
+        private readonly IExerciseService _exerciseService;
 
-        public TrainningDayController(AuthenticationStateProvider auth, ITrainningDayService trainningDayService)
+        public ExerciseController(AuthenticationStateProvider auth, IExerciseService exerciseService)
         {
             _auth = auth;
-            _trainningDayService = trainningDayService;
+            _exerciseService = exerciseService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveAsync([FromBody]TrainningDayVO model)
+        public async Task<IActionResult> SaveAsync([FromBody]ExerciseVO model)
         {
             try
             {
@@ -36,29 +38,23 @@ namespace TrainningAppV3.Controller
                 {
                     var name = authenticationState.User.Claims.FirstOrDefault().Value;
                 }
-                Result response = await _trainningDayService.SaveAsync(model, idUser);
 
+                Result response = await _exerciseService.SaveAsync(model, idUser);
                 if (response.IsFailed)
                 {
                     return StatusCode(StatusCodes.Status400BadRequest);
                 }
-                if (response.IsSuccess && model.Id != 0)
-                {
-                    return StatusCode(StatusCodes.Status200OK);
-                }
 
                 return StatusCode(StatusCodes.Status201Created);
             }
-
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
-        
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetById(int trainningDayId)
+        public async Task<IActionResult> GetByIdAsync(int exerciseId)
         {
             try
             {
@@ -74,24 +70,19 @@ namespace TrainningAppV3.Controller
                 {
                     var name = authenticationState.User.Claims.FirstOrDefault().Value;
                 }
-                TrainningDayVO response = await _trainningDayService.FindByIdAsync(trainningDayId, idUser);
 
+                ExerciseVO response = await _exerciseService.FindByIdAsync(exerciseId, idUser);
                 if (response == null)
                 {
-                    return StatusCode(StatusCodes.Status404NotFound, response);
-
+                    return StatusCode(StatusCodes.Status400BadRequest);
                 }
 
                 return StatusCode(StatusCodes.Status200OK, response);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
-           
-
         }
-
-
     }
 }

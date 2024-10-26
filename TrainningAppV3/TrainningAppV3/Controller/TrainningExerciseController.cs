@@ -20,8 +20,8 @@ namespace TrainningAppV3.Controller
             _auth = auth;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> SaveAsync(TrainningExerciseVO trainningExerciseVO)
+        [HttpPost]
+        public async Task<IActionResult> SaveAsync([FromBody]TrainningExerciseVO trainningExerciseVO)
         {
             try
             {
