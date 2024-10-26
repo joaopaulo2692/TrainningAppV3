@@ -52,7 +52,9 @@ namespace TrainningApp.Infrastructure.Repositories
 
         public async Task<Exercise> FindByIdAsync(int id)
         {
-            Exercise dbExercise = await _db.Exercises.Where(x => x.Equals(id) && x.DisabledAt == null).FirstOrDefaultAsync();
+            Exercise dbExercise = await _db.Exercises.Where(x => x.Equals(id) && x.DisabledAt == null)
+                .Include(x => x.Muscles)
+                .FirstOrDefaultAsync();
 
             return dbExercise;
 

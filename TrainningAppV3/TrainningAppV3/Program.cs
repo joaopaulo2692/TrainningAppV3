@@ -37,6 +37,7 @@ builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
 builder.Services.AddScoped<ITrainningDayRepository, TrainningDayRepository>();
 builder.Services.AddScoped<ITrainningExerciseRepository, TrainningExerciseRepository>();
 builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
+builder.Services.AddScoped<IMuscleRepository, MuscleRepository>();
 
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

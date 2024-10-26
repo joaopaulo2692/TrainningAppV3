@@ -43,4 +43,16 @@ namespace TrainningApp.Core.Constants
         public static string ErroFindById = "Erro ao buscar exercicio do treino";
 
     }
+
+    public static class ConstantsMessageExercise
+    {
+        public static string ErroFindById = "Erro ao buscar exercicio";
+
+    }
+
+    public static class ConstantsMessageMuscle
+    {
+        public static string ErroFindByName = "Erro ao buscar músculo";
+
+    }
 }
