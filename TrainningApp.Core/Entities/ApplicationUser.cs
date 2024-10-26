@@ -15,6 +15,7 @@ namespace TrainningApp.Core.Entities
         public float? Heigth { get; set; }
         public string? Gender { get; set; }
         public float? Weight { get; set; }
+        public int? GymId { get; set; }
 
         [Column("created_at")]
         public DateTime CreatedAt { get; set; }
@@ -25,5 +26,6 @@ namespace TrainningApp.Core.Entities
 
         public virtual List<Trainning> Trainnings { get; set; }
         public virtual List<Management> Managements { get; set; }
+        public virtual Gym Gym { get; set; }
     }
 }
