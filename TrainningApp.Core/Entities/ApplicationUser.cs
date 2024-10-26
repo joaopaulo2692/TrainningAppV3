@@ -26,6 +26,6 @@ namespace TrainningApp.Core.Entities
 
         public virtual List<Trainning> Trainnings { get; set; }
         public virtual List<Management> Managements { get; set; }
-        public virtual Gym Gym { get; set; }
+        public virtual Gym? Gym { get; set; }
     }
 }

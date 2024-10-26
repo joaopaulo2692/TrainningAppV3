@@ -14,5 +14,6 @@ namespace TrainningApp.Core.Entities
         public virtual List<ApplicationUser> Personals { get; set; }
         public virtual List<ApplicationUser> Users { get; set; }
         public virtual List<ApplicationUser> Administrators { get; set; }
+        public virtual List<Trainning> Trainnings { get; set; }
     }
 }

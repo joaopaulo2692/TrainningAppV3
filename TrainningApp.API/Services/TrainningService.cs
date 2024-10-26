@@ -79,16 +79,21 @@ namespace TrainningApp.Infrastructure.Services
         {
             ApplicationUser user = await _userRepository.GetById(idUser);
             if (user == null) throw new Exception(ConstantsMessageApplicationUser.ErrorGetById);
-            if(!user.Managements.Select(x => x.Name).Contains(ConstantsMessageManagement.Adm))
-            {
-                if (!user.Managements.Select(x => x.Name).Contains(ConstantsMessageManagement.Student))
-                {
-                    throw new Exception(ConstantsMessageManagement.ErrorNotAllowedManagement);
-                }
-            }
 
             Trainning trainning = await _trainningRepo.FindByIdUserAsync(idUser);
             if (trainning == null) throw new Exception(ConstantsMessageTrainning.ErrorUserWithoutTrainning);
+
+
+            if (!user.Managements.Select(x => x.Name).Contains(ConstantsMessageManagement.Adm))
+            {
+                if (!user.Managements.Select(x => x.Name).Contains(ConstantsMessageManagement.Student))
+                {
+                    if(trainning.IdPersonal != idUser) throw new Exception(ConstantsMessageManagement.ErrorNotAllowedManagement);
+
+                }
+            }
+
+            
 
             TrainningVO trainningVO = _mapper.Map<TrainningVO>(trainning);
 
