@@ -88,8 +88,8 @@ namespace TrainningApp.Infrastructure.Services
             {
                 if (!user.Managements.Select(x => x.Name).Contains(ConstantsMessageManagement.Student))
                 {
-                    if(trainning.IdPersonal != idUser) throw new Exception(ConstantsMessageManagement.ErrorNotAllowedManagement);
-
+                    //if(trainning.PersonalId != idUser) throw new Exception(ConstantsMessageManagement.ErrorNotAllowedManagement);
+                    throw new Exception(ConstantsMessageManagement.ErrorNotAllowedManagement);
                 }
             }
 
@@ -110,10 +110,10 @@ namespace TrainningApp.Infrastructure.Services
 
             if (!user.Managements.Select(x => x.Name).Contains(ConstantsMessageManagement.Adm))
             {
-                if(trainning.Personal != user)
-                {
-                    return Result.Fail(ConstantsMessageManagement.ErrorNotAllowedManagement);
-                }                   
+                //if(trainning.Personal != user)
+                //{
+                //    return Result.Fail(ConstantsMessageManagement.ErrorNotAllowedManagement);
+                //}                   
             }
 
             Result response = await _trainningRepo.DeleteAsync(trainning);
@@ -123,10 +123,20 @@ namespace TrainningApp.Infrastructure.Services
 
         public async Task<Result> SaveAsync(TrainningVO model, string idUser)
         {
-            ApplicationUser user = await _userRepository.GetById(idUser);
-            if(user == null) return Result.Fail(ConstantsMessageApplicationUser.ErrorGetById);
+            ApplicationUser personal = await _userRepository.GetById(idUser);
+            List<ApplicationUser> users = new List<ApplicationUser>();
 
-            if (!user.Managements.Select(x => x.Name).Contains(ConstantsMessageManagement.Personal))
+            if (personal == null) return Result.Fail(ConstantsMessageApplicationUser.ErrorGetById);
+            foreach (string id in model.UsersId)
+            {
+                ApplicationUser user = await _userRepository.GetById(id);
+                if (personal == null) return Result.Fail(ConstantsMessageApplicationUser.ErrorGetById);
+                users.Add(user);
+
+            }
+           
+
+            if (!personal.Managements.Select(x => x.Name).Contains(ConstantsMessageManagement.Personal))
             {
                 throw new Exception(ConstantsMessageManagement.ErrorNotPersonalManagement);
             }
@@ -136,7 +146,7 @@ namespace TrainningApp.Infrastructure.Services
                 Trainning newTrainning = new Trainning()
                 {
                     Goal = model.Goal,
-                    Personal = user,
+                    Users = users,
                     FirstDay = model.FirstDay,
                     LastDay = model.LastDay
                 };
@@ -150,12 +160,12 @@ namespace TrainningApp.Infrastructure.Services
             Trainning trainning = await _trainningRepo.FindByIdAsync(model.Id);
             if (trainning == null) throw new Exception(ConstantsMessageTrainning.ErrorGetById);
 
-            if (!user.Managements.Select(x => x.Name).Contains(ConstantsMessageManagement.Adm))
+            if (!personal.Managements.Select(x => x.Name).Contains(ConstantsMessageManagement.Adm))
             {
-                if (trainning.Personal != user)
-                {
-                    return Result.Fail(ConstantsMessageManagement.ErrorNotAllowedManagement);
-                }
+                //if (trainning.Personal != user)
+                //{
+                //    return Result.Fail(ConstantsMessageManagement.ErrorNotAllowedManagement);
+                //}
             }
 
             response = await _trainningRepo.UpdateAsync(trainning);

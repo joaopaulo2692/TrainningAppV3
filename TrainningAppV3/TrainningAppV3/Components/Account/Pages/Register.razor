@@ -45,6 +45,7 @@
                                         UserAttributes="@(new() { { "autocomplete", "new-password" }, { "aria-required", "true" } } )" />
                 </MudItem>
                 <MudItem md="12">
+                   
                     <MudStaticButton Variant="Variant.Filled" Color="Color.Primary" FullWidth="true" FormAction="FormAction.Submit">Register</MudStaticButton>
                 </MudItem>
             </MudGrid>
@@ -63,6 +64,16 @@
 
 
 @code {
+    private string SelectedRole { get; set; }
+    private List<string> Roles = new() { "Admin", "User", "Guest" };
+
+    private Task<IEnumerable<string>> SearchRoles(string value)
+    {
+        // Retorna a lista completa ou faz a filtragem dependendo da entrada.
+        var result = string.IsNullOrEmpty(value) ? Roles : Roles.Where(x => x.Contains(value, StringComparison.OrdinalIgnoreCase));
+        return Task.FromResult(result);
+    }
+
     private IEnumerable<IdentityError>? identityErrors;
 
     [SupplyParameterFromForm]

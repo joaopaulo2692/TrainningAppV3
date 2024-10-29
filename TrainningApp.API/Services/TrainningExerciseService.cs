@@ -37,7 +37,7 @@ namespace TrainningApp.Infrastructure.Services
             TrainningDay trainningDay = await _trainningDayRepo.FindByIdAsync(trainningDayId);
             if(trainningDay == null) throw new Exception(ConstantsMessageTrainningDay.ErrorGetById);
 
-            if(!trainningDay.Trainning.Users.Contains(user) && trainningDay.Trainning.Personal != user)
+            if(!trainningDay.Trainning.Users.Contains(user))
             {
                 throw new Exception(ConstantsMessageManagement.ErrorNotAllowedManagement);
             }
@@ -59,7 +59,7 @@ namespace TrainningApp.Infrastructure.Services
             TrainningDay trainningDay = await _trainningDayRepo.FindByIdAsync(trainningExercise.TrainningDayId);
             if (trainningDay == null) throw new Exception(ConstantsMessageTrainningDay.ErrorGetById);
 
-            if (!trainningDay.Trainning.Users.Contains(user) && trainningDay.Trainning.Personal != user)
+            if (!trainningDay.Trainning.Users.Contains(user))
             {
                 throw new Exception(ConstantsMessageManagement.ErrorNotAllowedManagement);
             }
@@ -79,7 +79,7 @@ namespace TrainningApp.Infrastructure.Services
             TrainningDay trainningDay = await _trainningDayRepo.FindByIdAsync(trainningExercise.TrainningDayId);
             if (trainningDay == null) throw new Exception(ConstantsMessageTrainningDay.ErrorGetById);
 
-            if (!trainningDay.Trainning.Users.Contains(user) && trainningDay.Trainning.Personal != user)
+            if (!trainningDay.Trainning.Users.Contains(user))
             {
                 throw new Exception(ConstantsMessageManagement.ErrorNotAllowedManagement);
             }

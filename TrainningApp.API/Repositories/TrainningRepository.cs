@@ -52,7 +52,7 @@ namespace TrainningApp.Infrastructure.Repositories
 
         public async Task<List<Trainning>> FindAllByIdPersonalAsync(string idPersonal)
         {
-            List<Trainning> trainning = await _db.Trainnings.Where(x => x.DisabledAt == null && x.Personal.Id == idPersonal).ToListAsync();
+            List<Trainning> trainning = await _db.Trainnings.Where(x => x.DisabledAt == null && x.Users.Select(x => x.Id).First() == idPersonal).ToListAsync();
             return trainning;
         }
 

@@ -87,7 +87,7 @@ namespace TrainningApp.Infrastructure.Services
             {
                 throw new Exception(ConstantsMessageTrainningDay.ErrorGetById);
             }
-            if(trainningDay.Trainning.Personal != userPersonal)
+            if(trainningDay.Trainning.Users.Contains(userPersonal))
             {
                 throw new Exception(ConstantsMessageTrainning.ErrorTrainningNotByPersonal);
             }
@@ -106,10 +106,10 @@ namespace TrainningApp.Infrastructure.Services
             Trainning trainning = await _trainingRepo.FindByIdAsync(trainningId);
             if (trainning == null) throw new Exception(ConstantsMessageTrainning.ErrorGetById);
 
-            if (!user.Trainnings.Contains(trainning))
-            {
-                throw new Exception(ConstantsMessageTrainning.ErrorTrainningNotByUser);
-            }
+            //if (!user.UsersTrainings.Contains(trainning) || !user.GymTrainings.Contains(trainning) ||  !user.PersonalTrainings.Contains(trainning))
+            //{
+            //    throw new Exception(ConstantsMessageTrainning.ErrorTrainningNotByUser);
+            //}
 
             List<TrainningDay> trainningDays = await _trainningDayRepo.FindAllTrainningIdAsync(trainningId);
 
@@ -132,10 +132,10 @@ namespace TrainningApp.Infrastructure.Services
             Trainning trainning = await _trainingRepo.FindByIdAsync(trainningDay.Trainning.Id);
             if (trainning == null) throw new Exception(ConstantsMessageTrainning.ErrorGetById);
 
-            if (!user.Trainnings.Contains(trainning))
-            {
-                throw new Exception(ConstantsMessageTrainning.ErrorTrainningNotByUser);
-            }
+            //if (!user.UsersTrainings.Contains(trainning) || !user.GymTrainings.Contains(trainning) || !user.PersonalTrainings.Contains(trainning))
+            //{
+            //    throw new Exception(ConstantsMessageTrainning.ErrorTrainningNotByUser);
+            //}
 
 
             TrainningDayVO trainningDaysVO = _mapper.Map<TrainningDayVO>(trainningDay);

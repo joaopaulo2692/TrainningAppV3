@@ -10,6 +10,7 @@ namespace TrainningApp.Core.DTO
     {
         public int Id { get; set; }
         public string Goal { get; set; }
+        public List<string> UsersId { get; set; }
         public DateTime FirstDay { get; set; }
         public DateTime LastDay { get; set; }
     }

@@ -28,10 +28,10 @@ namespace TrainningApp.Infrastructure.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
-            modelBuilder.Entity<ApplicationUser>()
-               .HasMany(u => u.Trainnings)
-               .WithMany(t => t.Users)
-               .UsingEntity(j => j.ToTable("UserTrainnings"));
+            //modelBuilder.Entity<ApplicationUser>()
+            //   .HasMany(u => u.UsersTrainings)
+            //   .WithMany(t => t.Users)
+            //   .UsingEntity(j => j.ToTable("UserTrainnings"));
 
             modelBuilder.Entity<ApplicationUser>()
               .HasMany(u => u.Managements)
@@ -55,17 +55,35 @@ namespace TrainningApp.Infrastructure.Data
                 .WithOne(x => x.Trainning);
 
             modelBuilder.Entity<Trainning>()
-               .HasOne(x => x.Personal)
-               .WithMany(x => x.Trainnings)
-               .HasForeignKey(x => x.IdPersonal);
+               .HasMany(x => x.Users)
+               .WithMany(x => x.Trainings);
+
 
             modelBuilder.Entity<Trainning>()
-               .HasMany(x => x.Users)
-               .WithMany(x => x.Trainnings);
+                .HasOne(t => t.Gym)
+                .WithMany(u => u.Trainnings)
+                .HasForeignKey(t => t.GymId);
 
+            //modelBuilder.Entity<Gym>()
+            //    .HasMany(t => t.Users)
+            //    .WithOne(u => u.Gym)
+            //    .HasForeignKey(t => t.GymId);
 
+            //modelBuilder.Entity<Gym>()
+            //    .HasMany(t => t.Personals)
+            //    .WithOne(u => u.Gym)
+            //    .HasForeignKey(t => t.GymId);
 
+            //modelBuilder.Entity<Gym>()
+            //    .HasMany(t => t.Administrators)
+            //    .WithOne(u => u.Gym)
+            //    .HasForeignKey(t => t.GymId);
 
+            modelBuilder.Entity<ApplicationUser>()
+                .HasOne(u => u.Gym)
+                .WithMany(g => g.Users)
+                .HasForeignKey(u => u.GymId)
+                .OnDelete(DeleteBehavior.Restrict);
 
 
 

@@ -9,6 +9,7 @@ namespace TrainningApp.Core.DTO.TrainningExercise
     public class TrainningExerciseVO
     {
         public int Id { get; set; }
+        public string ExerciseName { get; set; }
         public int Set { get; set; }
         public int Reps { get; set; }
         public int Ordenation { get; set; }

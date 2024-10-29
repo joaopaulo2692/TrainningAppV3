@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainningAppV3", "TrainningAppV3\TrainningAppV3\TrainningAppV3.csproj", "{6CA7C1BF-AAD6-459E-BB18-364668C285DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainningAppV3", "TrainningAppV3\TrainningAppV3\TrainningAppV3.csproj", "{6CA7C1BF-AAD6-459E-BB18-364668C285DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainningAppV3.Client", "TrainningAppV3\TrainningAppV3.Client\TrainningAppV3.Client.csproj", "{5C766B8E-75E3-444C-B964-B4DFCF452127}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainningAppV3.Client", "TrainningAppV3\TrainningAppV3.Client\TrainningAppV3.Client.csproj", "{5C766B8E-75E3-444C-B964-B4DFCF452127}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainningApp.Core", "TrainningApp.Core\TrainningApp.Core.csproj", "{F855E248-D98E-4BF2-9FE9-18C767927030}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainningApp.Core", "TrainningApp.Core\TrainningApp.Core.csproj", "{F855E248-D98E-4BF2-9FE9-18C767927030}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainningApp.Infrastructure", "TrainningApp.API\TrainningApp.Infrastructure.csproj", "{2A482331-953F-4CB7-B35A-0F1BD66586D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainningApp.Infrastructure", "TrainningApp.API\TrainningApp.Infrastructure.csproj", "{2A482331-953F-4CB7-B35A-0F1BD66586D1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F855E248-D98E-4BF2-9FE9-18C767927030} = {F855E248-D98E-4BF2-9FE9-18C767927030}
 	EndProjectSection

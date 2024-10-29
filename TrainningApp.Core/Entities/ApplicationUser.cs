@@ -15,7 +15,9 @@ namespace TrainningApp.Core.Entities
         public float? Heigth { get; set; }
         public string? Gender { get; set; }
         public float? Weight { get; set; }
-        public int? GymId { get; set; }
+        public int? GymId { get; set; }  
+        // Usado para "Users"
+
 
         [Column("created_at")]
         public DateTime CreatedAt { get; set; }
@@ -24,8 +26,10 @@ namespace TrainningApp.Core.Entities
         [Column("disabled_at")]
         public DateTime? DisabledAt { get; set; }
 
-        public virtual List<Trainning> Trainnings { get; set; }
+        //public virtual List<Trainning> Trainnings { get; set; }
+        public virtual List<Trainning> Trainings { get; set; } // Relacionamento como Personal
         public virtual List<Management> Managements { get; set; }
         public virtual Gym? Gym { get; set; }
+    
     }
 }
