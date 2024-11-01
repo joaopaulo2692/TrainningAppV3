@@ -1,6 +1,8 @@
 ﻿@page "/trainning"
+@inject IDialogService DialogService
 @using TrainningApp.Core.DTO.TrainningExercise
 @using TrainningApp.Core.Entities
+
 
 <h3>Trainning</h3>
 <MudTabs Elevation="4" Rounded="true" Color="@Color.Success" PrevIcon="@Icons.Material.Filled.SkipPrevious" NextIcon="@Icons.Material.Filled.SkipNext"
@@ -41,7 +43,7 @@
              <ItemRenderer>
                  <MudPaper Class="pa-4 my-4">
                      <MudText Typo="Typo.h6">@context.Name</MudText>
-                        <MudButton Variant="Variant.Filled" Color="Color.Secondary" Style="margin-right: 20px;">Adicionar</MudButton>
+                        <MudButton OnClick="OpenDialog" Variant="Variant.Filled" Color="Color.Secondary" Style="margin-right: 20px;">Adicionar</MudButton>
                         <MudDropZone T="DropZoneItem" Identifier="@context.Name" AllowReorder Class="rounded mud-background-gray px-4 py-1 ma-4" />
                  </MudPaper>
              </ItemRenderer>
@@ -186,5 +188,18 @@
         } }
         };
     }
-    
+    private async Task OpenDialog()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        var dialog = DialogService.Show<AddExercise>("Simple Dialog", options);
+
+        var result = await dialog.Result;
+
+        // if (!result.Cancelled)
+        // {
+        //     // Ação a ser realizada se o usuário clicar em "Ok"
+        // }
+    }
+
+
 }

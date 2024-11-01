@@ -1,0 +1,88 @@
+﻿@using TrainningApp.Core.DTO.Exercise
+<MudDialog MaxWidth="MaxWidth.ExtraLarge" FullWidth="true" Class="custom-dialog">
+    <DialogContent>
+        <div class="d-flex flex-column py-1" style="min-height: 500px;"> <!-- Ajuste o valor conforme necessário -->
+            <MudSelect T="int" Label="Exercício" AnchorOrigin="Origin.BottomCenter">
+                @foreach (var exercise in exerciseList)
+                {
+                    <MudSelectItem T="int" Value="@exercise.Id">@exercise.Name</MudSelectItem>
+                }
+            </MudSelect>
+            <MudSelect T="string" Label="Coffee" AnchorOrigin="Origin.BottomCenter">
+                <MudSelectItem Value="@("Cappuccino")" />
+                <MudSelectItem Value="@("Cafe Latte")" />
+                <MudSelectItem Value="@("Espresso")" />
+            </MudSelect>
+            <MudSelect T="double" Label="Price" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+                <MudSelectItem T="double" Value="4.50" />
+                <MudSelectItem T="double" Value="4.99" />
+                <MudSelectItem T="double" Value="3.60" />
+            </MudSelect>
+            <MudSelect T="Pizza" Label="Pizza" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
+                <MudSelectItem Value="@(new Pizza("Cardinale"))" />
+                <MudSelectItem Value="@(new Pizza("Diavolo"))" />
+                <MudSelectItem Value="@(new Pizza("Margarita"))" />
+                <MudSelectItem Value="@(new Pizza("Spinaci"))" />
+            </MudSelect>
+        </div>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Primary" OnClick="Close">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+
+<style>
+.custom-dialog {
+    max-width: 800px; /* Ajuste conforme necessário para largura desejada */
+    width: 100%; /* Certifique-se de que ocupa toda a largura permitida */
+}
+</style>
+
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    void Close() => MudDialog.Close(DialogResult.Ok(true));
+
+    public class Pizza
+    {
+        public Pizza(string name)
+        {
+            Name = name;
+        }
+
+        public readonly string Name;
+
+        // Note: this is important so the MudSelect can compare pizzas
+        public override bool Equals(object o)
+        {
+            var other = o as Pizza;
+            return other?.Name == Name;
+        }
+
+        // Note: this is important too!
+        public override int GetHashCode() => Name?.GetHashCode() ?? 0;
+
+        // Implement this for the Pizza to display correctly in MudSelect
+        public override string ToString() => Name;
+    }
+
+    List<ExerciseReturnVO> exerciseList = new List<ExerciseReturnVO>()
+    {
+        new ExerciseReturnVO()
+        {
+            Id = 1,
+            Name = "Supino reto"
+        },
+         new ExerciseReturnVO()
+        {
+            Id = 2,
+            Name = "Tríceps testa"
+        },
+         new ExerciseReturnVO()
+        {
+            Id = 3,
+            Name = "Rosca"
+        },
+    };
+}
