@@ -41,6 +41,7 @@
              <ItemRenderer>
                  <MudPaper Class="pa-4 my-4">
                      <MudText Typo="Typo.h6">@context.Name</MudText>
+                        <MudButton Variant="Variant.Filled" Color="Color.Secondary" Style="margin-right: 20px;">Adicionar</MudButton>
                         <MudDropZone T="DropZoneItem" Identifier="@context.Name" AllowReorder Class="rounded mud-background-gray px-4 py-1 ma-4" />
                  </MudPaper>
              </ItemRenderer>
@@ -48,30 +49,58 @@
      </ChildContent>
      <ItemRenderer>
          <!-- Usa display flex para alinhar o texto e o botão lado a lado -->
-         <MudPaper Class="pa-4 my-4 d-flex align-items-center">
-             <MudTextField ShrinkLabel @bind-Value="TextValue" Label="Exércicio" Variant="Variant.Text"
-                           Style="max-width: 100px; height: 100px; margin: 0; font-size: 0.875rem;" />
-                <MudButton Variant="Variant.Filled" Color="Color.Secondary">Secondary</MudButton>
-                <MudTextField ShrinkLabel @bind-Value="TextValue" Label="Série" Variant="Variant.Text"
-                           Style="max-width: 100px; height: 32px; margin: 0; font-size: 0.875rem;" />
+         <MudPaper Class="pa-4 my-4 d-flex align-items-center justify-content-between" Style="width: 100%;">
 
-            </MudPaper>
-        </ItemRenderer>
-    </MudDropContainer>
+             <!-- Aqui utilizamos o Exercise associado diretamente ao DropZoneItem -->
+             <MudTextField ShrinkLabel @bind-Value="context.Exercise.ExerciseName" Label="Exercício" Variant="Variant.Text"
+                           Style="max-width: 200px; height: 32px; font-size: 0.875rem; margin-right: 20px;" />
+
+             <MudTextField ShrinkLabel @bind-Value="context.Exercise.Set" Label="Série" Variant="Variant.Text"
+                           Style="max-width: 100px; height: 32px; font-size: 0.875rem;" />
+             <MudTextField ShrinkLabel @bind-Value="context.Exercise.Reps" Label="Rep" Variant="Variant.Text"
+                           Style="max-width: 100px; height: 32px; font-size: 0.875rem;" />
+             <MudTextField ShrinkLabel @bind-Value="context.Exercise.Info" Label="Info" Variant="Variant.Text"
+                           Style="max-width: 100px; height: 32px; font-size: 0.875rem;" />
+
+         </MudPaper>
+     </ItemRenderer>
+ </MudDropContainer>
+
+
+
   
-@code {
-    public string TextValue { get; set; }
+ @code {
+    public string Exercicio { get; set; }
+    public string Serie{ get; set; }
     private int SelectedTabIndex { get; set; }
     public Position Position { get; set; } = Position.Left;
 
 
-    List<TrainningExerciseVO> trainning = new List<TrainningExerciseVO>()
+    List<TrainningExerciseVO> exercises = new List<TrainningExerciseVO>()
     {
         new TrainningExerciseVO()
         {
             Reps = 10,
             Set = 3,
-            ExerciseName = "Supino"
+            ExerciseName = "Supino",
+            Info = "Normal",
+            Ordenation = 1
+        },
+         new TrainningExerciseVO()
+        {
+            Reps = 10,
+            Set = 3,
+            ExerciseName = "Supino reto",
+            Info = "Normal",
+            Ordenation = 2
+        },
+         new TrainningExerciseVO()
+        {
+            Reps = 10,
+            Set = 3,
+            ExerciseName = "Supino inclinado",
+            Info = "Normal",
+            Ordenation = 2
         }
     };
     // TrainningExerciseVO trainningExercise = new TrainningExerciseVO()
@@ -86,33 +115,76 @@
     TrainningDay trainningDay = new TrainningDay();
 
 
-    private void ItemUpdated(MudItemDropInfo<DropZoneItem> dropItem) => dropItem.Item.Zone = dropItem.DropzoneIdentifier;
+    // private void ItemUpdated(MudItemDropInfo<DropZoneItem> dropItem) => dropItem.Item.Zone = dropItem.DropzoneIdentifier;
+    private void ItemUpdated(MudItemDropInfo<DropZoneItem> dropItem)
+    {
+        dropItem.Item.Zone = dropItem.DropzoneIdentifier;
+          var itemsInZone = _items
+        .Where(item => item.Zone == dropItem.DropzoneIdentifier)
+        .ToList();
 
+    // Atualiza a propriedade Ordenation para cada item na zona, com base na nova ordem
+    for (int i = 0; i < itemsInZone.Count; i++)
+    {
+        itemsInZone[i].Exercise.Ordenation = i + 1;
+    }
+    }
     private List<DropZone> _zones = new()
     {
         new() { Name = "Drop Zone 1" },
-        new() { Name = "Drop Zone 2" }
+        // new() { Name = "Drop Zone 2" }
     };
 
     private List<DropZoneItem> _items = new()
     {
-        new() { Zone = "Drop Zone 1", Name = "Item 1" },
-        new() { Zone = "Drop Zone 1", Name = "Item 2" },
-        new() { Zone = "Drop Zone 2", Name = "Item 3" },
+        // new() { Zone = "Drop Zone 1", Name = "Item 1" },
+        // new() { Zone = "Drop Zone 1", Name = "Item 2" },
+        // new() { Zone = "Drop Zone 2", Name = "Item 3" },
+
     };
 
     private class DropZone
     {
         public string Name { get; init; }
+        
     }
 
     private class DropZoneItem
     {
         public string Zone { get; set; }
         public string Name { get; init; }
-    
+        public TrainningExerciseVO Exercise { get; set; }
     }
  
-
+    protected override void OnInitialized()
+    {
+        _items = new List<DropZoneItem>
+        {
+            new() { Zone = "Drop Zone 1", Name = exercises[0].ExerciseName, Exercise =    new TrainningExerciseVO()
+        {
+            Reps = 10,
+            Set = 3,
+            ExerciseName = "Supino inclinado",
+            Info = "Normal",
+            Ordenation = 2
+        } },
+            new() { Zone = "Drop Zone 1", Name = exercises[1].ExerciseName, Exercise =  new TrainningExerciseVO()
+        {
+            Reps = 10,
+            Set = 3,
+            ExerciseName = "Supino reto",
+            Info = "Normal",
+            Ordenation = 2
+        } },
+            new() { Zone = "Drop Zone 1", Name = exercises[2].ExerciseName, Exercise =  new TrainningExerciseVO()
+        {
+            Reps = 10,
+            Set = 3,
+            ExerciseName = "Supino",
+            Info = "Normal",
+            Ordenation = 1
+        } }
+        };
+    }
     
 }
