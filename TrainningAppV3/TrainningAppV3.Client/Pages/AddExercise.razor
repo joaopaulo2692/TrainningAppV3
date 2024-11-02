@@ -1,84 +1,52 @@
-﻿@using Microsoft.AspNetCore.Components
+﻿@using MudBlazor
 @using TrainningApp.Core.DTO.Exercise
 @using TrainningApp.Core.DTO.Muscle
-@inject IDialogService DialogService
-@using MudBlazor
 
 
 <MudDialog MaxWidth="MaxWidth.ExtraLarge" FullWidth="true" Class="custom-dialog">
     <DialogContent>
         <div class="d-flex flex-column py-1" style="min-height: 420px;">
-           @*  <MudAutocomplete T="string" Label="Exercício" @bind-Value="muscleGroup" SearchFunc="@Search1"
-                             ResetValueOnEmptyText="@resetValueOnEmptyText"
-                             CoerceText="@coerceText" CoerceValue="@coerceValue" /> *@
-            <MudAutocomplete T="string" Label="Exercício" @bind-Value="exercise" SearchFunc="@Search1"
+            <MudAutocomplete T="string" Label="Exercício" @bind-Value="exercise" SearchFunc="@SearchExercise"
                              ResetValueOnEmptyText="@resetValueOnEmptyText"
                              CoerceText="@coerceText" CoerceValue="@coerceValue" />
-
-            @* <div class="d-flex flex-row align-items-center"> *@
-                <div class="d-flex flex-row align-items-center">
-                <MudNumericField Label="Série"  
-                                 @bind-Value="set"
-                                 Max="9"
-                                 Min="0"
-                                 Variant="Variant.Outlined"
-                                 Style="width: 80px; height: 30px;" 
-                                 Class="d-inline-flex" />
-
-                <MudTextField Label="Repetições"
-                              @bind-Value="reps[0]"
-                              Class="d-inline-flex" />
-
-                                 <MudNumericField Label="Série"
+            <div class="d-flex flex-row align-items-center">
+                <MudNumericField Label="Série" @bind-Value="set" Max="9" Min="0" Variant="Variant.Outlined" Style="width: 80px; height: 30px;" />
+                <MudTextField Label="Repetições" @bind-Value="reps[0]" />
+                <MudNumericField Label="Série"
                                  @bind-Value="set"
                                  Max="9"
                                  Min="0"
                                  Variant="Variant.Outlined"
                                  Style="width: 80px; height: 30px;"
-                                 Class="invisible"/>
-
-                <MudTextField Label="Carga"
-                              @bind-Value="weights[0]"
-                              Class="d-inline-flex" />
+                                 Class="invisible" />
+                <MudTextField Label="Carga" @bind-Value="weights[0]" />
             </div>
-
             @for (int i = 1; i < set; i++)
             {
-                @* <div class="d-flex flex-row align-items-center"> *@
                 <div class="d-flex flex-row align-items-center">
-
-                       <MudNumericField Label="Série"
-                                 @bind-Value="set"
-                                 Max="9"
-                                 Min="0"
-                                 Variant="Variant.Outlined"
-                                 Style="width: 80px; height: 30px;"
-                                 Class="invisible"/>
-
-                    <MudTextField Label="Repetições"
-                                  @bind-Value="reps[i]"
-                                  Class="d-inline-flex" />
-                                     <MudNumericField Label="Série"
-                                 @bind-Value="set"
-                                 Max="9"
-                                 Min="0"
-                                 Variant="Variant.Outlined"
-                                 Style="width: 80px; height: 30px;"
-                                 Class="invisible"/>
-
-                    <MudTextField Label="Carga"
-                                  @bind-Value="weights[i]"
-                                  Class="d-inline-flex" />
+                    <MudNumericField Label="Série"
+                                     @bind-Value="set"
+                                     Max="9"
+                                     Min="0"
+                                     Variant="Variant.Outlined"
+                                     Style="width: 80px; height: 30px;"
+                                     Class="invisible" />
+                    <MudTextField Label="" @bind-Value="reps[i]" />
+                    <MudNumericField Label="Série"
+                                     @bind-Value="set"
+                                     Max="9"
+                                     Min="0"
+                                     Variant="Variant.Outlined"
+                                     Style="width: 80px; height: 30px;"
+                                     Class="invisible" />
+                    <MudTextField Label="" @bind-Value="weights[i]" />
                 </div>
             }
-
-            <MudTextField Label="Observação"
-                          @bind-Value="observation;"
-                              Class="d-inline-flex" />
+            <MudTextField Label="Observação" @bind-Value="observation" />
         </div>
     </DialogContent>
     <DialogActions>
-        <MudButton Variant="Variant.Filled" Color="Color.Success" Style="margin-right: 20px;">Adicionar</MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Success">Adicionar</MudButton>
         <MudButton Color="Color.Primary" OnClick="Close">Fechar</MudButton>
     </DialogActions>
 </MudDialog>
@@ -88,108 +56,41 @@
         max-width: 800px; /* Ajuste conforme necessário para largura desejada */
         width: 100%; /* Certifique-se de que ocupa toda a largura permitida */
     }
-
-    .tight-field {
-        margin-left: 5px; /* Ajuste a margem conforme necessário */
-        width: 80px; /* Certifique-se de que as larguras sejam consistentes */
-    }
 </style>
-
-
-
-
 
 @code {
     private bool resetValueOnEmptyText;
     private bool coerceText;
     private bool coerceValue;
-    private string exercise
-    private string muscleGroup;
-
+    private string exercise; // Corrigido: adicione o ponto e vírgula
     private int set = 1;
-    private string rep;
-    private string weight;
     private string observation;
-    private List<string> reps = new List<string>() { "", "", "", "", "" };
-    private List<string> weights = new List<string>() { "", "", "", "", "" };
+    private List<string> reps = new List<string> { "", "", "", "", "" };
+    private List<string> weights = new List<string> { "", "", "", "", "" };
 
     [CascadingParameter] MudDialogInstance MudDialog { get; set; }
 
+    private void Close() => MudDialog.Close(DialogResult.Ok(true));
 
-
-    void Close() => MudDialog.Close(DialogResult.Ok(true));
-
-    public class Pizza
+    private async Task<IEnumerable<string>> SearchExercise(string value, CancellationToken token)
     {
-        public Pizza(string name)
-        {
-    Name = name;
-        }
-
-        public readonly string Name;
-
-        // Note: this is important so the MudSelect can compare pizzas
-        public override bool Equals(object o)
-        {
-    var other = o as Pizza;
-    return other?.Name == Name;
-        }
-
-        // Note: this is important too!
-        public override int GetHashCode() => Name?.GetHashCode() ?? 0;
-
-        // Implement this for the Pizza to display correctly in MudSelect
-        public override string ToString() => Name;
+        await Task.Delay(5, token); // Simulação de chamada assíncrona
+        if (string.IsNullOrEmpty(value))
+            return exerciseList.Select(x => x.Name);
+        return exerciseList.Select(x => x.Name).Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
     }
 
-    List<ExerciseReturnVO> exerciseList = new List<ExerciseReturnVO>()
+    List<ExerciseReturnVO> exerciseList = new List<ExerciseReturnVO>
     {
-        new ExerciseReturnVO()
-        {
-            Id = 1,
-            Name = "Supino reto"
-        },
-         new ExerciseReturnVO()
-        {
-            Id = 2,
-            Name = "Tríceps testa"
-        },
-         new ExerciseReturnVO()
-        {
-            Id = 3,
-            Name = "Rosca"
-        },
+        new ExerciseReturnVO { Id = 1, Name = "Supino reto" },
+        new ExerciseReturnVO { Id = 2, Name = "Tríceps testa" },
+        new ExerciseReturnVO { Id = 3, Name = "Rosca" }
     };
 
-    List<MuscleVO> musclesList = new List<MuscleVO>(){
-        new MuscleVO()
-        {
-            
-        }
-    }
-
-
-    private async Task<IEnumerable<string>> Search(string value, CancellationToken token)
+    List<MuscleVO> musclesList = new List<MuscleVO>
     {
-        // In real life use an asynchronous function for fetching data from an api.
-        await Task.Delay(5, token);
-
-        // if text is null or empty, show complete list
-        if (string.IsNullOrEmpty(value))
-            return exerciseList.Select(x => x.Name);
-
-        return exerciseList.Select(x => x.Name).Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
-    }
-
-    private async Task<IEnumerable<string>> Search1(string value, CancellationToken token)
-    {
-        // In real life use an asynchronous function for fetching data from an api.
-        await Task.Delay(5, token);
-
-        // if text is null or empty, show complete list
-        if (string.IsNullOrEmpty(value))
-            return exerciseList.Select(x => x.Name);
-
-        return exerciseList.Select(x => x.Name).Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+        new MuscleVO{Id = 1, Name ="Peito",exerciseIds=new List<int>(){1} },
+        new MuscleVO{Id = 1, Name ="Tríceps",exerciseIds=new List<int>(){2} },
+        new MuscleVO{Id = 1, Name ="Bíceps",exerciseIds=new List<int>(){3} },
     }
 }
