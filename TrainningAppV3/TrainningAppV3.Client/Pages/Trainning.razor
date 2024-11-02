@@ -43,7 +43,7 @@
              <ItemRenderer>
                  <MudPaper Class="pa-4 my-4">
                      <MudText Typo="Typo.h6">@context.Name</MudText>
-                        <MudButton OnClick="OpenDialog" Variant="Variant.Filled" Color="Color.Secondary" Style="margin-right: 20px;">Adicionar</MudButton>
+                        <MudButton OnClick="OpenDialog" Variant="Variant.Filled" Color="Color.Success" Style="margin-right: 20px;">Adicionar</MudButton>
                         <MudDropZone T="DropZoneItem" Identifier="@context.Name" AllowReorder Class="rounded mud-background-gray px-4 py-1 ma-4" />
                  </MudPaper>
              </ItemRenderer>
@@ -82,7 +82,7 @@
     {
         new TrainningExerciseVO()
         {
-            Reps = 10,
+            Reps = "10",
             Set = 3,
             ExerciseName = "Supino",
             Info = "Normal",
@@ -90,7 +90,7 @@
         },
          new TrainningExerciseVO()
         {
-            Reps = 10,
+            Reps = "10",
             Set = 3,
             ExerciseName = "Supino reto",
             Info = "Normal",
@@ -98,7 +98,7 @@
         },
          new TrainningExerciseVO()
         {
-            Reps = 10,
+            Reps = "10",
             Set = 3,
             ExerciseName = "Supino inclinado",
             Info = "Normal",
@@ -164,7 +164,7 @@
         {
             new() { Zone = "Drop Zone 1", Name = exercises[0].ExerciseName, Exercise =    new TrainningExerciseVO()
         {
-            Reps = 10,
+            Reps = "10",
             Set = 3,
             ExerciseName = "Supino inclinado",
             Info = "Normal",
@@ -172,7 +172,7 @@
         } },
             new() { Zone = "Drop Zone 1", Name = exercises[1].ExerciseName, Exercise =  new TrainningExerciseVO()
         {
-            Reps = 10,
+            Reps = "10",
             Set = 3,
             ExerciseName = "Supino reto",
             Info = "Normal",
@@ -180,7 +180,7 @@
         } },
             new() { Zone = "Drop Zone 1", Name = exercises[2].ExerciseName, Exercise =  new TrainningExerciseVO()
         {
-            Reps = 10,
+            Reps = "10",
             Set = 3,
             ExerciseName = "Supino",
             Info = "Normal",
@@ -191,7 +191,7 @@
     private async Task OpenDialog()
     {
         var options = new DialogOptions { CloseOnEscapeKey = true };
-        var dialog = DialogService.Show<AddExercise>("Simple Dialog", options);
+        var dialog = DialogService.Show<AddExercise>("Adicionar Exercício", options);
 
         var result = await dialog.Result;
 

@@ -1,46 +1,121 @@
-﻿@using TrainningApp.Core.DTO.Exercise
+﻿@using Microsoft.AspNetCore.Components
+@using TrainningApp.Core.DTO.Exercise
+@using TrainningApp.Core.DTO.Muscle
+@inject IDialogService DialogService
+@using MudBlazor
+
+
 <MudDialog MaxWidth="MaxWidth.ExtraLarge" FullWidth="true" Class="custom-dialog">
     <DialogContent>
-        <div class="d-flex flex-column py-1" style="min-height: 500px;"> <!-- Ajuste o valor conforme necessário -->
-            <MudSelect T="int" Label="Exercício" AnchorOrigin="Origin.BottomCenter">
-                @foreach (var exercise in exerciseList)
-                {
-                    <MudSelectItem T="int" Value="@exercise.Id">@exercise.Name</MudSelectItem>
-                }
-            </MudSelect>
-            <MudSelect T="string" Label="Coffee" AnchorOrigin="Origin.BottomCenter">
-                <MudSelectItem Value="@("Cappuccino")" />
-                <MudSelectItem Value="@("Cafe Latte")" />
-                <MudSelectItem Value="@("Espresso")" />
-            </MudSelect>
-            <MudSelect T="double" Label="Price" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
-                <MudSelectItem T="double" Value="4.50" />
-                <MudSelectItem T="double" Value="4.99" />
-                <MudSelectItem T="double" Value="3.60" />
-            </MudSelect>
-            <MudSelect T="Pizza" Label="Pizza" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
-                <MudSelectItem Value="@(new Pizza("Cardinale"))" />
-                <MudSelectItem Value="@(new Pizza("Diavolo"))" />
-                <MudSelectItem Value="@(new Pizza("Margarita"))" />
-                <MudSelectItem Value="@(new Pizza("Spinaci"))" />
-            </MudSelect>
+        <div class="d-flex flex-column py-1" style="min-height: 420px;">
+           @*  <MudAutocomplete T="string" Label="Exercício" @bind-Value="muscleGroup" SearchFunc="@Search1"
+                             ResetValueOnEmptyText="@resetValueOnEmptyText"
+                             CoerceText="@coerceText" CoerceValue="@coerceValue" /> *@
+            <MudAutocomplete T="string" Label="Exercício" @bind-Value="exercise" SearchFunc="@Search1"
+                             ResetValueOnEmptyText="@resetValueOnEmptyText"
+                             CoerceText="@coerceText" CoerceValue="@coerceValue" />
+
+            @* <div class="d-flex flex-row align-items-center"> *@
+                <div class="d-flex flex-row align-items-center">
+                <MudNumericField Label="Série"  
+                                 @bind-Value="set"
+                                 Max="9"
+                                 Min="0"
+                                 Variant="Variant.Outlined"
+                                 Style="width: 80px; height: 30px;" 
+                                 Class="d-inline-flex" />
+
+                <MudTextField Label="Repetições"
+                              @bind-Value="reps[0]"
+                              Class="d-inline-flex" />
+
+                                 <MudNumericField Label="Série"
+                                 @bind-Value="set"
+                                 Max="9"
+                                 Min="0"
+                                 Variant="Variant.Outlined"
+                                 Style="width: 80px; height: 30px;"
+                                 Class="invisible"/>
+
+                <MudTextField Label="Carga"
+                              @bind-Value="weights[0]"
+                              Class="d-inline-flex" />
+            </div>
+
+            @for (int i = 1; i < set; i++)
+            {
+                @* <div class="d-flex flex-row align-items-center"> *@
+                <div class="d-flex flex-row align-items-center">
+
+                       <MudNumericField Label="Série"
+                                 @bind-Value="set"
+                                 Max="9"
+                                 Min="0"
+                                 Variant="Variant.Outlined"
+                                 Style="width: 80px; height: 30px;"
+                                 Class="invisible"/>
+
+                    <MudTextField Label="Repetições"
+                                  @bind-Value="reps[i]"
+                                  Class="d-inline-flex" />
+                                     <MudNumericField Label="Série"
+                                 @bind-Value="set"
+                                 Max="9"
+                                 Min="0"
+                                 Variant="Variant.Outlined"
+                                 Style="width: 80px; height: 30px;"
+                                 Class="invisible"/>
+
+                    <MudTextField Label="Carga"
+                                  @bind-Value="weights[i]"
+                                  Class="d-inline-flex" />
+                </div>
+            }
+
+            <MudTextField Label="Observação"
+                          @bind-Value="observation;"
+                              Class="d-inline-flex" />
         </div>
     </DialogContent>
     <DialogActions>
-        <MudButton Color="Color.Primary" OnClick="Close">Ok</MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Success" Style="margin-right: 20px;">Adicionar</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Close">Fechar</MudButton>
     </DialogActions>
 </MudDialog>
 
 <style>
-.custom-dialog {
-    max-width: 800px; /* Ajuste conforme necessário para largura desejada */
-    width: 100%; /* Certifique-se de que ocupa toda a largura permitida */
-}
+    .custom-dialog {
+        max-width: 800px; /* Ajuste conforme necessário para largura desejada */
+        width: 100%; /* Certifique-se de que ocupa toda a largura permitida */
+    }
+
+    .tight-field {
+        margin-left: 5px; /* Ajuste a margem conforme necessário */
+        width: 80px; /* Certifique-se de que as larguras sejam consistentes */
+    }
 </style>
 
 
+
+
+
 @code {
+    private bool resetValueOnEmptyText;
+    private bool coerceText;
+    private bool coerceValue;
+    private string exercise
+    private string muscleGroup;
+
+    private int set = 1;
+    private string rep;
+    private string weight;
+    private string observation;
+    private List<string> reps = new List<string>() { "", "", "", "", "" };
+    private List<string> weights = new List<string>() { "", "", "", "", "" };
+
     [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+
 
     void Close() => MudDialog.Close(DialogResult.Ok(true));
 
@@ -48,7 +123,7 @@
     {
         public Pizza(string name)
         {
-            Name = name;
+    Name = name;
         }
 
         public readonly string Name;
@@ -56,8 +131,8 @@
         // Note: this is important so the MudSelect can compare pizzas
         public override bool Equals(object o)
         {
-            var other = o as Pizza;
-            return other?.Name == Name;
+    var other = o as Pizza;
+    return other?.Name == Name;
         }
 
         // Note: this is important too!
@@ -85,4 +160,36 @@
             Name = "Rosca"
         },
     };
+
+    List<MuscleVO> musclesList = new List<MuscleVO>(){
+        new MuscleVO()
+        {
+            
+        }
+    }
+
+
+    private async Task<IEnumerable<string>> Search(string value, CancellationToken token)
+    {
+        // In real life use an asynchronous function for fetching data from an api.
+        await Task.Delay(5, token);
+
+        // if text is null or empty, show complete list
+        if (string.IsNullOrEmpty(value))
+            return exerciseList.Select(x => x.Name);
+
+        return exerciseList.Select(x => x.Name).Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+    }
+
+    private async Task<IEnumerable<string>> Search1(string value, CancellationToken token)
+    {
+        // In real life use an asynchronous function for fetching data from an api.
+        await Task.Delay(5, token);
+
+        // if text is null or empty, show complete list
+        if (string.IsNullOrEmpty(value))
+            return exerciseList.Select(x => x.Name);
+
+        return exerciseList.Select(x => x.Name).Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+    }
 }
