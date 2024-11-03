@@ -1,0 +1,71 @@
+﻿@typeparam T
+@using Client.Pages
+@using static TrainningAppV3.Client.Pages.Trainning
+@inject IDialogService DialogService
+
+<MudDropContainer T="DropZoneItem" Items="_items" ItemsSelector="@((item, dropzone) => item.Zone == dropzone)" ItemDropped="ItemUpdated" Class="4 flex-grow-1">
+    <ChildContent>
+        <MudDropContainer T="DropZone" Items="_zones" ItemsSelector="@((item, dropzone) => true)" Class="5">
+            <ChildContent>
+                <MudDropZone T="DropZone" AllowReorder Class="6 rounded mud-background-gray px-4 py-1 ma-4" />
+             </ChildContent>
+             <ItemRenderer>
+                 <MudPaper Class="pa-4 my-4">
+                     <MudText Typo="Typo.h6">@context.Name</MudText>
+                        <MudButton OnClick="OpenDialog" Variant="Variant.Filled" Color="Color.Success" Style="margin-right: 20px;">Adicionar</MudButton>
+                        <MudDropZone T="DropZoneItem" Identifier="@context.Name" AllowReorder Class="rounded mud-background-gray px-4 py-1 ma-4" />
+                 </MudPaper>
+             </ItemRenderer>
+         </MudDropContainer>
+     </ChildContent>
+     <ItemRenderer>
+         <MudPaper Class="pa-4 my-4 d-flex align-items-center justify-content-between" Style="width: 100%;">
+             <MudTextField ShrinkLabel @bind-Value="context.Exercise.ExerciseName" Label="Exercício" Variant="Variant.Text" Style="max-width: 200px; height: 32px; font-size: 0.875rem; margin-right: 20px;" />
+             <MudTextField ShrinkLabel @bind-Value="context.Exercise.Set" Label="Série" Variant="Variant.Text" Style="max-width: 100px; height: 32px; font-size: 0.875rem;" />
+             <MudTextField ShrinkLabel @bind-Value="context.Exercise.Reps" Label="Rep" Variant="Variant.Text" Style="max-width: 100px; height: 32px; font-size: 0.875rem;" />
+             <MudTextField ShrinkLabel @bind-Value="context.Exercise.Weight" Label="Carga" Variant="Variant.Text" Style="max-width: 100px; height: 32px; font-size: 0.875rem;" />
+             <MudTextField ShrinkLabel @bind-Value="context.Exercise.Info" Label="Info" Variant="Variant.Text" Style="max-width: 100px; height: 32px; font-size: 0.875rem;" />
+         </MudPaper>
+     </ItemRenderer>
+ </MudDropContainer>
+
+ @code {
+
+
+
+    [Parameter]
+    public List<DropZoneItem> _items { get; set; }
+
+    [Parameter]
+    public List<DropZone> _zones { get; set; }
+
+    // [Parameter]
+    // public EventCallback<DropZoneItem> ItemUpdated { get; set; }
+
+    private async Task OpenDialog()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        var dialog = DialogService.Show<AddExercise>("Adicionar Exercício", options);
+
+        var result = await dialog.Result;
+
+        // if (!result.Cancelled)
+        // {
+        //     // Ação a ser realizada se o usuário clicar em "Ok"
+        // }
+    }
+    private void ItemUpdated(MudItemDropInfo<DropZoneItem> dropItem)
+    {
+        dropItem.Item.Zone = dropItem.DropzoneIdentifier;
+        var itemsInZone = _items
+      .Where(item => item.Zone == dropItem.DropzoneIdentifier)
+      .ToList();
+
+        // Atualiza a propriedade Ordenation para cada item na zona, com base na nova ordem
+        for (int i = 0; i < itemsInZone.Count; i++)
+        {
+            itemsInZone[i].Exercise.Ordenation = i + 1;
+        }
+    }
+    
+}

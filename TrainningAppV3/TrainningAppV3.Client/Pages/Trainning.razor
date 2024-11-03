@@ -1,67 +1,41 @@
 ﻿@page "/trainning"
 @inject IDialogService DialogService
+@using TrainningApp.Core.DTO.TrainningDay
 @using TrainningApp.Core.DTO.TrainningExercise
 @using TrainningApp.Core.Entities
+@using TrainningAppV3.Client.Components
 
 
 <h3>Trainning</h3>
 
 
 
- <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
-     <MudTabPanel Text="Tab One">
-         <MudDropContainer T="DropZoneItem" Items="_items" ItemsSelector="@((item, dropzone) => item.Zone == dropzone)" ItemDropped="ItemUpdated" Class="4 flex-grow-1">
-             <ChildContent>
-                 <MudDropContainer T="DropZone" Items="_zones" ItemsSelector="@((item, dropzone) => true)" Class="5">
-                     <ChildContent>
-                         <MudDropZone T="DropZone" AllowReorder Class="6 rounded mud-background-gray px-4 py-1 ma-4" />
-                     </ChildContent>
-                     <ItemRenderer>
-                         <MudPaper Class="pa-4 my-4">
-                             <MudText Typo="Typo.h6">@context.Name</MudText>
-                                <MudButton OnClick="OpenDialog" Variant="Variant.Filled" Color="Color.Success" Style="margin-right: 20px;">Adicionar</MudButton>
-                                <MudDropZone T="DropZoneItem" Identifier="@context.Name" AllowReorder Class="rounded mud-background-gray px-4 py-1 ma-4" />
-                         </MudPaper>
-                     </ItemRenderer>
-                 </MudDropContainer>
-             </ChildContent>
-             <ItemRenderer>
-                 <!-- Usa display flex para alinhar o texto e o botão lado a lado -->
-                 <MudPaper Class="pa-4 my-4 d-flex align-items-center justify-content-between" Style="width: 100%;">
+<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
 
-                     <!-- Aqui utilizamos o Exercise associado diretamente ao DropZoneItem -->
-                     <MudTextField ShrinkLabel @bind-Value="context.Exercise.ExerciseName" Label="Exercício" Variant="Variant.Text"
-                                   Style="max-width: 200px; height: 32px; font-size: 0.875rem; margin-right: 20px;" />
+    <MudTabPanel Text="Tab One">
+        <DropZoneExercises T="DropZoneItem" _items="_items" _zones="_zones"/>
 
-                     <MudTextField ShrinkLabel @bind-Value="context.Exercise.Set" Label="Série" Variant="Variant.Text"
-                                   Style="max-width: 100px; height: 32px; font-size: 0.875rem;" />
-                     <MudTextField ShrinkLabel @bind-Value="context.Exercise.Reps" Label="Rep" Variant="Variant.Text"
-                                   Style="max-width: 100px; height: 32px; font-size: 0.875rem;" />
-                     <MudTextField ShrinkLabel @bind-Value="context.Exercise.Info" Label="Info" Variant="Variant.Text"
-                                   Style="max-width: 100px; height: 32px; font-size: 0.875rem;" />
 
-                 </MudPaper>
-             </ItemRenderer>
-         </MudDropContainer>
-     </MudTabPanel>
-     <MudTabPanel Text="Tab Two">
-         <MudText>Content Two</MudText>
-     </MudTabPanel>
-     <MudTabPanel Text="Tab Three">
-         <MudText>Content Three</MudText>
-     </MudTabPanel>
-     <MudTabPanel Text="Tab Disabled" Disabled="true">
-         <MudText>Content Disabled</MudText>
-     </MudTabPanel>
- </MudTabs>
+    </MudTabPanel>
+    <MudTabPanel Text="Tab Two">
+        <DropZoneExercises T="DropZoneItem" _items="_items2" _zones="_zones" />
+    </MudTabPanel>
+    <MudTabPanel Text="Tab Three">
+        <MudText>Content Three</MudText>
+    </MudTabPanel>
+    <MudTabPanel Text="Tab Disabled" Disabled="true">
+        <MudText>Content Disabled</MudText>
+    </MudTabPanel>
+</MudTabs>
+
   
- @code {
+@code {
     public string Exercicio { get; set; }
     public string Serie{ get; set; }
     private int SelectedTabIndex { get; set; }
     public Position Position { get; set; } = Position.Left;
 
-
+    // List<TrainningDayReturnVO> trainningDayReturnList = new List<TrainningDayReturnVO>();
     List<TrainningExerciseVO> exercises = new List<TrainningExerciseVO>()
     {
         new TrainningExerciseVO()
@@ -102,26 +76,14 @@
 
 
     // private void ItemUpdated(MudItemDropInfo<DropZoneItem> dropItem) => dropItem.Item.Zone = dropItem.DropzoneIdentifier;
-    private void ItemUpdated(MudItemDropInfo<DropZoneItem> dropItem)
-    {
-        dropItem.Item.Zone = dropItem.DropzoneIdentifier;
-          var itemsInZone = _items
-        .Where(item => item.Zone == dropItem.DropzoneIdentifier)
-        .ToList();
 
-    // Atualiza a propriedade Ordenation para cada item na zona, com base na nova ordem
-    for (int i = 0; i < itemsInZone.Count; i++)
-    {
-        itemsInZone[i].Exercise.Ordenation = i + 1;
-    }
-    }
-    private List<DropZone> _zones = new()
+    public List<DropZone> _zones = new()
     {
         new() { Name = "Drop Zone 1" },
         // new() { Name = "Drop Zone 2" }
     };
 
-    private List<DropZoneItem> _items = new()
+    public List<DropZoneItem> _items = new()
     {
         // new() { Zone = "Drop Zone 1", Name = "Item 1" },
         // new() { Zone = "Drop Zone 1", Name = "Item 2" },
@@ -129,19 +91,28 @@
 
     };
 
-    private class DropZone
+    public List<DropZoneItem> _items2 = new()
+    {
+        // new() { Zone = "Drop Zone 1", Name = "Item 1" },
+        // new() { Zone = "Drop Zone 1", Name = "Item 2" },
+        // new() { Zone = "Drop Zone 2", Name = "Item 3" },
+
+    };
+
+    public class DropZone
     {
         public string Name { get; init; }
-        
+
     }
 
-    private class DropZoneItem
+    public class DropZoneItem
     {
         public string Zone { get; set; }
         public string Name { get; init; }
         public TrainningExerciseVO Exercise { get; set; }
+        public TrainningDayReturnVO TrainningDayReturn { get; set; }
     }
- 
+
     protected override void OnInitialized()
     {
         _items = new List<DropZoneItem>
@@ -171,19 +142,152 @@
             Ordenation = 1
         } }
         };
+
+        _items2 = new List<DropZoneItem>
+        {
+
+            new() { Zone = "Drop Zone 1", Name = exercises[1].ExerciseName, Exercise =  new TrainningExerciseVO()
+        {
+            Reps = "10",
+            Set = 3,
+            ExerciseName = "Supino reto",
+            Info = "Normal",
+            Ordenation = 2
+        } },
+            new() { Zone = "Drop Zone 1", Name = exercises[2].ExerciseName, Exercise =  new TrainningExerciseVO()
+        {
+            Reps = "10",
+            Set = 3,
+            ExerciseName = "Supino",
+            Info = "Normal",
+            Ordenation = 1
+        } }
+        };
     }
-    private async Task OpenDialog()
+
+    List<TrainningDayReturnVO> trainningDayReturnList = new List<TrainningDayReturnVO>()
     {
-        var options = new DialogOptions { CloseOnEscapeKey = true };
-        var dialog = DialogService.Show<AddExercise>("Adicionar Exercício", options);
+        new TrainningDayReturnVO()
+        {
+            Name = "A",
+            TrainningExercises = new List<TrainningExerciseVO>()
+            {
+                new TrainningExerciseVO()
+                {
+                Reps = "10",
+                Set = 3,
+                ExerciseName = "Supino",
+                Info = "Normal",
+                Ordenation = 1,
+                Weight = "60",
+                Interval = "30"
 
-        var result = await dialog.Result;
+                },
+                 new TrainningExerciseVO()
+                {
+                Reps = "10",
+                Set = 3,
+                ExerciseName = "Supino Inclinado",
+                Info = "Normal",
+                Ordenation = 2,
+                Weight = "60",
+                Interval = "30"
+                },
+                 new TrainningExerciseVO()
+                {
+                Reps = "10",
+                Set = 3,
+                ExerciseName = "Supino Declinado",
+                Info = "Normal",
+                Ordenation = 3,
+                Weight = "60",
+                Interval = "30"
+                },
+            }
 
-        // if (!result.Cancelled)
-        // {
-        //     // Ação a ser realizada se o usuário clicar em "Ok"
-        // }
-    }
+        },
 
+        new TrainningDayReturnVO()
+        {
+            Name = "B",
+            TrainningExercises = new List<TrainningExerciseVO>()
+            {
+                new TrainningExerciseVO()
+                {
+                Reps = "10",
+                Set = 3,
+                ExerciseName = "Leg",
+                Info = "Normal",
+                Ordenation = 1,
+                Weight = "60",
+                Interval = "30"
+
+                },
+                 new TrainningExerciseVO()
+                {
+                Reps = "10",
+                Set = 3,
+                ExerciseName = "Cadeira extensora",
+                Info = "Normal",
+                Ordenation = 2,
+                Weight = "60",
+                Interval = "30"
+                },
+                 new TrainningExerciseVO()
+                {
+                Reps = "10",
+                Set = 3,
+                ExerciseName = "Panturrilha",
+                Info = "Normal",
+                Ordenation = 3,
+                Weight = "60",
+                Interval = "30"
+                },
+            }
+
+        },
+        new TrainningDayReturnVO()
+        {
+            Name = "C",
+            TrainningExercises = new List<TrainningExerciseVO>()
+            {
+                new TrainningExerciseVO()
+                {
+                Reps = "10",
+                Set = 3,
+                ExerciseName = "Pulley",
+                Info = "Normal",
+                Ordenation = 1,
+                Weight = "60",
+                Interval = "30"
+
+                },
+                 new TrainningExerciseVO()
+                {
+                Reps = "10",
+                Set = 3,
+                ExerciseName = "Encolhimento",
+                Info = "Normal",
+                Ordenation = 2,
+                Weight = "60",
+                Interval = "30"
+                },
+                 new TrainningExerciseVO()
+                {
+                Reps = "10",
+                Set = 3,
+                ExerciseName = "Abd",
+                Info = "Normal",
+                Ordenation = 3,
+                Weight = "60",
+                Interval = "30"
+                },
+            }
+
+        }
+    };
+
+
+   
 
 }
