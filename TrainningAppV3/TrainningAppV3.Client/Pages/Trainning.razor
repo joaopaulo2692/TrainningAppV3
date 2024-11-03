@@ -5,71 +5,55 @@
 
 
 <h3>Trainning</h3>
-<MudTabs Elevation="4" Rounded="true" Color="@Color.Success" PrevIcon="@Icons.Material.Filled.SkipPrevious" NextIcon="@Icons.Material.Filled.SkipNext"
-         @bind-ActivePanelIndex="SelectedTabIndex">
-    <MudTabPanel Text="A" />
-    <MudTabPanel Text="B" />
-    <MudTabPanel Text="C" />
-</MudTabs>
-
-<MudText Typo="Typo.h6">Selected Tab Index: @SelectedTabIndex</MudText>
 
 
-<MudTabs Outlined="true" Position="@Position" Rounded="true" Border="true"
-         ApplyEffectsToContainer="true" Class="mt-8" PanelClass="pa-6">
-    <MudTabPanel Text="Item One">
-        <MudText>Content One</MudText>
-    @*         @foreach (var exercise in trainning)
 
-{
-    <Table trainning="exercise" /> *@
-}
-    </MudTabPanel>
-    <MudTabPanel Text="Item Two">
-        <MudText>Content Two</MudText>
-    </MudTabPanel>
-    <MudTabPanel Text="Item Three">
-        <MudText>Content Three</MudText>
-    </MudTabPanel>
-</MudTabs>
-
-
-    <MudDropContainer T="DropZoneItem" Items="_items" ItemsSelector="@((item, dropzone) => item.Zone == dropzone)" ItemDropped="ItemUpdated" Class="4 flex-grow-1">
-        <ChildContent>
-            <MudDropContainer T="DropZone" Items="_zones" ItemsSelector="@((item, dropzone) => true)" Class="5">
-                <ChildContent>
-                    <MudDropZone T="DropZone" AllowReorder Class="6 rounded mud-background-gray px-4 py-1 ma-4" />
+ <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
+     <MudTabPanel Text="Tab One">
+         <MudDropContainer T="DropZoneItem" Items="_items" ItemsSelector="@((item, dropzone) => item.Zone == dropzone)" ItemDropped="ItemUpdated" Class="4 flex-grow-1">
+             <ChildContent>
+                 <MudDropContainer T="DropZone" Items="_zones" ItemsSelector="@((item, dropzone) => true)" Class="5">
+                     <ChildContent>
+                         <MudDropZone T="DropZone" AllowReorder Class="6 rounded mud-background-gray px-4 py-1 ma-4" />
+                     </ChildContent>
+                     <ItemRenderer>
+                         <MudPaper Class="pa-4 my-4">
+                             <MudText Typo="Typo.h6">@context.Name</MudText>
+                                <MudButton OnClick="OpenDialog" Variant="Variant.Filled" Color="Color.Success" Style="margin-right: 20px;">Adicionar</MudButton>
+                                <MudDropZone T="DropZoneItem" Identifier="@context.Name" AllowReorder Class="rounded mud-background-gray px-4 py-1 ma-4" />
+                         </MudPaper>
+                     </ItemRenderer>
+                 </MudDropContainer>
              </ChildContent>
              <ItemRenderer>
-                 <MudPaper Class="pa-4 my-4">
-                     <MudText Typo="Typo.h6">@context.Name</MudText>
-                        <MudButton OnClick="OpenDialog" Variant="Variant.Filled" Color="Color.Success" Style="margin-right: 20px;">Adicionar</MudButton>
-                        <MudDropZone T="DropZoneItem" Identifier="@context.Name" AllowReorder Class="rounded mud-background-gray px-4 py-1 ma-4" />
+                 <!-- Usa display flex para alinhar o texto e o botão lado a lado -->
+                 <MudPaper Class="pa-4 my-4 d-flex align-items-center justify-content-between" Style="width: 100%;">
+
+                     <!-- Aqui utilizamos o Exercise associado diretamente ao DropZoneItem -->
+                     <MudTextField ShrinkLabel @bind-Value="context.Exercise.ExerciseName" Label="Exercício" Variant="Variant.Text"
+                                   Style="max-width: 200px; height: 32px; font-size: 0.875rem; margin-right: 20px;" />
+
+                     <MudTextField ShrinkLabel @bind-Value="context.Exercise.Set" Label="Série" Variant="Variant.Text"
+                                   Style="max-width: 100px; height: 32px; font-size: 0.875rem;" />
+                     <MudTextField ShrinkLabel @bind-Value="context.Exercise.Reps" Label="Rep" Variant="Variant.Text"
+                                   Style="max-width: 100px; height: 32px; font-size: 0.875rem;" />
+                     <MudTextField ShrinkLabel @bind-Value="context.Exercise.Info" Label="Info" Variant="Variant.Text"
+                                   Style="max-width: 100px; height: 32px; font-size: 0.875rem;" />
+
                  </MudPaper>
              </ItemRenderer>
          </MudDropContainer>
-     </ChildContent>
-     <ItemRenderer>
-         <!-- Usa display flex para alinhar o texto e o botão lado a lado -->
-         <MudPaper Class="pa-4 my-4 d-flex align-items-center justify-content-between" Style="width: 100%;">
-
-             <!-- Aqui utilizamos o Exercise associado diretamente ao DropZoneItem -->
-             <MudTextField ShrinkLabel @bind-Value="context.Exercise.ExerciseName" Label="Exercício" Variant="Variant.Text"
-                           Style="max-width: 200px; height: 32px; font-size: 0.875rem; margin-right: 20px;" />
-
-             <MudTextField ShrinkLabel @bind-Value="context.Exercise.Set" Label="Série" Variant="Variant.Text"
-                           Style="max-width: 100px; height: 32px; font-size: 0.875rem;" />
-             <MudTextField ShrinkLabel @bind-Value="context.Exercise.Reps" Label="Rep" Variant="Variant.Text"
-                           Style="max-width: 100px; height: 32px; font-size: 0.875rem;" />
-             <MudTextField ShrinkLabel @bind-Value="context.Exercise.Info" Label="Info" Variant="Variant.Text"
-                           Style="max-width: 100px; height: 32px; font-size: 0.875rem;" />
-
-         </MudPaper>
-     </ItemRenderer>
- </MudDropContainer>
-
-
-
+     </MudTabPanel>
+     <MudTabPanel Text="Tab Two">
+         <MudText>Content Two</MudText>
+     </MudTabPanel>
+     <MudTabPanel Text="Tab Three">
+         <MudText>Content Three</MudText>
+     </MudTabPanel>
+     <MudTabPanel Text="Tab Disabled" Disabled="true">
+         <MudText>Content Disabled</MudText>
+     </MudTabPanel>
+ </MudTabs>
   
  @code {
     public string Exercicio { get; set; }
