@@ -12,20 +12,14 @@
 
 <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
 
-    <MudTabPanel Text="Tab One">
-        <DropZoneExercises T="DropZoneItem" _items="_items" _zones="_zones"/>
+    @foreach (var drop in DropzoneList)
+    {
 
-
-    </MudTabPanel>
-    <MudTabPanel Text="Tab Two">
-        <DropZoneExercises T="DropZoneItem" _items="_items2" _zones="_zones" />
-    </MudTabPanel>
-    <MudTabPanel Text="Tab Three">
-        <MudText>Content Three</MudText>
-    </MudTabPanel>
-    <MudTabPanel Text="Tab Disabled" Disabled="true">
-        <MudText>Content Disabled</MudText>
-    </MudTabPanel>
+        <MudTabPanel Text=@drop[0].Name>
+        <DropZoneExercises T="DropZoneItem" _items="drop" _zones="_zones"/>
+        </MudTabPanel>
+    }
+   
 </MudTabs>
 
   
@@ -112,12 +106,12 @@
         public TrainningExerciseVO Exercise { get; set; }
         public TrainningDayReturnVO TrainningDayReturn { get; set; }
     }
-
+    private List<List<DropZoneItem>> DropzoneList = new List<List<DropZoneItem>>();
     protected override void OnInitialized()
     {
         _items = new List<DropZoneItem>
         {
-            new() { Zone = "Drop Zone 1", Name = exercises[0].ExerciseName, Exercise =    new TrainningExerciseVO()
+            new() { Zone = "Drop Zone 1", Name = "A", Exercise =    new TrainningExerciseVO()
         {
             Reps = "10",
             Set = 3,
@@ -125,7 +119,7 @@
             Info = "Normal",
             Ordenation = 2
         } },
-            new() { Zone = "Drop Zone 1", Name = exercises[1].ExerciseName, Exercise =  new TrainningExerciseVO()
+            new() { Zone = "Drop Zone 1",Name = "A", Exercise =  new TrainningExerciseVO()
         {
             Reps = "10",
             Set = 3,
@@ -133,7 +127,7 @@
             Info = "Normal",
             Ordenation = 2
         } },
-            new() { Zone = "Drop Zone 1", Name = exercises[2].ExerciseName, Exercise =  new TrainningExerciseVO()
+            new() { Zone = "Drop Zone 1",Name = "A", Exercise =  new TrainningExerciseVO()
         {
             Reps = "10",
             Set = 3,
@@ -146,7 +140,7 @@
         _items2 = new List<DropZoneItem>
         {
 
-            new() { Zone = "Drop Zone 1", Name = exercises[1].ExerciseName, Exercise =  new TrainningExerciseVO()
+            new() { Zone = "Drop Zone 1", Name = "B", Exercise =  new TrainningExerciseVO()
         {
             Reps = "10",
             Set = 3,
@@ -154,7 +148,7 @@
             Info = "Normal",
             Ordenation = 2
         } },
-            new() { Zone = "Drop Zone 1", Name = exercises[2].ExerciseName, Exercise =  new TrainningExerciseVO()
+            new() { Zone = "Drop Zone 1", Name = "B", Exercise =  new TrainningExerciseVO()
         {
             Reps = "10",
             Set = 3,
@@ -163,6 +157,9 @@
             Ordenation = 1
         } }
         };
+
+        DropzoneList.Add(_items);
+        DropzoneList.Add(_items2);
     }
 
     List<TrainningDayReturnVO> trainningDayReturnList = new List<TrainningDayReturnVO>()
