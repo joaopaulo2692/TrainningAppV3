@@ -69,6 +69,7 @@
                                      Style="width: 80px; height: 30px;"
                                      Class="invisible" />
                     <MudTextField Label="" @bind-Value="weights[i]" />
+                    
                 </div>
             }
             <MudTextField Label="Observação" @bind-Value="observation" />
@@ -125,7 +126,8 @@
     private int set = 1;
     private string observation;
     private List<string> reps = new List<string> { "", "", "", "", "" };
-    private List<string> weights = new List<string> { "", "", "", "", "" };
+    private string[] weights = new string[10];
+    // private List<string> weights = new List<string> { "", "", "", "", "" };
     ExerciseReturnVO exerciseVO = new ExerciseReturnVO();
     MuscleVO muscleVO = new MuscleVO();
 
@@ -144,11 +146,13 @@
     {
         trainningExerciseVO = new TrainningExerciseVO
             {
+                ExerciseName = exerciseSelected,
                 Reps = string.Join("/", reps),
                 Interval = rest,
                 Weight = string.Join("/", weights),
                 Info = observation,
                 Set = set
+           
             };
 
         // Chame o EventCallback passando o trainningExercise

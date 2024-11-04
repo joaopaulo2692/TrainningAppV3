@@ -14,8 +14,7 @@
 
     @foreach (var drop in DropzoneList)
     {
-
-        <MudTabPanel Text=@drop[0].Name>
+        <MudTabPanel Text=@drop[0].Name Key="@drop.GetHashCode()">
             <DropZoneExercises OnAddExercise="HandleAddExercise" T="DropZoneItem" _items="drop" _zones="_zones" />
         </MudTabPanel>
     }
@@ -119,8 +118,17 @@
         public TrainningDayReturnVO TrainningDayReturn { get; set; }
     }
     private List<List<DropZoneItem>> DropzoneList = new List<List<DropZoneItem>>();
+
+    protected override void OnParametersSet()
+    {
+        StateHasChanged(); // Força atualização ao receber novos parâmetros
+    }
+    
+
     protected override void OnInitialized()
     {
+        StateHasChanged();
+
         _items = new List<DropZoneItem>
         {
             new() { Zone = "Drop Zone 1", Name = "A", Exercise =    new TrainningExerciseVO()
