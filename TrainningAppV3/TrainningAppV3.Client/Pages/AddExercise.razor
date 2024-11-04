@@ -1,6 +1,7 @@
 ﻿@using MudBlazor
 @using TrainningApp.Core.DTO.Exercise
 @using TrainningApp.Core.DTO.Muscle
+@using TrainningApp.Core.DTO.TrainningExercise
 
 
 <MudDialog MaxWidth="MaxWidth.ExtraLarge" FullWidth="true" Class="custom-dialog rounded-lg">
@@ -90,7 +91,7 @@
         </div>
     </DialogContent>
     <DialogActions>
-        <MudButton Variant="Variant.Filled" Color="Color.Success">Adicionar</MudButton>
+        <MudButton Variant="Variant.Filled" OnClick="AddNewExercise" Color="Color.Success">Adicionar</MudButton>
         <MudButton Color="Color.Primary" OnClick="Close">Fechar</MudButton>
     </DialogActions>
 </MudDialog>
@@ -104,6 +105,13 @@
 </style>
 
 @code {
+
+    public TrainningExerciseVO trainningExerciseVO;
+
+
+    [Parameter]
+    public EventCallback<TrainningExerciseVO> OnAddExercise { get; set; }
+
     private int rest;
     private bool ShowTooltip => !exerciseNotHasVideo;
     private bool videoOn = false;
@@ -131,6 +139,26 @@
         ExerciseReturnVO exerciseVO = exerciseList.FirstOrDefault();
         StateHasChanged();
     }
+
+    private async Task AddNewExercise()
+    {
+        trainningExerciseVO = new TrainningExerciseVO
+            {
+                Reps = string.Join("/", reps),
+                Interval = rest,
+                Weight = string.Join("/", weights),
+                Info = observation,
+                Set = set
+            };
+
+        // Chame o EventCallback passando o trainningExercise
+        await OnAddExercise.InvokeAsync(trainningExerciseVO);
+            
+        // Feche o diálogo
+        // MudDialog.Close();
+        MudDialog.Close(DialogResult.Ok(trainningExerciseVO));
+    }
+
     private async Task<IEnumerable<string>> SearchExercise(string value, CancellationToken token)
     {
         exerciseList = exerciseListCopy;

@@ -12,7 +12,7 @@ namespace TrainningApp.Core.DTO.TrainningExercise
         public string ExerciseName { get; set; }
         public int Set { get; set; }
         public string Reps { get; set; }
-        public string Interval { get; set; }
+        public int Interval { get; set; }
         public string Weight { get; set; }
         public int Ordenation { get; set; }
         public string Info { get; set; }

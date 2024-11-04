@@ -6,7 +6,7 @@
 @using TrainningAppV3.Client.Components
 
 
-<h3>Trainning</h3>
+<h3>Sessões do treino</h3>
 
 
 
@@ -16,7 +16,7 @@
     {
 
         <MudTabPanel Text=@drop[0].Name>
-        <DropZoneExercises T="DropZoneItem" _items="drop" _zones="_zones"/>
+            <DropZoneExercises OnAddExercise="HandleAddExercise" T="DropZoneItem" _items="drop" _zones="_zones" />
         </MudTabPanel>
     }
    
@@ -28,6 +28,18 @@
     public string Serie{ get; set; }
     private int SelectedTabIndex { get; set; }
     public Position Position { get; set; } = Position.Left;
+
+
+    private async Task HandleAddExercise(TrainningExerciseVO newExercise)
+    {
+        // Aqui você pode manipular o novo exercício recebido
+        _items.Add(new DropZoneItem { Zone = "Drop Zone 1", Exercise = newExercise, Name ="A" });
+        DropzoneList = new List<List<DropZoneItem>>();
+        DropzoneList.Add(_items);
+        await InvokeAsync(StateHasChanged);
+        // StateHasChanged(); // Atualiza a interface se necessário
+    }
+
 
     // List<TrainningDayReturnVO> trainningDayReturnList = new List<TrainningDayReturnVO>();
     List<TrainningExerciseVO> exercises = new List<TrainningExerciseVO>()
@@ -177,7 +189,7 @@
                 Info = "Normal",
                 Ordenation = 1,
                 Weight = "60",
-                Interval = "30"
+                Interval = 30
 
                 },
                  new TrainningExerciseVO()
@@ -188,7 +200,7 @@
                 Info = "Normal",
                 Ordenation = 2,
                 Weight = "60",
-                Interval = "30"
+                Interval = 30
                 },
                  new TrainningExerciseVO()
                 {
@@ -198,7 +210,7 @@
                 Info = "Normal",
                 Ordenation = 3,
                 Weight = "60",
-                Interval = "30"
+                Interval = 30
                 },
             }
 
@@ -217,7 +229,7 @@
                 Info = "Normal",
                 Ordenation = 1,
                 Weight = "60",
-                Interval = "30"
+                Interval = 30
 
                 },
                  new TrainningExerciseVO()
@@ -228,7 +240,7 @@
                 Info = "Normal",
                 Ordenation = 2,
                 Weight = "60",
-                Interval = "30"
+                Interval = 30
                 },
                  new TrainningExerciseVO()
                 {
@@ -238,7 +250,7 @@
                 Info = "Normal",
                 Ordenation = 3,
                 Weight = "60",
-                Interval = "30"
+                Interval = 30
                 },
             }
 
@@ -256,7 +268,7 @@
                 Info = "Normal",
                 Ordenation = 1,
                 Weight = "60",
-                Interval = "30"
+                Interval = 30
 
                 },
                  new TrainningExerciseVO()
@@ -267,7 +279,7 @@
                 Info = "Normal",
                 Ordenation = 2,
                 Weight = "60",
-                Interval = "30"
+                Interval = 30
                 },
                  new TrainningExerciseVO()
                 {
@@ -277,7 +289,7 @@
                 Info = "Normal",
                 Ordenation = 3,
                 Weight = "60",
-                Interval = "30"
+                Interval = 30
                 },
             }
 
