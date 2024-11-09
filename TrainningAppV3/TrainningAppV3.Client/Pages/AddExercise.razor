@@ -60,7 +60,10 @@
                                      Variant="Variant.Outlined"
                                      Style="width: 80px; height: 30px;"
                                      Class="invisible" />
+
+                    @* <MudTextField Label="" Value="@(reps[i])" @oninput="(e => OnRepsChanged(e, i))" /> *@
                     <MudTextField Label="" @bind-Value="reps[i]" />
+
                     <MudNumericField Label="Série"
                                      @bind-Value="set"
                                      Max="9"
@@ -68,7 +71,14 @@
                                      Variant="Variant.Outlined"
                                      Style="width: 80px; height: 30px;"
                                      Class="invisible" />
+
+
                     <MudTextField Label="" @bind-Value="weights[i]" />
+
+
+
+
+
                     
                 </div>
             }
@@ -93,6 +103,7 @@
     </DialogContent>
     <DialogActions>
         <MudButton Variant="Variant.Filled" OnClick="AddNewExercise" Color="Color.Success">Adicionar</MudButton>
+
         <MudButton Color="Color.Primary" OnClick="Close">Fechar</MudButton>
     </DialogActions>
 </MudDialog>
@@ -107,12 +118,45 @@
 
 @code {
 
+    // private void OnRepsChanged(ChangeEventArgs e, int index)
+    // {
+
+    //     reps[index] = e.Value.ToString();
+
+    //     StateHasChanged();
+
+    // }
+    private void OnWeightsChanged(ChangeEventArgs e, int index)
+    {
+
+        weights[index] = e.Value.ToString();
+
+        StateHasChanged();
+
+    }
+    private void OnRepsChanged(ChangeEventArgs e, int index)
+    {
+        if (index >= 0 && index < reps.Count)
+        {
+            reps[index] = e.Value.ToString();
+        }
+        StateHasChanged();
+    }
+
+    // private void OnWeightsChanged(string newValue, int index)
+    // {
+    //     weights[index] = newValue;
+    //     StateHasChanged();
+       
+    // }
+
     public TrainningExerciseVO trainningExerciseVO;
 
 
     [Parameter]
     public EventCallback<TrainningExerciseVO> OnAddExercise { get; set; }
 
+    private string[] array = new string[5];
     private int rest;
     private bool ShowTooltip => !exerciseNotHasVideo;
     private bool videoOn = false;
@@ -144,10 +188,12 @@
 
     private async Task AddNewExercise()
     {
+
         trainningExerciseVO = new TrainningExerciseVO
             {
                 ExerciseName = exerciseSelected,
                 Reps = string.Join("/", reps),
+                // Reps = array[1],
                 Interval = rest,
                 Weight = string.Join("/", weights),
                 Info = observation,
