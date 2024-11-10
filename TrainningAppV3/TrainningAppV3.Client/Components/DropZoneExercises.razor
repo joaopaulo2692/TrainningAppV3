@@ -57,12 +57,12 @@
         var dialog = DialogService.Show<AddExercise>("Adicionar Exercício", options);
 
         var result = await dialog.Result;
-
+        if (result.Canceled) return;
         if (!result.Canceled)
         {
             // Obtenha o exercício adicionado a partir do diálogo
             var addedExercise = (TrainningExerciseVO)result.Data;
-
+            if (addedExercise == null) return;
             // Chame o método para adicionar o exercício ao componente pai
             await AddExercise(addedExercise);
             _items.Add(new DropZoneItem()

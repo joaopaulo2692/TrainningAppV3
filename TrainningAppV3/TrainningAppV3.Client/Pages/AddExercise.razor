@@ -61,34 +61,7 @@
                   OnRepSave="OnRepSave"
                   OnWeightSave="OnWeightSave" />
 
-                @* <DropZoneExercises OnAddExercise="HandleAddExercise" T="DropZoneItem" _items="drop" _zones="_zones" /> *@
-               @*  <div class="d-flex flex-row align-items-center">
-                    <MudNumericField Label="Série"
-                                     @bind-Value="set"
-                                     Max="9"
-                                     Min="0"
-                                     Variant="Variant.Outlined"
-                                     Style="width: 80px; height: 30px;"
-                                     Class="invisible" />
-
-                    @* <MudTextField Label="" Value="@(reps[i])" @oninput="(e => OnRepsChanged(e, i))" /> *@
-               @*      <MudTextField Label="" @bind-Value="reps[i]"
-                                  @onblur="(e => OnRepSave(reps[i], i))" />" />
-
-                    <MudNumericField Label="Série"
-                                     @bind-Value="set"
-                                     Max="9"
-                                     Min="0"
-                                     Variant="Variant.Outlined"
-                                     Style="width: 80px; height: 30px;"
-                                     Class="invisible" />
-
-
-                    @* <MudTextField Label="" @bind-Value="weights[i]" /> *@
-                @*     <MudTextField Label="Peso"
-                                  @bind-Value="weights[i]"
-                                  @onblur="(e => OnWeightSave(weights[i], i))" />
-                </div> *@ 
+          
             }
             <MudTextField Label="Observação" @bind-Value="observation" />
             <MudTooltip Text="Este exercício não possui Video" Disabled="@ShowTooltip">
@@ -137,57 +110,28 @@
         // Lógica de salvar ou processar o peso
         weights = weightsList.ToList();
     }
-// }
-//     private void OnWeightSave(string valor, int index)
-//     {
-//         index -= 2;
-//         // Converte e armazena o valor no índice correspondente
-//         weights[index] = valor;
-    // }
-    // private void OnRepSave(string valor, int index)
-    // {
-    //     index -= 2;
-    //     // Converte e armazena o valor no índice correspondente
-    //     reps[index] = valor;
-    // }
 
-    // private void OnRepsChanged(ChangeEventArgs e, int index)
-    // {
-
-    //     reps[index] = e.Value.ToString();
-
-    //     StateHasChanged();
-
-    // }
- @*    private void UpdateWeights(ChangeEventArgs e, int index)
+    private bool ValidateSelection()
     {
-
-        weights[index] = e.Value?.ToString() ?? "";
-
-    }
-    private void OnRepsChanged(ChangeEventArgs e, int index)
-    {
-        index -= 2;
-        if (index >= 0 && index < reps.Count)
+        if (string.IsNullOrEmpty(exerciseSelected))
         {
-            reps[index] = e.Value.ToString();
+            hasError = true;
+            return hasError;
         }
-        StateHasChanged();
+        else
+        {
+            hasError = false;
+            return hasError;
+        }
     }
-
-    // private void OnWeightsChanged(string newValue, int index)
-    // {
-    //     weights[index] = newValue;
-    //     StateHasChanged();
-       
-    // }
- *@
     public TrainningExerciseVO trainningExerciseVO;
 
 
     [Parameter]
     public EventCallback<TrainningExerciseVO> OnAddExercise { get; set; }
 
+    private string errorMessage = "Seleção de exercício obrigatória!";
+    private bool hasError = false;
     private string[] array = new string[5];
     private int rest;
     private bool ShowTooltip => !exerciseNotHasVideo;
@@ -209,7 +153,11 @@
 
     [CascadingParameter] MudDialogInstance MudDialog { get; set; }
 
-    private void Close() => MudDialog.Close(DialogResult.Ok(true));
+    // private void Close() =>MudDialog.Close(DialogResult.Ok(true));
+    private void Close() {
+        MudDialog.Close();
+    }
+
 
     private void OpenVideo()
     {
@@ -220,7 +168,12 @@
 
     private async Task AddNewExercise()
     {
-
+        bool verification = ValidateSelection();
+        if (verification)
+        {
+            
+            return;
+        }
         trainningExerciseVO = new TrainningExerciseVO
             {
                 ExerciseName = exerciseSelected,
