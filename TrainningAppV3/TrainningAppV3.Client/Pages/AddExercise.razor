@@ -56,12 +56,12 @@
             {
                 
                  <ExerciseInput Index="i"
-                  Reps="reps"
-                  Weights="weights"
+                  Rep="reps"
+                  Weight="weights"
                   OnRepSave="OnRepSave"
                   OnWeightSave="OnWeightSave" />
-                  
 
+                @* <DropZoneExercises OnAddExercise="HandleAddExercise" T="DropZoneItem" _items="drop" _zones="_zones" /> *@
                @*  <div class="d-flex flex-row align-items-center">
                     <MudNumericField Label="Série"
                                      @bind-Value="set"
@@ -88,7 +88,7 @@
                 @*     <MudTextField Label="Peso"
                                   @bind-Value="weights[i]"
                                   @onblur="(e => OnWeightSave(weights[i], i))" />
-                </div> *@ *@ *@
+                </div> *@ 
             }
             <MudTextField Label="Observação" @bind-Value="observation" />
             <MudTooltip Text="Este exercício não possui Video" Disabled="@ShowTooltip">
@@ -125,18 +125,31 @@
 </style>
 
 @code {
-    private void OnWeightSave(string valor, int index)
+
+    private void OnRepSave(List<string> reptitions)
     {
-        index -= 2;
-        // Converte e armazena o valor no índice correspondente
-        weights[index] = valor;
+        reps = reptitions.ToList();
+        // Lógica de salvar ou processar as reps
     }
-    private void OnRepSave(string valor, int index)
+
+    private void OnWeightSave(List<string> weightsList)
     {
-        index -= 2;
-        // Converte e armazena o valor no índice correspondente
-        reps[index] = valor;
+        // Lógica de salvar ou processar o peso
+        weights = weightsList.ToList();
     }
+// }
+//     private void OnWeightSave(string valor, int index)
+//     {
+//         index -= 2;
+//         // Converte e armazena o valor no índice correspondente
+//         weights[index] = valor;
+    // }
+    // private void OnRepSave(string valor, int index)
+    // {
+    //     index -= 2;
+    //     // Converte e armazena o valor no índice correspondente
+    //     reps[index] = valor;
+    // }
 
     // private void OnRepsChanged(ChangeEventArgs e, int index)
     // {
@@ -146,7 +159,7 @@
     //     StateHasChanged();
 
     // }
-    private void UpdateWeights(ChangeEventArgs e, int index)
+ @*    private void UpdateWeights(ChangeEventArgs e, int index)
     {
 
         weights[index] = e.Value?.ToString() ?? "";
@@ -168,7 +181,7 @@
     //     StateHasChanged();
        
     // }
-
+ *@
     public TrainningExerciseVO trainningExerciseVO;
 
 
@@ -189,7 +202,7 @@
     private int set = 1;
     private string observation;
     private List<string> reps = new List<string> { "", "", "", "", "" };
-    private string[] weights = new string[10];
+    private List<string> weights = new List<string> { "", "", "", "", "" };
     // private List<string> weights = new List<string> { "", "", "", "", "" };
     ExerciseReturnVO exerciseVO = new ExerciseReturnVO();
     MuscleVO muscleVO = new MuscleVO();

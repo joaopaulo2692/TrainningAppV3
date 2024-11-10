@@ -4,7 +4,6 @@
 
 <div class="d-flex flex-row align-items-center">
     <MudNumericField Label="Série"
-                     @bind-Value="set"
                      Max="9"
                      Min="0"
                      Variant="Variant.Outlined"
@@ -12,11 +11,10 @@
                      Class="invisible" />
 
     @* <MudTextField Label="" Value="@(reps[i])" @oninput="(e => OnRepsChanged(e, i))" /> *@
-    <MudTextField Label="" @bind-Value="reps[i]"
-                  @onblur="(e => OnRepSave(reps[i], i))" />" />
+    <MudTextField Label="" @bind-Value="Rep[Index]"
+                  @onblur="(e => SaveRep(Rep[Index], Index))" />" />
 
     <MudNumericField Label="Série"
-                     @bind-Value="set"
                      Max="9"
                      Min="0"
                      Variant="Variant.Outlined"
@@ -26,14 +24,45 @@
 
     @* <MudTextField Label="" @bind-Value="weights[i]" /> *@
     <MudTextField Label="Peso"
-                  @bind-Value="weights[i]"
-                  @onblur="(e => OnWeightSave(weights[i], i))" />
+                  @bind-Value="Weight[Index]" />
 </div>
 
 @code {
     [Parameter] public int Index { get; set; }
-    [Parameter] public List<string> Reps { get; set; }
-    [Parameter] public List<string> Weights { get; set; }
-    [Parameter] public EventCallback<int> OnRepSave { get; set; }
-    [Parameter] public EventCallback<int> OnWeightSave { get; set; }
+    [Parameter] public List<string> Rep { get; set; }
+    [Parameter] public List<string> Weight { get; set; }
+    // [Parameter] public EventCallback<int> OnRepSave { get; set; }
+    [Parameter] public EventCallback<List<string>> OnWeightSave { get; set; }
+    [Parameter] public EventCallback<List<string>> OnRepSave { get; set; }
+
+    private async Task SaveRep(string valor, int Index)
+    {
+        Rep[Index]= valor;
+        await OnRepSave.InvokeAsync(Rep);
+    }
+    // private void OnRepSave(int index)
+    // {
+    //     // Lógica de salvar ou processar as reps
+    //     Console.WriteLine($"Reps no índice {index} foi salva: {reps[index]}");
+    // }
+
+    // private void OnWeightSave(int index)
+    // {
+    //     // Lógica de salvar ou processar o peso
+    //     Console.WriteLine($"Peso no índice {index} foi salvo: {weights[index]}");
+    // }
+    // private void OnWeightSave(string valor, int index)
+    // {
+    //     index -= 2;
+    //     // Converte e armazena o valor no índice correspondente
+    //     weights[index] = valor;
+    // }
+    // private void OnRepSave(string valor, int index)
+    // {
+    //     index -= 2;
+    //     // Converte e armazena o valor no índice correspondente
+    //     reps[index] = valor;
+    // }
 }
+    
+
