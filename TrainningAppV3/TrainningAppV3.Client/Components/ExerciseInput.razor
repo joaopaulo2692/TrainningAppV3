@@ -1,0 +1,39 @@
+﻿@using MudBlazor
+
+
+
+<div class="d-flex flex-row align-items-center">
+    <MudNumericField Label="Série"
+                     @bind-Value="set"
+                     Max="9"
+                     Min="0"
+                     Variant="Variant.Outlined"
+                     Style="width: 80px; height: 30px;"
+                     Class="invisible" />
+
+    @* <MudTextField Label="" Value="@(reps[i])" @oninput="(e => OnRepsChanged(e, i))" /> *@
+    <MudTextField Label="" @bind-Value="reps[i]"
+                  @onblur="(e => OnRepSave(reps[i], i))" />" />
+
+    <MudNumericField Label="Série"
+                     @bind-Value="set"
+                     Max="9"
+                     Min="0"
+                     Variant="Variant.Outlined"
+                     Style="width: 80px; height: 30px;"
+                     Class="invisible" />
+
+
+    @* <MudTextField Label="" @bind-Value="weights[i]" /> *@
+    <MudTextField Label="Peso"
+                  @bind-Value="weights[i]"
+                  @onblur="(e => OnWeightSave(weights[i], i))" />
+</div>
+
+@code {
+    [Parameter] public int Index { get; set; }
+    [Parameter] public List<string> Reps { get; set; }
+    [Parameter] public List<string> Weights { get; set; }
+    [Parameter] public EventCallback<int> OnRepSave { get; set; }
+    [Parameter] public EventCallback<int> OnWeightSave { get; set; }
+}

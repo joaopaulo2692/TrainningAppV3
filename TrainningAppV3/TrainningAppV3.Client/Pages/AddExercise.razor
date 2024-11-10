@@ -2,6 +2,7 @@
 @using TrainningApp.Core.DTO.Exercise
 @using TrainningApp.Core.DTO.Muscle
 @using TrainningApp.Core.DTO.TrainningExercise
+@using TrainningAppV3.Client.Components
 
 
 <MudDialog MaxWidth="MaxWidth.ExtraLarge" FullWidth="true" Class="custom-dialog rounded-lg">
@@ -50,9 +51,18 @@
                                  Class="invisible" />
                 <MudTextField Label="Carga" @bind-Value="weights[0]" />
             </div>
+
             @for (int i = 1; i < set; i++)
             {
-                <div class="d-flex flex-row align-items-center">
+                
+                 <ExerciseInput Index="i"
+                  Reps="reps"
+                  Weights="weights"
+                  OnRepSave="OnRepSave"
+                  OnWeightSave="OnWeightSave" />
+                  
+
+               @*  <div class="d-flex flex-row align-items-center">
                     <MudNumericField Label="Série"
                                      @bind-Value="set"
                                      Max="9"
@@ -62,7 +72,8 @@
                                      Class="invisible" />
 
                     @* <MudTextField Label="" Value="@(reps[i])" @oninput="(e => OnRepsChanged(e, i))" /> *@
-                    <MudTextField Label="" @bind-Value="reps[i]" />
+               @*      <MudTextField Label="" @bind-Value="reps[i]"
+                                  @onblur="(e => OnRepSave(reps[i], i))" />" />
 
                     <MudNumericField Label="Série"
                                      @bind-Value="set"
@@ -73,14 +84,11 @@
                                      Class="invisible" />
 
 
-                    <MudTextField Label="" @bind-Value="weights[i]" />
-
-
-
-
-
-                    
-                </div>
+                    @* <MudTextField Label="" @bind-Value="weights[i]" /> *@
+                @*     <MudTextField Label="Peso"
+                                  @bind-Value="weights[i]"
+                                  @onblur="(e => OnWeightSave(weights[i], i))" />
+                </div> *@ *@ *@
             }
             <MudTextField Label="Observação" @bind-Value="observation" />
             <MudTooltip Text="Este exercício não possui Video" Disabled="@ShowTooltip">
@@ -117,6 +125,18 @@
 </style>
 
 @code {
+    private void OnWeightSave(string valor, int index)
+    {
+        index -= 2;
+        // Converte e armazena o valor no índice correspondente
+        weights[index] = valor;
+    }
+    private void OnRepSave(string valor, int index)
+    {
+        index -= 2;
+        // Converte e armazena o valor no índice correspondente
+        reps[index] = valor;
+    }
 
     // private void OnRepsChanged(ChangeEventArgs e, int index)
     // {
@@ -126,16 +146,15 @@
     //     StateHasChanged();
 
     // }
-    private void OnWeightsChanged(ChangeEventArgs e, int index)
+    private void UpdateWeights(ChangeEventArgs e, int index)
     {
 
-        weights[index] = e.Value.ToString();
-
-        StateHasChanged();
+        weights[index] = e.Value?.ToString() ?? "";
 
     }
     private void OnRepsChanged(ChangeEventArgs e, int index)
     {
+        index -= 2;
         if (index >= 0 && index < reps.Count)
         {
             reps[index] = e.Value.ToString();
