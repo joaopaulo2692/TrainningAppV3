@@ -17,7 +17,8 @@
         @foreach (var drop in DropzoneList)
         {
             <MudTabPanel Text=@drop[0].Name Key="@drop.GetHashCode()">
-                <DropZoneExercises OnAddExercise="HandleAddExercise" T="DropZoneItem" _items="drop" _zones="_zones" />
+                <DropZoneExercises OnAddExercise="HandleAddExercise" T="DropZoneItem" _items="drop" _zones="_zones" 
+                    ParameterTrainningDay=drop[0].Exercise.TrainningDayId ParameterOrdenation=drop[0].Exercise.Ordenation + 1/>
             </MudTabPanel>
         }
     </MudTabs>
@@ -41,7 +42,7 @@
         // // DropzoneList = new List<List<DropZoneItem>>();
         // _items = _items.ToList();
         // DropzoneList.Add(_items);
-       
+
         // await InvokeAsync(StateHasChanged);
         // // StateHasChanged(); // Atualiza a interface se necessário
 
@@ -128,6 +129,8 @@
         public string Name { get; init; }
         public TrainningExerciseVO Exercise { get; set; }
         public TrainningDayReturnVO TrainningDayReturn { get; set; }
+        public int TrainningDayOrdenation { get; set; }
+        public int TrainningDayId { get; set; }
     }
     private List<List<DropZoneItem>> DropzoneList = new List<List<DropZoneItem>>();
 
@@ -140,7 +143,7 @@
     protected override void OnInitialized()
     {
         StateHasChanged();
-
+        
         _items = new List<DropZoneItem>
         {
             new() { Zone = "Drop Zone 1", Name = "A", Exercise =    new TrainningExerciseVO()
@@ -149,7 +152,8 @@
             Set = 3,
             ExerciseName = "Supino inclinado",
             Info = "Normal",
-            Ordenation = 2
+            Ordenation = 3,
+            TrainningDayId = 1
         } },
             new() { Zone = "Drop Zone 1",Name = "A", Exercise =  new TrainningExerciseVO()
         {
@@ -157,7 +161,8 @@
             Set = 3,
             ExerciseName = "Supino reto",
             Info = "Normal",
-            Ordenation = 2
+            Ordenation = 2,
+            TrainningDayId = 1
         } },
             new() { Zone = "Drop Zone 1",Name = "A", Exercise =  new TrainningExerciseVO()
         {
@@ -165,7 +170,8 @@
             Set = 3,
             ExerciseName = "Supino",
             Info = "Normal",
-            Ordenation = 1
+            Ordenation = 1,
+            TrainningDayId = 1
         } }
         };
 
@@ -178,7 +184,8 @@
             Set = 3,
             ExerciseName = "Supino reto",
             Info = "Normal",
-            Ordenation = 2
+            Ordenation = 2,
+            TrainningDayId = 2
         } },
             new() { Zone = "Drop Zone 1", Name = "B", Exercise =  new TrainningExerciseVO()
         {
@@ -186,12 +193,15 @@
             Set = 3,
             ExerciseName = "Supino",
             Info = "Normal",
-            Ordenation = 1
+            Ordenation = 1,
+            TrainningDayId = 2
         } }
         };
 
         DropzoneList.Add(_items);
         DropzoneList.Add(_items2);
+
+        DropzoneList.SelectMany(x => x.OrderBy( x => x.Name))
     }
 
     List<TrainningDayReturnVO> trainningDayReturnList = new List<TrainningDayReturnVO>()
@@ -199,6 +209,7 @@
         new TrainningDayReturnVO()
         {
             Name = "A",
+            Ordenation = 1,
             TrainningExercises = new List<TrainningExerciseVO>()
             {
                 new TrainningExerciseVO()
@@ -239,6 +250,7 @@
         new TrainningDayReturnVO()
         {
             Name = "B",
+            Ordenation = 2,
             TrainningExercises = new List<TrainningExerciseVO>()
             {
                 new TrainningExerciseVO()

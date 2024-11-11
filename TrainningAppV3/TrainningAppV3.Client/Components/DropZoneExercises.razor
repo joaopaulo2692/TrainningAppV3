@@ -13,7 +13,7 @@
              <ItemRenderer>
                  <MudPaper Class="pa-4 my-4">
 @*                      <MudText Typo="Typo.h6">@context.Name</MudText> *@
-                        <MudButton OnClick="OpenDialog" Variant="Variant.Filled" Color="Color.Success" Style="margin-right: 20px;">Adicionar</MudButton>
+                     <MudButton OnClick="OpenDialog" Variant="Variant.Filled" Color="Color.Success" Style="margin-right: 20px;">Adicionar</MudButton>
                         <MudDropZone T="DropZoneItem" Identifier="@context.Name" AllowReorder Class="rounded mud-background-gray px-4 py-1 ma-4" />
                  </MudPaper>
              </ItemRenderer>
@@ -26,6 +26,9 @@
              <MudTextField ShrinkLabel @bind-Value="context.Exercise.Reps" Label="Rep" Variant="Variant.Text" Style="max-width: 100px; height: 32px; font-size: 0.875rem;" />
              <MudTextField ShrinkLabel @bind-Value="context.Exercise.Weight" Label="Carga" Variant="Variant.Text" Style="max-width: 100px; height: 32px; font-size: 0.875rem;" />
              <MudTextField ShrinkLabel @bind-Value="context.Exercise.Info" Label="Info" Variant="Variant.Text" Style="max-width: 100px; height: 32px; font-size: 0.875rem;" />
+             <MudTextField ShrinkLabel @bind-Value="context.Exercise.TrainningDayId" Label="Info" Variant="Variant.Text"
+                           Style="display: none; max-width: 100px; height: 32px; font-size: 0.875rem;" />
+
          </MudPaper>
      </ItemRenderer>
  </MudDropContainer>
@@ -35,6 +38,10 @@
 
     [Parameter]
     public EventCallback<TrainningExerciseVO> OnAddExercise { get; set; }
+    [Parameter]
+    public int ParameterTrainningDay { get; set; }
+    [Parameter]
+    public int ParameterOrdenation { get; set; }
 
     private async Task AddExercise(TrainningExerciseVO exercise)
     {
@@ -57,12 +64,13 @@
         var dialog = DialogService.Show<AddExercise>("Adicionar Exercício", options);
 
         var result = await dialog.Result;
-        if (result.Canceled) return;
+        // if (result.Canceled) return;
         if (!result.Canceled)
         {
             // Obtenha o exercício adicionado a partir do diálogo
             var addedExercise = (TrainningExerciseVO)result.Data;
             if (addedExercise == null) return;
+            addedExercise.TrainningDayId = ParameterTrainningDay;
             // Chame o método para adicionar o exercício ao componente pai
             await AddExercise(addedExercise);
             _items.Add(new DropZoneItem()
@@ -70,6 +78,7 @@
                     Exercise = addedExercise
                 });
         }
+
     }
     private void ItemUpdated(MudItemDropInfo<DropZoneItem> dropItem)
     {

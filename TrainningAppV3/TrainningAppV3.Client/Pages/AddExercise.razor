@@ -28,7 +28,11 @@
             }
             <MudAutocomplete T="string" Label="Exercício" @bind-Value="exerciseSelected" SearchFunc="@SearchExercise"           
                              ResetValueOnEmptyText="@resetValueOnEmptyText"
-                             CoerceText="@coerceText" CoerceValue="@coerceValue" />
+                             CoerceText="@coerceText" CoerceValue="@coerceValue" HelperText="@(hasError ? errorMessage : null)" Error="@hasError" />
+            @if (hasError)
+            {
+                <MudText Color="Color.Error" Typo="Typo.caption">@errorMessage</MudText>
+            }
 
             <MudNumericField Label="Intervalo entre séries (seg)"
                              @bind-Value="rest"
@@ -52,7 +56,7 @@
                 <MudTextField Label="Carga" @bind-Value="weights[0]" />
             </div>
 
-            @for (int i = 0; i < set; i++)
+            @for (int i = 1; i < set; i++)
             {
                 
                  <ExerciseInput Index="i"
@@ -145,8 +149,8 @@
     private string muscleSelected;
     private int set = 1;
     private string observation;
-    private List<string> reps = new List<string> ();
-    private List<string> weights = new List<string> ();
+    private List<string> reps = new List<string> { "", "", "", "", "" };
+    private List<string> weights = new List<string> { "", "", "", "", "" };
     // private List<string> weights = new List<string> { "", "", "", "", "" };
     ExerciseReturnVO exerciseVO = new ExerciseReturnVO();
     MuscleVO muscleVO = new MuscleVO();
