@@ -18,7 +18,8 @@
         {
             <MudTabPanel Text=@drop[0].Name Key="@drop.GetHashCode()">
                 <DropZoneExercises OnAddExercise="HandleAddExercise" T="DropZoneItem" _items="drop" _zones="_zones" 
-                    ParameterTrainningDay=drop[0].Exercise.TrainningDayId ParameterOrdenation=drop[0].Exercise.Ordenation + 1/>
+                    ParameterTrainningDay=drop[0].TrainningDayId ParameterOrdenation=drop[0].Exercise.Ordenation
+                                   ParameterNameZone=@drop[0].Name />
             </MudTabPanel>
         }
     </MudTabs>
@@ -35,18 +36,27 @@
     public Position Position { get; set; } = Position.Left;
 
 
-    private async Task HandleAddExercise(TrainningExerciseVO newExercise)
+    // private async Task HandleAddExercise(TrainningExerciseVO newExercise)
+    // {
+
+    //     _items.Add(new DropZoneItem { Zone = "Drop Zone 1", Exercise = newExercise, Name = "A" });
+    //     DropzoneList = new List<List<DropZoneItem>>(DropzoneList); // Recrie a lista para atualizar o estado
+    //     _uniqueKey++;
+    //     await InvokeAsync(StateHasChanged);
+    // }
+
+    private async Task HandleAddExercise(DropZoneItem newExercise)
     {
-        // // Aqui você pode manipular o novo exercício recebido
-        // _items.Add(new DropZoneItem { Zone = "Drop Zone 1", Exercise = newExercise, Name ="A" });
-        // // DropzoneList = new List<List<DropZoneItem>>();
-        // _items = _items.ToList();
-        // DropzoneList.Add(_items);
 
-        // await InvokeAsync(StateHasChanged);
-        // // StateHasChanged(); // Atualiza a interface se necessário
+        foreach (var sublist in DropzoneList)
+        {
 
-        _items.Add(new DropZoneItem { Zone = "Drop Zone 1", Exercise = newExercise, Name = "A" });
+            if (sublist.Any(x => x.Name == newExercise.Name))
+            {
+                sublist.Add(newExercise);
+                break;
+            }
+        }
         DropzoneList = new List<List<DropZoneItem>>(DropzoneList); // Recrie a lista para atualizar o estado
         _uniqueKey++;
         await InvokeAsync(StateHasChanged);
@@ -146,7 +156,7 @@
         
         _items = new List<DropZoneItem>
         {
-            new() { Zone = "Drop Zone 1", Name = "A", Exercise =    new TrainningExerciseVO()
+            new() { Zone = "Drop Zone 1", TrainningDayOrdenation=1, TrainningDayId =1, Name = "A", Exercise =    new TrainningExerciseVO()
         {
             Reps = "10",
             Set = 3,
@@ -155,7 +165,7 @@
             Ordenation = 3,
             TrainningDayId = 1
         } },
-            new() { Zone = "Drop Zone 1",Name = "A", Exercise =  new TrainningExerciseVO()
+            new() { Zone = "Drop Zone 1",TrainningDayOrdenation=1, TrainningDayId =1, Name = "A", Exercise =  new TrainningExerciseVO()
         {
             Reps = "10",
             Set = 3,
@@ -164,7 +174,7 @@
             Ordenation = 2,
             TrainningDayId = 1
         } },
-            new() { Zone = "Drop Zone 1",Name = "A", Exercise =  new TrainningExerciseVO()
+            new() { Zone = "Drop Zone 1", TrainningDayOrdenation=1, TrainningDayId =1, Name = "A", Exercise =  new TrainningExerciseVO()
         {
             Reps = "10",
             Set = 3,
@@ -178,7 +188,7 @@
         _items2 = new List<DropZoneItem>
         {
 
-            new() { Zone = "Drop Zone 1", Name = "B", Exercise =  new TrainningExerciseVO()
+            new() { Zone = "Drop Zone 1", TrainningDayOrdenation=2, TrainningDayId =2, Name = "B", Exercise =  new TrainningExerciseVO()
         {
             Reps = "10",
             Set = 3,
@@ -187,7 +197,7 @@
             Ordenation = 2,
             TrainningDayId = 2
         } },
-            new() { Zone = "Drop Zone 1", Name = "B", Exercise =  new TrainningExerciseVO()
+            new() { Zone = "Drop Zone 1",TrainningDayOrdenation=2, TrainningDayId =2, Name = "B", Exercise =  new TrainningExerciseVO()
         {
             Reps = "10",
             Set = 3,
@@ -201,7 +211,7 @@
         DropzoneList.Add(_items);
         DropzoneList.Add(_items2);
 
-        DropzoneList.SelectMany(x => x.OrderBy( x => x.Name))
+        // DropzoneList.SelectMany(x => x.OrderBy( x => x.Name))
     }
 
     List<TrainningDayReturnVO> trainningDayReturnList = new List<TrainningDayReturnVO>()

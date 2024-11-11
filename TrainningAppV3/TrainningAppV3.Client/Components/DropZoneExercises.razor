@@ -37,16 +37,20 @@
  @code {
 
     [Parameter]
-    public EventCallback<TrainningExerciseVO> OnAddExercise { get; set; }
+    // public EventCallback<TrainningExerciseVO> OnAddExercise { get; set; }
+    public EventCallback<DropZoneItem> OnAddExercise { get; set; }
     [Parameter]
     public int ParameterTrainningDay { get; set; }
     [Parameter]
     public int ParameterOrdenation { get; set; }
+    [Parameter]
+    public string ParameterNameZone { get; set; }
 
-    private async Task AddExercise(TrainningExerciseVO exercise)
+
+    private async Task AddExercise(DropZoneItem dropZoneItem)
     {
         // Chame o callback passando o exercício adicionado
-        await OnAddExercise.InvokeAsync(exercise);
+        await OnAddExercise.InvokeAsync(dropZoneItem);
     }
 
     [Parameter]
@@ -55,8 +59,6 @@
     [Parameter]
     public List<DropZone> _zones { get; set; }
 
-    // [Parameter]
-    // public EventCallback<DropZoneItem> ItemUpdated { get; set; }
 
     private async Task OpenDialog()
     {
@@ -71,12 +73,17 @@
             var addedExercise = (TrainningExerciseVO)result.Data;
             if (addedExercise == null) return;
             addedExercise.TrainningDayId = ParameterTrainningDay;
+            addedExercise.Ordenation = ParameterOrdenation + 1;
             // Chame o método para adicionar o exercício ao componente pai
-            await AddExercise(addedExercise);
-            _items.Add(new DropZoneItem()
+            DropZoneItem dropItem = new DropZoneItem()
                 {
-                    Exercise = addedExercise
-                });
+                    Name = ParameterNameZone,
+                    Exercise = addedExercise,
+                    Zone = "Drop Zone 1"
+
+                };
+            await AddExercise(dropItem);
+
         }
 
     }
