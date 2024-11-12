@@ -65,14 +65,25 @@
         _isDarkMode = !_isDarkMode;
     }
 
+    // private readonly PaletteLight _lightPalette = new()
+    //     {
+    //         Black = "#110e2d",
+    //         AppbarText = "#424242",
+    //         AppbarBackground = "rgba(255,255,255,0.8)",
+    //         DrawerBackground = "#ffffff",
+    //         GrayLight = "#e8e8e8",
+    //         GrayLighter = "#f9f9f9",
+    //     };
+
     private readonly PaletteLight _lightPalette = new()
         {
             Black = "#110e2d",
             AppbarText = "#424242",
             AppbarBackground = "rgba(255,255,255,0.8)",
             DrawerBackground = "#ffffff",
-            GrayLight = "#e8e8e8",
-            GrayLighter = "#f9f9f9",
+            GrayLight = "#e8e8e8", // Ajuste aqui a cor do cinza claro
+            GrayLighter = "#f9f9f9", // Ajuste aqui o cinza mais claro, se necessário
+            Background = "#dcdcdc" // Cor cinza para o fundo no modo claro
         };
 
     private readonly PaletteDark _darkPalette = new()

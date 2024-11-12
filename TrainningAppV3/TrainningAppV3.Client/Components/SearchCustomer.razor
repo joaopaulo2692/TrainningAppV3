@@ -1,4 +1,5 @@
-﻿<MudAutocomplete T="string"
+﻿@using TrainningApp.Core.DTO.User
+<MudAutocomplete T="string"
                  Label="Buscar aluno"
                  @bind-Value="customerSelected"
                  SearchFunc="@SearchuCustomer"
@@ -44,9 +45,41 @@
         //     else if (exerciseVO.Video != null && exerciseVO.Video != "") exerciseNotHasVideo = false;
 
         // }
+        if (string.IsNullOrEmpty(value))
+        {
+            return users.Select(x => x.Name);
+        }
+        UserVO userSelected = users.Where(x => x.Name == value).FirstOrDefault();
+        customerSelected = userSelected.Name;
+
+        return users.Select(x => x.Name).Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
         StateHasChanged();
 
         // return exerciseList.Select(x => x.Name).Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
-        return null;
+  
     }
+
+    List<UserVO> users = new List<UserVO>()
+    {
+        new UserVO()
+        {
+            Name = "João",
+            Id = 1
+        },
+                new UserVO()
+        {
+            Name = "Leticia",
+            Id = 1
+        },
+                new UserVO()
+        {
+            Name = "Juninho",
+            Id = 1
+        },
+                new UserVO()
+        {
+            Name = "Helena",
+            Id = 1
+        },
+    };
 }
