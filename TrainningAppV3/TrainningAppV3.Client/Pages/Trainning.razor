@@ -4,28 +4,30 @@
 @using TrainningApp.Core.DTO.TrainningExercise
 @using TrainningApp.Core.Entities
 @using TrainningAppV3.Client.Components
+@using TrainningAppV3.Client.Layout
+@layout AdminLayout
 
 
 <h3>Sessões do treino</h3>
 
+<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6" @key="_uniqueKey">
+    @foreach (var drop in DropzoneList)
+    {
+        <MudTabPanel Text=@drop[0].Name Key="@drop.GetHashCode()">
+            <DropZoneExercises OnAddExercise="HandleAddExercise" T="DropZoneItem" _items="drop" _zones="_zones"
+                               ParameterTrainningDay=drop[0].TrainningDayId ParameterOrdenation=drop[0].Exercise.Ordenation
+                               ParameterNameZone=@drop[0].Name />
+        </MudTabPanel>
+    }
+</MudTabs>
+
+@* <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
 
 
-<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
-
-
-    <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6" @key="_uniqueKey">
-        @foreach (var drop in DropzoneList)
-        {
-            <MudTabPanel Text=@drop[0].Name Key="@drop.GetHashCode()">
-                <DropZoneExercises OnAddExercise="HandleAddExercise" T="DropZoneItem" _items="drop" _zones="_zones" 
-                    ParameterTrainningDay=drop[0].TrainningDayId ParameterOrdenation=drop[0].Exercise.Ordenation
-                                   ParameterNameZone=@drop[0].Name />
-            </MudTabPanel>
-        }
-    </MudTabs>
+  
 
    
-</MudTabs>
+</MudTabs> *@
 
   
 @code {
@@ -153,7 +155,7 @@
     protected override void OnInitialized()
     {
         StateHasChanged();
-        
+
         _items = new List<DropZoneItem>
         {
             new() { Zone = "Drop Zone 1", TrainningDayOrdenation=1, TrainningDayId =1, Name = "A", Exercise =    new TrainningExerciseVO()

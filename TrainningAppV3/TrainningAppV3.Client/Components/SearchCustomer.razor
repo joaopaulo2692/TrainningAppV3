@@ -1,0 +1,52 @@
+﻿<MudAutocomplete T="string"
+                 Label="Buscar aluno"
+                 @bind-Value="customerSelected"
+                 SearchFunc="@SearchuCustomer"
+                 ResetValueOnEmptyText="@resetValueOnEmptyText"
+                 CoerceText="@coerceText"
+                 CoerceValue="@coerceValue"
+                 Class="custom-autocomplete" />
+
+                 <style>
+    .custom-autocomplete .mud-input-root,
+    .mud-autocomplete .mud-input-label,
+    .custom-autocomplete .mud-input-control,
+    .custom-autocomplete .mud-input-underline {
+        background-color: #3D5AFE !important; /* Cor de fundo roxa */
+        color: white !important; /* Cor do texto */
+        border-color: antiquewhite !important; /* Cor da borda */
+    }
+
+                 </style>
+@code {
+
+    private string customerSelected { get; set; }
+    private bool resetValueOnEmptyText;
+    private bool coerceText;
+    private bool coerceValue;
+
+    private async Task<IEnumerable<string>> SearchuCustomer(string value, CancellationToken token)
+    {
+        // exerciseList = exerciseListCopy;
+        // await Task.Delay(5, token); // Simulação de chamada assíncrona
+        // StateHasChanged();
+        // MuscleVO muscleVO = musclesList.Where(x => x.Name == muscleSelected).FirstOrDefault();
+
+
+        // if (muscleVO != null) exerciseList = exerciseList.Where(x => x.Muscles.Contains(muscleVO.Name)).ToList();
+        // if (string.IsNullOrEmpty(value))
+        //     return exerciseList.Select(x => x.Name);
+        // ExerciseReturnVO exerciseVO = exerciseList.Where(x => x.Name == value).FirstOrDefault();
+        // if (exerciseVO != null)
+        // {
+        //     if (exerciseVO.Video == null) exerciseNotHasVideo = true;
+        //     else if (exerciseVO.Video == "") exerciseNotHasVideo = true;
+        //     else if (exerciseVO.Video != null && exerciseVO.Video != "") exerciseNotHasVideo = false;
+
+        // }
+        StateHasChanged();
+
+        // return exerciseList.Select(x => x.Name).Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+        return null;
+    }
+}
