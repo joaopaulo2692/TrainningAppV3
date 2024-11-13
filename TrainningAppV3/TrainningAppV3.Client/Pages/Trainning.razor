@@ -95,7 +95,7 @@
             TrainningDayId = 3,
             // Name = "C",
             Name = nextLetter.ToString(),
- 
+
         }
     });
         _uniqueKey++;
@@ -117,6 +117,11 @@
 
             if (sublist.Any(x => x.Name == newExercise.Name))
             {
+                if(sublist[0].Exercise == null)
+                {
+                    sublist[0] = newExercise;
+                    break;
+                }
                 sublist.Add(newExercise);
                 break;
             }

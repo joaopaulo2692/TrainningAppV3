@@ -8,17 +8,21 @@
                  CoerceValue="@coerceValue"
                  Class="custom-autocomplete" />
 
-                 <style>
-    .custom-autocomplete .mud-input-root,
-    .mud-autocomplete .mud-input-label,
-    .custom-autocomplete .mud-input-control,
-    .custom-autocomplete .mud-input-underline {
-        background-color: #3D5AFE !important; /* Cor de fundo roxa */
-        color: white !important; /* Cor do texto */
-        border-color: antiquewhite !important; /* Cor da borda */
+<style>
+    .custom-autocomplete {
+        margin-top: -10px; /* Ajuste este valor para mover o componente para cima */
     }
 
-                 </style>
+        .custom-autocomplete .mud-input-root,
+        .mud-autocomplete .mud-input-label,
+        .custom-autocomplete .mud-input-control,
+        .custom-autocomplete .mud-input-underline {
+            background-color: #6F74FF !important; /* Cor de fundo roxa */
+            color: white !important; /* Cor do texto */
+            border-color: antiquewhite !important; /* Cor da borda */
+        }
+</style>
+
 @code {
 
     private string customerSelected { get; set; }
