@@ -27,6 +27,7 @@
                 else
                 {
                     <DropZoneExercises OnAddExercise="HandleAddExercise"
+                                       OnRemoveExercise="HandleRemoveExercise"
                                        T="DropZoneItem"
                                        _items="drop"
                                        _zones="_zones"
@@ -134,6 +135,35 @@
         await InvokeAsync(StateHasChanged);
     }
 
+    private async Task HandleRemoveExercise(DropZoneItem removeExercise)
+    {
+        int cont = 0;
+        bool hasToBreak = false;
+        foreach (var sublist in DropzoneList)
+        {
+            foreach(var exercise in sublist)
+            {
+                if (removeExercise == exercise && sublist.Count > 1)
+                {
+                    sublist.Remove(exercise);
+                    hasToBreak = true;
+                    break;
+                }
+                else if(removeExercise == exercise && sublist.Count == 1)
+                {
+                    exercise.Exercise = null;
+                    hasToBreak = true;
+                    break;
+                }
+            }
+            if (hasToBreak) break;        
+            cont++;
+        }
+        DropzoneList = new List<List<DropZoneItem>>(DropzoneList); // Recrie a lista para atualizar o estado
+        _uniqueKey++;
+        _selectedTabIndex = cont;
+        await InvokeAsync(StateHasChanged);
+    }
 
     // List<TrainningDayReturnVO> trainningDayReturnList = new List<TrainningDayReturnVO>();
     List<TrainningExerciseVO> exercises = new List<TrainningExerciseVO>()
