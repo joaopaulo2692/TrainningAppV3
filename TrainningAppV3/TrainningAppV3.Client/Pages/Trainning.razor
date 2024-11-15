@@ -56,18 +56,29 @@
 </MudTabs> *@
 
 <style>
+    /* .parent-container { */
+        /* display: flex; */
+        /* justify-content: center; /* Centraliza horizontalmente */ 
+        /* align-items: center; /* Centraliza verticalmente */ 
+        /* height: 100vh; /* Altura total da tela */ 
+        /* width: 100%; /* Largura total disponível */ 
+    /* } */
+
     .parent-container {
         display: flex;
         justify-content: center; /* Centraliza horizontalmente */
-        align-items: center; /* Centraliza verticalmente */
-        height: 100vh; /* Altura total da tela */
+        align-items: flex-start; /* Alinha o conteúdo ao topo */
+        flex-direction: column; /* Garante que os itens sejam empilhados verticalmente */
         width: 100%; /* Largura total disponível */
+        height: auto; /* Altura será definida pelo conteúdo */
+        padding: 20px; /* Adicione um espaçamento interno, se necessário */
     }
+
 
     .dropzone-small {
         width: 87%; /* Ajusta para 100% da largura do contêiner */
         max-width: 1400px; /* Limite máximo de largura */
-        height: 700px; /* Altura fixa */
+        /* height: 700px; /* Altura fixa */ */
         padding: 16px;
         margin: 10px;
     }
