@@ -103,6 +103,13 @@
 
 @code {
 
+    [Parameter]
+    public bool EditExibition { get; set; }
+
+    [Parameter]
+    public TrainningExerciseVO EditExercise { get; set; }  // Recebe o exercício para edição
+
+
     private void OnRepSave(List<string> reptitions)
     {
         reps = reptitions.ToList();
@@ -175,7 +182,7 @@
         bool verification = ValidateSelection();
         if (verification)
         {
-            
+
             return;
         }
         trainningExerciseVO = new TrainningExerciseVO
@@ -187,15 +194,44 @@
                 Weight = string.Join("/", weights),
                 Info = observation,
                 Set = set
-           
+
             };
 
         // Chame o EventCallback passando o trainningExercise
         await OnAddExercise.InvokeAsync(trainningExerciseVO);
-            
+
         // Feche o diálogo
         // MudDialog.Close();
         MudDialog.Close(DialogResult.Ok(trainningExerciseVO));
+    }
+
+    protected override void OnInitialized()
+    {
+        if (EditExercise != null)
+        {
+            List<string> numbersReps = new List<string> { "", "", "", "", "" };
+            List<string> numbersWeights = new List<string> { "", "", "", "", "" };
+
+            if (EditExercise.Reps != null) numbersReps = EditExercise.Reps.Split('/')
+                            .Where(x => !string.IsNullOrEmpty(x))
+                            .ToList();
+
+            if (EditExercise.Weight != null) numbersWeights = EditExercise.Weight.Split('/')
+            .Where(x => !string.IsNullOrEmpty(x))
+            .ToList();
+
+            if (numbersReps.Count == 0) numbersReps = new List<string> { "", "", "", "", "" };
+            if (numbersWeights.Count == 0) numbersWeights = new List<string> { "", "", "", "", "" };
+
+            
+            set = EditExercise.Set;
+            reps = numbersReps;
+            exerciseSelected = EditExercise.ExerciseName != null ? EditExercise.ExerciseName : string.Empty;
+            rest = EditExercise.Interval;
+            weights = numbersWeights;
+            observation = EditExercise.Info != null ? EditExercise.Info : string.Empty;
+
+        }
     }
 
     private async Task<IEnumerable<string>> SearchExercise(string value, CancellationToken token)

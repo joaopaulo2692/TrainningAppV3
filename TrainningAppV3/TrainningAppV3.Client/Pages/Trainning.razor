@@ -159,6 +159,35 @@
             if (hasToBreak) break;        
             cont++;
         }
+
+
+        DropzoneList = new List<List<DropZoneItem>>(DropzoneList); // Recrie a lista para atualizar o estado
+        _uniqueKey++;
+        _selectedTabIndex = cont;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task HandleEditExercise(DropZoneItem editedExercise)
+    {
+        int cont = 0;
+        bool hasToBreak = false;
+        foreach (var sublist in DropzoneList)
+        {
+            foreach (var exercise in sublist)
+            {
+ 
+               if (editedExercise == exercise)
+                {
+                    exercise.Exercise = editedExercise.Exercise;
+                    hasToBreak = true;
+                    break;
+                }
+            }
+            if (hasToBreak) break;
+            cont++;
+        }
+
+
         DropzoneList = new List<List<DropZoneItem>>(DropzoneList); // Recrie a lista para atualizar o estado
         _uniqueKey++;
         _selectedTabIndex = cont;

@@ -1,5 +1,6 @@
 ﻿@typeparam T
 @using Client.Pages
+@using TrainningApp.Core.DTO.Exercise
 @using TrainningApp.Core.DTO.TrainningExercise
 @using static TrainningAppV3.Client.Pages.Trainning
 @inject IDialogService DialogService
@@ -40,12 +41,14 @@
                      <MudTextField ShrinkLabel @bind-Value="context.Exercise.Set" Label="Série" Variant="Variant.Text" Style="max-width: 100px; height: 32px; font-size: 0.875rem;" />
                      <MudTextField ShrinkLabel @bind-Value="context.Exercise.Reps" Label="Rep" Variant="Variant.Text" Style="max-width: 100px; height: 32px; font-size: 0.875rem;" />
                      <MudTextField ShrinkLabel @bind-Value="context.Exercise.Weight" Label="Carga" Variant="Variant.Text" Style="max-width: 100px; height: 32px; font-size: 0.875rem;" />
+                     <MudTextField ShrinkLabel @bind-Value="context.Exercise.Interval" Label="Intervalo" Variant="Variant.Text" Style="max-width: 100px; height: 32px; font-size: 0.875rem;" />
                      <MudTextField ShrinkLabel @bind-Value="context.Exercise.Info" Label="Info" Variant="Variant.Text" Style="max-width: 100px; height: 32px; font-size: 0.875rem;" />
-                     <MudTextField ShrinkLabel @bind-Value="context.Exercise.TrainningDayId" Label="Info" Variant="Variant.Text"
-                                   Style="display: none; max-width: 100px; height: 32px; font-size: 0.875rem;" />
-                     <MudButton Variant="Variant.Filled" Color="Color.Warning" Style="font-size: 0.75rem; padding: 4px 8px; min-width: auto; height: 32px; margin-right: 3px;">
+                     @* <MudTextField ShrinkLabel @bind-Value="context.Exercise.TrainningDayId" Label="Info" Variant="Variant.Text" *@
+                                  @*  Style="display: none; max-width: 100px; height: 32px; font-size: 0.875rem;" /> *@
+                     <MudButton OnClick="() => SelectEditExercise(context.Exercise)" Variant="Variant.Filled" Color="Color.Warning" Style="font-size: 0.75rem; padding: 4px 8px; min-width: auto; height: 32px; margin-right: 3px;">
                          Editar
                      </MudButton>
+
                      <MudButton OnClick="() => RemoveExercise(context)" Variant="Variant.Filled" Color="Color.Error" Style="font-size: 0.75rem; padding: 4px 8px; min-width: auto; height: 32px; margin-right: 3px;">
                          Deletar
                      </MudButton>
@@ -57,13 +60,17 @@
 
  </div>
 
- @code {
+@code {
 
     [Parameter]
     // public EventCallback<TrainningExerciseVO> OnAddExercise { get; set; }
     public EventCallback<DropZoneItem> OnAddExercise { get; set; }
     [Parameter]
     public EventCallback<DropZoneItem> OnRemoveExercise { get; set; }
+    [Parameter]
+    public EventCallback<DropZoneItem> OnEditExercise { get; set; }
+
+
     [Parameter]
     public int ParameterTrainningDay { get; set; }
     [Parameter]
@@ -89,17 +96,38 @@
         await OnRemoveExercise.InvokeAsync(dropZoneItem);
     }
 
+
     [Parameter]
     public List<DropZoneItem> _items { get; set; }
 
     [Parameter]
     public List<DropZone> _zones { get; set; }
 
+    public bool IsToEdited = false;
+
+    public TrainningExerciseVO exerciseToEdited { get; set; }
+
+    private void SelectEditExercise(TrainningExerciseVO exercise)
+    {
+        exerciseToEdited = exercise;
+        IsToEdited = true;
+        OpenDialog();
+        exerciseToEdited = null;
+        return;
+    }
+
 
     private async Task OpenDialog()
     {
+        var parameters = new DialogParameters
+    {
+        { "EditExercise", exerciseToEdited },
+        {"EditExibition", IsToEdited}// Passa o exercício existente ou null
+    };
+
         var options = new DialogOptions { CloseOnEscapeKey = true };
-        var dialog = DialogService.Show<AddExercise>("Adicionar Exercício", options);
+        var dialog = exerciseToEdited == null ? DialogService.Show<AddExercise>("Adicionar Exercício", parameters, options) :
+        DialogService.Show<AddExercise>("Editar Exercício", parameters, options);
 
         var result = await dialog.Result;
         // if (result.Canceled) return;
