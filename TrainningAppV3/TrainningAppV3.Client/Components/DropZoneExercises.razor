@@ -96,6 +96,12 @@
         await OnRemoveExercise.InvokeAsync(dropZoneItem);
     }
 
+    private async Task EditExercise(DropZoneItem dropZoneItem)
+    {
+        // Chame o callback passando o exercício adicionado
+        await OnEditExercise.InvokeAsync(dropZoneItem);
+    }
+
 
     [Parameter]
     public List<DropZoneItem> _items { get; set; }
@@ -126,8 +132,8 @@
     };
 
         var options = new DialogOptions { CloseOnEscapeKey = true };
-        var dialog = exerciseToEdited == null ? DialogService.Show<AddExercise>("Adicionar Exercício", parameters, options) :
-        DialogService.Show<AddExercise>("Editar Exercício", parameters, options);
+        var dialog = exerciseToEdited == null ? DialogService.Show<ExerciseComponent>("Adicionar Exercício", parameters, options) :
+        DialogService.Show<ExerciseComponent>("Editar Exercício", parameters, options);
 
         var result = await dialog.Result;
         // if (result.Canceled) return;
@@ -137,7 +143,9 @@
             var addedExercise = (TrainningExerciseVO)result.Data;
             if (addedExercise == null) return;
             addedExercise.TrainningDayId = ParameterTrainningDay;
-            addedExercise.Ordenation = ParameterOrdenation + 1;
+            
+            if (!IsToEdited) addedExercise.Ordenation = ParameterOrdenation + 1;
+            if (IsToEdited) addedExercise.Ordenation = ParameterOrdenation;
             // Chame o método para adicionar o exercício ao componente pai
             DropZoneItem dropItem = new DropZoneItem()
                 {
@@ -146,8 +154,10 @@
                     Zone = "Drop Zone 1"
 
                 };
-            await AddExercise(dropItem);
+            if (!IsToEdited) await AddExercise(dropItem);
+            else if (IsToEdited) await EditExercise(dropItem);
 
+            IsToEdited = false;
         }
 
     }

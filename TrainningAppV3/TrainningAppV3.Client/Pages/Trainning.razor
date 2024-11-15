@@ -28,6 +28,7 @@
                 {
                     <DropZoneExercises OnAddExercise="HandleAddExercise"
                                        OnRemoveExercise="HandleRemoveExercise"
+                                       OnEditExercise="HandleEditExercise"
                                        T="DropZoneItem"
                                        _items="drop"
                                        _zones="_zones"
@@ -160,7 +161,6 @@
             cont++;
         }
 
-
         DropzoneList = new List<List<DropZoneItem>>(DropzoneList); // Recrie a lista para atualizar o estado
         _uniqueKey++;
         _selectedTabIndex = cont;
@@ -175,18 +175,19 @@
         {
             foreach (var exercise in sublist)
             {
- 
-               if (editedExercise == exercise)
+                if (exercise.Name == editedExercise.Name)
                 {
-                    exercise.Exercise = editedExercise.Exercise;
-                    hasToBreak = true;
-                    break;
-                }
+                    if (editedExercise.Exercise.Ordenation == exercise.Exercise.Ordenation)
+                    {
+                        exercise.Exercise = editedExercise.Exercise;
+                        hasToBreak = true;
+                        break;
+                    }
+                }               
             }
             if (hasToBreak) break;
             cont++;
         }
-
 
         DropzoneList = new List<List<DropZoneItem>>(DropzoneList); // Recrie a lista para atualizar o estado
         _uniqueKey++;

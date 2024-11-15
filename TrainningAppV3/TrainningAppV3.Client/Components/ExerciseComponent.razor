@@ -87,7 +87,15 @@
         </div>
     </DialogContent>
     <DialogActions>
-        <MudButton Variant="Variant.Filled" OnClick="AddNewExercise" Color="Color.Success">Adicionar</MudButton>
+        @if (EditExercise == null)
+        {
+            <MudButton Variant="Variant.Filled" OnClick="AddNewExercise" Color="Color.Success">Adicionar</MudButton>
+        }
+        @if (EditExercise != null)
+        {
+            <MudButton Variant="Variant.Filled" OnClick="AddNewExercise" Color="Color.Success">Editar</MudButton>
+        }
+        
 
         <MudButton Color="Color.Primary" OnClick="Close">Fechar</MudButton>
     </DialogActions>
@@ -141,6 +149,10 @@
     [Parameter]
     public EventCallback<TrainningExerciseVO> OnAddExercise { get; set; }
 
+
+    [Parameter]
+    public EventCallback<TrainningExerciseVO> OnEditExercise { get; set; }
+
     private string errorMessage = "Seleção de exercício obrigatória!";
     private bool hasError = false;
     private string[] array = new string[5];
@@ -177,6 +189,35 @@
         StateHasChanged();
     }
 
+    private async Task EditNewExercise()
+    {
+        bool verification = ValidateSelection();
+        if (verification)
+        {
+
+            return;
+        }
+        trainningExerciseVO = new TrainningExerciseVO
+            {
+                ExerciseName = exerciseSelected,
+                Reps = string.Join("/", reps),
+                // Reps = array[1],
+                Interval = rest,
+                Weight = string.Join("/", weights),
+                Info = observation,
+                Set = set
+
+            };
+
+        // Chame o EventCallback passando o trainningExercise
+
+        await OnEditExercise.InvokeAsync(trainningExerciseVO);
+
+        // Feche o diálogo
+        // MudDialog.Close();
+        MudDialog.Close(DialogResult.Ok(trainningExerciseVO));
+    }
+
     private async Task AddNewExercise()
     {
         bool verification = ValidateSelection();
@@ -198,6 +239,7 @@
             };
 
         // Chame o EventCallback passando o trainningExercise
+      
         await OnAddExercise.InvokeAsync(trainningExerciseVO);
 
         // Feche o diálogo
