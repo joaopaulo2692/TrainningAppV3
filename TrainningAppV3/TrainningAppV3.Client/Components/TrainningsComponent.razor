@@ -1,0 +1,97 @@
+﻿@using TrainningApp.Core
+@using TrainningApp.Core.DTO.Trainning
+
+<div style="display: flex; justify-content: center;">
+    <MudButton Variant="Variant.Filled"  Color="Color.Success">Novo Treino</MudButton>
+</div>
+<br />
+<br />
+<br />
+@foreach (TrainningReturnVO trainning in trainningsList)
+{
+    <div style="display: flex; justify-content: center; margin-bottom: 10px;">
+        <MudPaper Height="200px" Width="70%" Style="padding: 20px; display: flex; flex-direction: column; position: relative;">
+            <MudText Typo="Typo.h4" Style="margin-bottom: 15px;">@trainning.Name</MudText>
+                <MudDivider Style="height: 6px; margin-bottom: 15px;" />
+
+                <MudText Style="margin-bottom: 10px;">
+                    <span class="bold-label">Responsável:</span>
+                    <span class="normal-text">@trainning.Name</span>
+            </MudText>
+
+            <MudText Style="margin-bottom: 10px;">
+                <span class="bold-label">Objetivo:</span>
+                <span class="normal-text">@trainning.Goal</span>
+            </MudText>
+
+            <MudText>
+                <span class="bold-label">Criado em:</span>
+                <span class="normal-text">@trainning.CreatedAt</span>
+            </MudText>
+
+            <!-- Botões alinhados à direita e mais para cima -->
+            <div style="position: absolute; right: 20px; top: 10px; display: flex; flex-direction: column; align-items: flex-end;">
+                <MudFab Color="Color.Secondary" StartIcon="@Icons.Material.Filled.Edit" Style="margin-bottom: 10px;" />
+                <MudIconButton Icon="@Icons.Material.Filled.Delete" aria-label="delete" />
+            </div>
+        </MudPaper>
+    </div>
+
+
+
+
+}
+
+
+
+<style>
+    .bold-label {
+        font-weight: bold;
+    }
+
+    .normal-text {
+        font-weight: normal;
+    }
+
+</style>
+
+@code {
+    // TrainningReturnVO trainning = new TrainningReturnVO();
+    List<TrainningReturnVO> trainningsList = new List<TrainningReturnVO>();
+
+    protected override void OnInitialized()
+    {
+        // trainning = new TrainningReturnVO()
+        //     {
+        //         CreatedAt = DateTime.Now,
+        //         Goal = "Hipertrofia",
+        //         Name = "Treino 2024",
+        //         PersonalName = "João Paulo Rezende"
+        // };
+
+        trainningsList = new List<TrainningReturnVO>{
+            new TrainningReturnVO()
+            {
+                CreatedAt = DateTime.Now,
+                Goal = "Hipertrofia",
+                Name = "Treino 2024",
+                PersonalName = "João Paulo Rezende"
+            },
+             new TrainningReturnVO()
+            {
+                CreatedAt = DateTime.Now,
+                Goal = "Emagrecimento",
+                Name = "Treino 2024",
+                PersonalName = "Zé"
+            },
+             new TrainningReturnVO()
+            {
+                CreatedAt = DateTime.Now,
+                Goal = "Condicionamento",
+                Name = "Treino 2024",
+                PersonalName = "Léo"
+            },
+
+        };
+    }
+}

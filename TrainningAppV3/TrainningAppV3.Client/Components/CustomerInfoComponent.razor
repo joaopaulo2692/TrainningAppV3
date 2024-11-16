@@ -1,0 +1,26 @@
+﻿@page "/trainning"
+@using TrainningAppV3.Client.Pages
+
+<MudAvatar Size="Size.Large" Image="https://via.placeholder.com/150" Class="mb-2" />
+<MudText Typo="Typo.h6">João Paulo</MudText>
+<MudText Typo="Typo.subtitle2">32 anos, Masculino</MudText>
+<br />
+
+<MudTabs Elevation="1" Rounded="true" PanelClass="pa-6">
+    <MudTabPanel Text="RESUMO" ToolTip="Resumos">
+        <MudText>Item One</MudText>
+    </MudTabPanel>
+    <MudTabPanel Text="TREINO" ToolTip="Treinos">
+        <TrainningsComponent></TrainningsComponent>
+    </MudTabPanel>
+    <MudTabPanel Text="AVALIAÇÕES FÍSICAS" ToolTip="Avaliações Físicas">
+        <MudText>Item Three</MudText>
+    </MudTabPanel>
+</MudTabs>
+
+@code
+{
+    int activeIndex = 0;
+}
+
+
