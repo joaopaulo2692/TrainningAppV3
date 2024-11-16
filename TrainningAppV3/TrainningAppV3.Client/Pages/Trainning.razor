@@ -8,6 +8,7 @@
 @layout AdminLayout
 
 
+
 <h3>Sessões do treino</h3>
 <div class="parent-container">
     <MudTabs @bind-ActivePanelIndex="_selectedTabIndex" Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6" @key="_uniqueKey" Class="dropzone-small">
@@ -308,140 +309,12 @@
                 {
                     new() { Zone = "Drop Zone 1", TrainningDayOrdenation=1, TrainningDayId =1, Name = "A" } 
                 };
-
-
-            DropzoneList.Add(_items);
-        
+            DropzoneList.Add(_items);       
         }
         
 
     }
 
-    List<TrainningDayReturnVO> trainningDayReturnList = new List<TrainningDayReturnVO>()
-    {
-        new TrainningDayReturnVO()
-        {
-            Name = "A",
-            Ordenation = 1,
-            TrainningExercises = new List<TrainningExerciseVO>()
-            {
-                new TrainningExerciseVO()
-                {
-                Reps = "10",
-                Set = 3,
-                ExerciseName = "Supino",
-                Info = "Normal",
-                Ordenation = 1,
-                Weight = "60",
-                Interval = 30
-
-                },
-                 new TrainningExerciseVO()
-                {
-                Reps = "10",
-                Set = 3,
-                ExerciseName = "Supino Inclinado",
-                Info = "Normal",
-                Ordenation = 2,
-                Weight = "60",
-                Interval = 30
-                },
-                 new TrainningExerciseVO()
-                {
-                Reps = "10",
-                Set = 3,
-                ExerciseName = "Supino Declinado",
-                Info = "Normal",
-                Ordenation = 3,
-                Weight = "60",
-                Interval = 30
-                },
-            }
-
-        },
-
-        new TrainningDayReturnVO()
-        {
-            Name = "B",
-            Ordenation = 2,
-            TrainningExercises = new List<TrainningExerciseVO>()
-            {
-                new TrainningExerciseVO()
-                {
-                Reps = "10",
-                Set = 3,
-                ExerciseName = "Leg",
-                Info = "Normal",
-                Ordenation = 1,
-                Weight = "60",
-                Interval = 30
-
-                },
-                 new TrainningExerciseVO()
-                {
-                Reps = "10",
-                Set = 3,
-                ExerciseName = "Cadeira extensora",
-                Info = "Normal",
-                Ordenation = 2,
-                Weight = "60",
-                Interval = 30
-                },
-                 new TrainningExerciseVO()
-                {
-                Reps = "10",
-                Set = 3,
-                ExerciseName = "Panturrilha",
-                Info = "Normal",
-                Ordenation = 3,
-                Weight = "60",
-                Interval = 30
-                },
-            }
-
-        },
-        new TrainningDayReturnVO()
-        {
-            Name = "C",
-            TrainningExercises = new List<TrainningExerciseVO>()
-            {
-                new TrainningExerciseVO()
-                {
-                Reps = "10",
-                Set = 3,
-                ExerciseName = "Pulley",
-                Info = "Normal",
-                Ordenation = 1,
-                Weight = "60",
-                Interval = 30
-
-                },
-                 new TrainningExerciseVO()
-                {
-                Reps = "10",
-                Set = 3,
-                ExerciseName = "Encolhimento",
-                Info = "Normal",
-                Ordenation = 2,
-                Weight = "60",
-                Interval = 30
-                },
-                 new TrainningExerciseVO()
-                {
-                Reps = "10",
-                Set = 3,
-                ExerciseName = "Abd",
-                Info = "Normal",
-                Ordenation = 3,
-                Weight = "60",
-                Interval = 30
-                },
-            }
-
-        }
-    };
-
-
-
+  
 
 }

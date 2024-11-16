@@ -14,6 +14,10 @@ namespace TrainningApp.Core.DTO.Trainning
         public string Name { get; set; }
         public string PersonalName { get; set; }
         public DateTime CreatedAt { get; set; }
+        public string Level { get; set; }
+        public int FrequencyWeekly { get; set; }
+        public string Observation { get; set; }
+        public bool Activate { get; set; }
         public List<TrainningDayReturnVO> TrainningDays {  get; set; }
     }
 }

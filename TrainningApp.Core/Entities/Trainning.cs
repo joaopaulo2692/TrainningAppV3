@@ -15,6 +15,10 @@ namespace TrainningApp.Core.Entities
         public DateTime LastDay{ get; set; }
         public string PersonalId {  get; set; }
         public int? GymId { get; set; }
+        public string Level { get; set; }
+        public int FrequencyWeekly { get; set; }
+        public string Observation {  get; set; }
+        public bool Activate { get; set; }
         public virtual List<ApplicationUser> Users { get; set; }
 
         public virtual List<TrainningDay> TrainningDays { get; set; }
