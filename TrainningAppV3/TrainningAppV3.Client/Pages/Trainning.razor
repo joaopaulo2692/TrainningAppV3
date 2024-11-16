@@ -1,4 +1,5 @@
 ﻿@inject IDialogService DialogService
+@using TrainningApp.Core.DTO.Trainning
 @using TrainningApp.Core.DTO.TrainningDay
 @using TrainningApp.Core.DTO.TrainningExercise
 @using TrainningApp.Core.Entities
@@ -84,6 +85,9 @@
 </style>
 
 @code {
+    [Parameter]
+    public TrainningReturnVO TrainningToEdit { get; set; }
+
     private int _selectedTabIndex = 0;
     private int _uniqueKey = 0;
     public string Exercicio { get; set; }
@@ -111,14 +115,6 @@
     });
         _uniqueKey++;
     }
-    // private async Task HandleAddExercise(TrainningExerciseVO newExercise)
-    // {
-
-    //     _items.Add(new DropZoneItem { Zone = "Drop Zone 1", Exercise = newExercise, Name = "A" });
-    //     DropzoneList = new List<List<DropZoneItem>>(DropzoneList); // Recrie a lista para atualizar o estado
-    //     _uniqueKey++;
-    //     await InvokeAsync(StateHasChanged);
-    // }
 
     private async Task HandleAddExercise(DropZoneItem newExercise)
     {
@@ -231,19 +227,12 @@
             Ordenation = 2
         }
     };
-    // TrainningExerciseVO trainningExercise = new TrainningExerciseVO()
-    //     {
-    //         Reps = 10,
-    //         Set = 3,
-    //         ExerciseName = "Supino"
-    //     };
 
 
 
     TrainningDay trainningDay = new TrainningDay();
 
 
-    // private void ItemUpdated(MudItemDropInfo<DropZoneItem> dropItem) => dropItem.Item.Zone = dropItem.DropzoneIdentifier;
 
     public List<DropZone> _zones = new()
     {
@@ -294,7 +283,28 @@
     {
         StateHasChanged();
 
-        _items = new List<DropZoneItem>
+        if (TrainningToEdit != null)
+        {
+            foreach(var trainningDayIndex in TrainningToEdit.TrainningDays)
+            {
+                foreach (var exerciseIndex in trainningDayIndex.TrainningExercises)
+                {
+                    DropZoneItem newDropZone = new DropZoneItem()
+                        {
+                            Zone = "Drop Zone 1", TrainningDayOrdenation = trainningDayIndex.Ordenation, TrainningDayId = trainningDayIndex.Id, 
+                            Name = trainningDayIndex.Name, Exercise = exerciseIndex 
+                        };
+                    _items.Add(newDropZone);
+                }
+                DropzoneList.Add(_items);
+                _items = new List<DropZoneItem>();
+            }
+        }
+
+
+        else
+        {
+            _items = new List<DropZoneItem>
         {
             new() { Zone = "Drop Zone 1", TrainningDayOrdenation=1, TrainningDayId =1, Name = "A", Exercise =    new TrainningExerciseVO()
         {
@@ -350,8 +360,9 @@
 
         DropzoneList.Add(_items);
         DropzoneList.Add(_items2);
+        }
+        
 
-        // DropzoneList.SelectMany(x => x.OrderBy( x => x.Name))
     }
 
     List<TrainningDayReturnVO> trainningDayReturnList = new List<TrainningDayReturnVO>()
