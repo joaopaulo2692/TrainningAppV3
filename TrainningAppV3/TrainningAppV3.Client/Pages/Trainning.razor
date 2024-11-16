@@ -305,61 +305,13 @@
         else
         {
             _items = new List<DropZoneItem>
-        {
-            new() { Zone = "Drop Zone 1", TrainningDayOrdenation=1, TrainningDayId =1, Name = "A", Exercise =    new TrainningExerciseVO()
-        {
-            Reps = "10",
-            Set = 3,
-            ExerciseName = "Supino inclinado",
-            Info = "Normal",
-            Ordenation = 3,
-            TrainningDayId = 1
-        } },
-            new() { Zone = "Drop Zone 1",TrainningDayOrdenation=1, TrainningDayId =1, Name = "A", Exercise =  new TrainningExerciseVO()
-        {
-            Reps = "10",
-            Set = 3,
-            ExerciseName = "Supino reto",
-            Info = "Normal",
-            Ordenation = 2,
-            TrainningDayId = 1
-        } },
-            new() { Zone = "Drop Zone 1", TrainningDayOrdenation=1, TrainningDayId =1, Name = "A", Exercise =  new TrainningExerciseVO()
-        {
-            Reps = "10",
-            Set = 3,
-            ExerciseName = "Supino",
-            Info = "Normal",
-            Ordenation = 1,
-            TrainningDayId = 1
-        } }
-        };
+                {
+                    new() { Zone = "Drop Zone 1", TrainningDayOrdenation=1, TrainningDayId =1, Name = "A" } 
+                };
 
-        _items2 = new List<DropZoneItem>
-        {
 
-            new() { Zone = "Drop Zone 1", TrainningDayOrdenation=2, TrainningDayId =2, Name = "B", Exercise =  new TrainningExerciseVO()
-        {
-            Reps = "10",
-            Set = 3,
-            ExerciseName = "Supino reto",
-            Info = "Normal",
-            Ordenation = 2,
-            TrainningDayId = 2
-        } },
-            new() { Zone = "Drop Zone 1",TrainningDayOrdenation=2, TrainningDayId =2, Name = "B", Exercise =  new TrainningExerciseVO()
-        {
-            Reps = "10",
-            Set = 3,
-            ExerciseName = "Supino",
-            Info = "Normal",
-            Ordenation = 1,
-            TrainningDayId = 2
-        } }
-        };
-
-        DropzoneList.Add(_items);
-        DropzoneList.Add(_items2);
+            DropzoneList.Add(_items);
+        
         }
         
 
