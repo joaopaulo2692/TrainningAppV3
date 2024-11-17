@@ -1,15 +1,18 @@
 ﻿
+@using TrainningApp.Core.DTO.Trainning
 @using TrainningApp.Core.DTO.User
 @using TrainningAppV3.Client.Pages
 
+<h3>Dados do Treino</h3>
 <div class="parent-container">
     <MudPaper Class="pa-16 ma-2 custom-size" Elevation="3">
         <div class="form-grid">
             <!-- Linha 1: Nome e Responsável -->
-            <MudTextField T="string" Label="Nome" @bind-Value="nameCustomer" Typo="Typo.input" />
+            <MudTextField T="string" Label="Nome" @bind-Value="nameTrainning" Typo="Typo.input" />
             <MudAutocomplete T="string" Label="Responsável" @bind-Value="personalSelected" SearchFunc="@SearchByPersonal"
                              ResetValueOnEmptyText="@resetValueOnEmptyText"
-                             CoerceText="@coerceText" CoerceValue="@coerceValue" />
+                             CoerceText="@coerceText" CoerceValue="@coerceValue" Class="custom-autocomplete" />
+
 
             <!-- Linha 2: Tipo de Treino, Nível e Frequência -->
             <MudSelect Label="Tipo de Treino" @bind-Value="typeTrainning">
@@ -19,14 +22,14 @@
                 }
             </MudSelect>
 
-            <MudSelect Label="Nível" @bind-Value="levelTrainning">
+            <MudSelect Class="custom-nivel" Label="Nível" @bind-Value="levelTrainning">
                 @foreach (var level in levelsTrainningList)
                 {
                     <MudSelectItem Value="level">@level</MudSelectItem>
                 }
             </MudSelect>
 
-            <MudNumericField @bind-Value="frequency" Label="Frequência" Variant="Variant.Text" Min="0" Max="10" />
+            <MudNumericField Class="custom-freq" @bind-Value="frequency" Label="Frequência" Variant="Variant.Text" Min="0" Max="10" />
 
             <!-- Linha 3: MudSwitch -->
             <MudSwitch @bind-Value="isActivate" Label="Ativado" Color="Color.Secondary" Class="switch-field" />
@@ -72,6 +75,18 @@
         height: auto;
         box-sizing: border-box;
     }
+
+    .custom-autocomplete {
+        width: 350px; /* Defina a largura desejada */
+    }
+
+    .custom-freq {
+        width: 150px; /* Defina a largura desejada */
+    }
+
+    .custom-nivel {
+        width: 200px; /* Defina a largura desejada */
+    }
 </style>
 
 
@@ -79,6 +94,9 @@
 
 @code
 {
+    [Parameter]
+    public TrainningReturnVO Trainning { get; set; }
+
     private bool isActivate;
     private bool resetValueOnEmptyText;
     private bool coerceText;
@@ -86,7 +104,7 @@
     private string personalSelected;
     private string observation;
     private string typeTrainning;
-    private string nameCustomer;
+    private string nameTrainning;
     private int frequency = 0;
     private List<string> typesTrainningList = new List<string>()
     {
@@ -121,6 +139,16 @@
                 Name = "Giovanni"
             },
         };
+
+        if (Trainning != null)
+        {
+            personalSelected = Trainning.PersonalName;
+            observation = Trainning.Observation;
+            typeTrainning = Trainning.Goal;
+            typeTrainning = Trainning.Goal;
+            frequency = Trainning.FrequencyWeekly;
+            nameTrainning = Trainning.Name;
+        }
     }
 
 

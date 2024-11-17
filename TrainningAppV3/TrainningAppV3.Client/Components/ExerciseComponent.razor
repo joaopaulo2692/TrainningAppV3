@@ -55,18 +55,22 @@
                                  Class="invisible" />
                 <MudTextField Label="Carga" @bind-Value="weights[0]" />
             </div>
-
-            @for (int i = 1; i < set; i++)
+            @if(set > 1)
             {
-                
-                 <ExerciseInput Index="i"
-                  Rep="reps"
-                  Weight="weights"
-                  OnRepSave="OnRepSave"
-                  OnWeightSave="OnWeightSave" />
+                ExerciseCorrectionRepsAndWeights(set);
+                @for (int i = 1; i < set; i++)
+                {
 
-          
+                    <ExerciseInput Index="i"
+                                   Rep="reps"
+                                   Weight="weights"
+                                   OnRepSave="OnRepSave"
+                                   OnWeightSave="OnWeightSave" />
+
+
+                }
             }
+            
             <MudTextField Label="Observação" @bind-Value="observation" />
             <MudTooltip Text="Este exercício não possui Video" Disabled="@ShowTooltip">
             <MudButton OnClick="OpenVideo" Variant="Variant.Filled" Disabled="exerciseNotHasVideo" Color="Color.Secondary" Style="margin-right: 20px;">Visualizar Exercício</MudButton>
@@ -239,7 +243,7 @@
             };
 
         // Chame o EventCallback passando o trainningExercise
-      
+
         await OnAddExercise.InvokeAsync(trainningExerciseVO);
 
         // Feche o diálogo
@@ -265,7 +269,7 @@
             if (numbersReps.Count == 0) numbersReps = new List<string> { "", "", "", "", "" };
             if (numbersWeights.Count == 0) numbersWeights = new List<string> { "", "", "", "", "" };
 
-            
+
             set = EditExercise.Set;
             reps = numbersReps;
             exerciseSelected = EditExercise.ExerciseName != null ? EditExercise.ExerciseName : string.Empty;
@@ -273,6 +277,24 @@
             weights = numbersWeights;
             observation = EditExercise.Info != null ? EditExercise.Info : string.Empty;
 
+        }
+    }
+
+    private void ExerciseCorrectionRepsAndWeights(int setCount)
+    {
+        if(reps.Count < setCount)
+        {
+            while(reps.Count < setCount)
+                {
+                    reps.Add(string.Empty);
+                }
+        }
+        if (weights.Count < setCount)
+        {
+            while (weights.Count < setCount)
+            {
+                weights.Add(string.Empty);
+            }
         }
     }
 

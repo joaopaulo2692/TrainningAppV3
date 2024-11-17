@@ -43,6 +43,20 @@
         await OnWeightSave.InvokeAsync(Rep);
     }
 
+    protected override void OnInitialized()
+    {
+        // if (Weight == null) Weight = new List<string> { "", "", "" };
+        // if (Rep == null) Rep = new List<string> { "", "", "" };
+        // if (Rep.Count < Index) {
+        //     Rep.Add(string.Empty);
+        //     Rep.Add(string.Empty);
+        // }
+        // if (Weight.Count < Index){
+        //     Weight.Add(string.Empty);
+        //     Weight.Add(string.Empty);
+        // }
+    }
+
 }
     
 
