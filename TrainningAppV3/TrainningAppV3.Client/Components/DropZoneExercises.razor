@@ -21,7 +21,7 @@
     } *@
     @if (TrainningExercise != null)
     {
-        <MudDropContainer T="DropZoneItem" Items="_items" ItemsSelector="@((item, dropzone) => item.Zone == dropzone)" ItemDropped="ItemUpdated" Class="4 flex-grow-1">
+        <MudDropContainer T="DropZoneItem" Items="_items" ItemsSelector="@((item, dropzone) => item.Zone == dropzone)"  ItemDropped="ItemUpdated" Class="4 flex-grow-1">
             <ChildContent>
                 <MudDropContainer T="DropZone" Items="_zones" ItemsSelector="@((item, dropzone) => true)" Class="5">
                     <ChildContent>
@@ -73,6 +73,8 @@
     public EventCallback<DropZoneItem> OnEditExercise { get; set; }
     [Parameter]
     public EventCallback<string> OnRemoveTrainningDay { get; set; }
+    [Parameter]
+    public EventCallback<List<DropZoneItem>> OnEditExerciseOrdenation { get; set; }
 
 
     [Parameter]
@@ -93,7 +95,7 @@
     [Parameter]
     public TrainningExerciseVO TrainningExercise { get; set; }
 
-    
+
 
     private async Task AddExercise(DropZoneItem dropZoneItem)
     {
@@ -119,6 +121,12 @@
         await OnRemoveTrainningDay.InvokeAsync(ParameterNameZone);
     }
 
+    private async Task EditOrdenationExercise()
+    {
+        // Chame o callback passando o exercício adicionado
+        await OnEditExerciseOrdenation.InvokeAsync(_items);
+    }
+
     [Parameter]
     public List<DropZoneItem> _items { get; set; }
 
@@ -141,7 +149,7 @@
     protected override void OnInitialized()
     {
         // if (TrainningDayCount == 1) IsTrainningLetterA = true;
-        
+
     }
 
     private async Task OpenDialog()
@@ -164,7 +172,7 @@
             var addedExercise = (TrainningExerciseVO)result.Data;
             if (addedExercise == null) return;
             addedExercise.TrainningDayId = ParameterTrainningDay;
-            
+
             if (!IsToEdited) addedExercise.Ordenation = ParameterOrdenation + 1;
             if (IsToEdited) addedExercise.Ordenation = ParameterOrdenation;
             // Chame o método para adicionar o exercício ao componente pai
@@ -182,18 +190,46 @@
         }
 
     }
-    private void ItemUpdated(MudItemDropInfo<DropZoneItem> dropItem)
+    private async Task ItemUpdated(MudItemDropInfo<DropZoneItem> dropItem)
     {
+        // Atualiza o identificador de zona do item movido
         dropItem.Item.Zone = dropItem.DropzoneIdentifier;
-        var itemsInZone = _items
-      .Where(item => item.Zone == dropItem.DropzoneIdentifier)
-      .ToList();
 
-        // Atualiza a propriedade Ordenation para cada item na zona, com base na nova ordem
-        for (int i = 0; i < itemsInZone.Count; i++)
+        // Reorganizar a lista _items explicitamente
+        var updatedList = new List<DropZoneItem>();
+        int newTargetOrdenation = dropItem.IndexInZone + 1;
+        var exerciseTarget = _items.Where(x => x.Exercise.Ordenation == newTargetOrdenation).FirstOrDefault();
+        var exerciseMoved = _items.Where(x => x.Exercise.Ordenation == dropItem.Item.Exercise.Ordenation).FirstOrDefault();
+
+
+        foreach(var dropZone in _items)
         {
-            itemsInZone[i].Exercise.Ordenation = i + 1;
+            if (dropZone == exerciseTarget) dropZone.Exercise.Ordenation = dropItem.Item.Exercise.Ordenation;
+            if (dropZone == exerciseMoved) dropZone.Exercise.Ordenation = newTargetOrdenation;
         }
+
+        // Itera sobre cada dropzone para capturar os itens na ordem correta
+        // foreach (var dropzone in _zones)
+        // {
+        //     var itemsInZone = _items
+        //         .Where(item => item.Zone == dropzone.Name)
+        //         .OrderBy(item => item.Exercise.Ordenation) // ou outra lógica relevante para manter a ordem inicial
+        //         .ToList();
+
+        //     // Recalcula a ordenação para os itens desta zona
+        //     for (int i = 0; i < itemsInZone.Count; i++)
+        //     {
+        //         itemsInZone[i].Exercise.Ordenation = i + 1;
+        //         updatedList.Add(itemsInZone[i]);
+        //     }
+        // }
+
+        // Substitui a lista _items pela nova lista atualizada
+        updatedList = _items;
+        await EditOrdenationExercise();
+        // Atualiza a interface
+        StateHasChanged();
     }
+
     
 }

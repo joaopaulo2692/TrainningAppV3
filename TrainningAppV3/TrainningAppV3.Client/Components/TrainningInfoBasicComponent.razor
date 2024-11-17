@@ -97,7 +97,7 @@
     [Parameter]
     public TrainningReturnVO Trainning { get; set; }
 
-    private bool isActivate;
+    private bool isActivate = false;
     private bool resetValueOnEmptyText;
     private bool coerceText;
     private bool coerceValue;
@@ -121,6 +121,7 @@
 
     protected override void OnInitialized()
     {
+        if (Trainning != null && Trainning.Activate) isActivate = true;
         PersonalUsers = new List<UserVO>()
         {
             new UserVO
@@ -142,12 +143,11 @@
 
         if (Trainning != null)
         {
-            personalSelected = Trainning.PersonalName;
-            observation = Trainning.Observation;
-            typeTrainning = Trainning.Goal;
-            typeTrainning = Trainning.Goal;
+            personalSelected = Trainning.PersonalName != null ? Trainning.PersonalName : "";
+            observation = Trainning.Observation != null ? Trainning.Observation : "";
+            typeTrainning = Trainning.Goal != null ? Trainning.Goal : "";
             frequency = Trainning.FrequencyWeekly;
-            nameTrainning = Trainning.Name;
+            nameTrainning = Trainning.Name != null ? Trainning.Name : "";
         }
     }
 

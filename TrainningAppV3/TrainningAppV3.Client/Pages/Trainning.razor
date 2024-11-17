@@ -44,7 +44,8 @@
                                        ParameterNameZone=@drop[0].Name
                                        TrainningExercise="drop[0].Exercise"
                                        OnRemoveTrainningDay="HandleRemoveTrainningDay"
-                                       DisableTrainningRemove="DropzoneList.Count == 1 ? true : false" />
+                                       DisableTrainningRemove="DropzoneList.Count == 1 ? true : false"
+                                       OnEditExerciseOrdenation="HandleChangeOrdenationExercise" />
                 }
 
 
@@ -123,6 +124,53 @@
     });
         _uniqueKey++;
     }
+
+    // private async Task HandleChangeOrdenationExercise(List<DropZoneItem> dropNewOrdenation)
+    // {
+
+    //     // Encontrar a primeira sublista onde existe um item com o 'Name' desejado e removê-lo
+    //     DropzoneList
+    //         .Where(sublist => sublist.Any(x => x.Name == dropNewOrdenation[0].Name))  // Verifica se a sublista contém o item com o nome
+    //         .ToList()  // Converte para lista para realizar operações
+    //         .ForEach(sublist => sublist.RemoveAll(x => x.Name == dropNewOrdenation[0].Name));  // Remove os itens com o nome desejado
+
+    //     DropzoneList.Add(dropNewOrdenation);
+    //     _uniqueKey++;
+    // }
+    private async Task HandleChangeOrdenationExercise(List<DropZoneItem> dropNewOrdenation)
+    {
+        // Procurar a sublista que contém o item com o 'Name' desejado
+        var targetSublist = DropzoneList
+            .FirstOrDefault(sublist => sublist.Any(x => x.Name == dropNewOrdenation[0].Name));
+
+        // Se a sublista foi encontrada
+        if (targetSublist != null)
+        {
+            // Usar LINQ para encontrar e atualizar o item desejado dentro da sublista
+            targetSublist
+                .Where(x => x.Name == dropNewOrdenation[0].Name)
+                .ToList() // Usando ToList() para que a operação de atualização seja realizada no item
+                .ForEach(item =>
+                {
+                    // Substituindo as propriedades do item
+                    item.Exercise.Ordenation = dropNewOrdenation[0].Exercise.Ordenation;
+                    item.Exercise.Set = dropNewOrdenation[0].Exercise.Set;
+                    item.Exercise.Reps = dropNewOrdenation[0].Exercise.Reps;
+                    item.Exercise.Info = dropNewOrdenation[0].Exercise.Info;
+                    item.Exercise.Weight = dropNewOrdenation[0].Exercise.Weight;
+                    item.Exercise.ExerciseId = dropNewOrdenation[0].Exercise.ExerciseId;
+                    item.Exercise.ExerciseName = dropNewOrdenation[0].Exercise.ExerciseName;
+                    item.Exercise.TrainningDayId = dropNewOrdenation[0].Exercise.TrainningDayId;
+                    item.Exercise.Interval = dropNewOrdenation[0].Exercise.Interval;
+                    // Adicione mais atualizações conforme necessário
+                });
+        }
+
+        // Atualizar chave única, se necessário
+        _uniqueKey++;
+    }
+
+
 
     private async Task HandleRemoveTrainningDay(string trainningDayToRemove)
     {
