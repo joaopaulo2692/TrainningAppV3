@@ -36,7 +36,8 @@
                                        ParameterTrainningDay=drop[0].TrainningDayId
                                        ParameterOrdenation=drop[0].Exercise.Ordenation
                                        ParameterNameZone=@drop[0].Name
-                                       TrainningExercise="drop[0].Exercise" />
+                                       TrainningExercise="drop[0].Exercise"
+                                       OnRemoveTrainningDay="HandleRemoveTrainningDay"/>
                 }
 
 
@@ -114,6 +115,24 @@
 
         }
     });
+        _uniqueKey++;
+    }
+
+    private async Task HandleRemoveTrainningDay(string trainningDayToRemove)
+    {
+        DropzoneList.RemoveAll(sublist => sublist.Any(item => item.Name == trainningDayToRemove));
+        char newLetter = 'A';
+        int cont = 0;
+        foreach(var itemIndex in DropzoneList)
+        {
+
+            foreach(var itemTwoIndex in itemIndex)
+            {
+                itemTwoIndex.Name = newLetter.ToString();
+            }
+            cont++;
+            newLetter = (char)(newLetter + cont);
+        }
         _uniqueKey++;
     }
 
@@ -266,7 +285,7 @@
     public class DropZoneItem
     {
         public string Zone { get; set; }
-        public string Name { get; init; }
+        public string Name { get; set; }
         public TrainningExerciseVO Exercise { get; set; }
         public TrainningDayReturnVO TrainningDayReturn { get; set; }
         public int TrainningDayOrdenation { get; set; }

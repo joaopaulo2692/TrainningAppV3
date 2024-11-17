@@ -9,7 +9,8 @@
     Adicionar
 </MudButton> *@
 <div class="@Class">
-    <MudButton OnClick="OpenDialog" Variant="Variant.Filled" Color="Color.Success" Style="margin-right: 20px;">Adicionar</MudButton>
+    <MudButton OnClick="OpenDialog" Variant="Variant.Filled" Color="Color.Success" Style="margin-right: 20px;">Adicionar Exercício</MudButton>
+    <MudButton Disabled=IsTrainningLetterA OnClick="RemoveTrainningDay" Variant="Variant.Filled" Color="Color.Error" Style="margin-right: 20px;">Remover Sessão</MudButton>
     @if (TrainningExercise == null)
     {
         <div>
@@ -69,6 +70,8 @@
     public EventCallback<DropZoneItem> OnRemoveExercise { get; set; }
     [Parameter]
     public EventCallback<DropZoneItem> OnEditExercise { get; set; }
+    [Parameter]
+    public EventCallback<string> OnRemoveTrainningDay { get; set; }
 
 
     [Parameter]
@@ -81,8 +84,12 @@
     public string Class { get; set; }
 
     [Parameter]
+    public int TrainningDayCount { get; set; }
+
+    [Parameter]
     public TrainningExerciseVO TrainningExercise { get; set; }
 
+    public bool IsTrainningLetterA = false;
 
     private async Task AddExercise(DropZoneItem dropZoneItem)
     {
@@ -102,6 +109,11 @@
         await OnEditExercise.InvokeAsync(dropZoneItem);
     }
 
+    private async Task RemoveTrainningDay()
+    {
+        // Chame o callback passando o exercício adicionado
+        await OnRemoveTrainningDay.InvokeAsync(ParameterNameZone);
+    }
 
     [Parameter]
     public List<DropZoneItem> _items { get; set; }
@@ -122,6 +134,11 @@
         return;
     }
 
+    protected override void OnInitialized()
+    {
+        if (TrainningDayCount == 1) IsTrainningLetterA = true;
+        
+    }
 
     private async Task OpenDialog()
     {
