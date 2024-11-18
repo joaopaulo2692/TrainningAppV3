@@ -1,4 +1,5 @@
 ﻿@page "/clientes"
+@inject NavigationManager NavigationManager
 @using TrainningApp.Core.DTO.User
 <h3>Customers</h3>
 
@@ -22,7 +23,7 @@
                     </MudItem>
 
                     <!-- Botão de edição -->
-                    <MudIconButton Icon="@Icons.Material.Outlined.Edit" />
+                    <MudIconButton OnClick="NavigateToEditPage" Icon="@Icons.Material.Outlined.Edit" />
                 </MudGrid>
             <MudDivider Class="my-4" />
         }
@@ -44,6 +45,10 @@
 @code {
     List<UserVO> users = new List<UserVO>();
 
+    private void NavigateToEditPage()
+    {
+        NavigationManager.NavigateTo("/trainning"); // Substitua "/edit-page" pela rota desejada
+    }
     protected override void OnInitialized()
     {
         users = new List<UserVO>()
@@ -169,6 +174,6 @@
         Gender = "Feminino"
     }
 };
-
+        users = users.OrderBy(x => x.Name).ToList();
     }
 }
