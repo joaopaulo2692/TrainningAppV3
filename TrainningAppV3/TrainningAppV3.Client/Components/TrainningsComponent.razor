@@ -15,7 +15,7 @@
     @foreach (TrainningReturnVO trainning in trainningsList)
     {
         <div style="display: flex; justify-content: center; margin-bottom: 10px;">
-            <MudPaper Height="200px" Width="70%" Style="padding: 20px; display: flex; flex-direction: column; position: relative;">
+            <MudPaper Height="220px" Width="75%" Style="padding: 20px; display: flex; flex-direction: column; position: relative; overflow: hidden; box-sizing: border-box;">
                 <MudText Typo="Typo.h4" Style="margin-bottom: 15px;">@trainning.Name</MudText>
                     <MudDivider Style="height: 6px; margin-bottom: 15px;" />
 
@@ -29,10 +29,29 @@
                     <span class="normal-text">@trainning.Goal</span>
                 </MudText>
 
-                <MudText>
-                    <span class="bold-label">Criado em:</span>
-                    <span class="normal-text">@trainning.CreatedAt</span>
-                </MudText>
+                <!-- Alinhamento horizontal de "Criado em" e MudAlert -->
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                    <MudText>
+                        <span class="bold-label">Criado em:</span>
+                        <span class="normal-text">@trainning.CreatedAt</span>
+                    </MudText>
+                    @if (trainning.Activate)
+                    {
+                        <MudAlert Severity="Severity.Success" Variant="Variant.Filled" NoIcon="true" Dense="true" Class="custom-alert">
+                            Ativo
+                        </MudAlert>
+                    }
+                    else
+                    {
+                        <MudAlert Severity="Severity.Warning" Variant="Variant.Filled" NoIcon="true" Dense="true" Class="custom-alertPurple">
+                            Desativado
+                        </MudAlert>
+
+                   
+
+                    }
+                 
+                </div>
 
                 <!-- Botões alinhados à direita e mais para cima -->
                 <div style="position: absolute; right: 20px; top: 10px; display: flex; flex-direction: column; align-items: flex-end;">
@@ -41,6 +60,63 @@
                 </div>
             </MudPaper>
         </div>
+
+        <style>
+            .custom-alertPurple {
+                background-color: #6a0dad; /* Roxo personalizado */
+                color: white; /* Texto branco para contraste */
+                border-radius: 8px; /* Opcional: bordas arredondadas */
+            }
+            .custom-alert {
+                border-radius: 10px; /* Bordas arredondadas maiores */
+                font-size: 0.9rem;
+                white-space: nowrap; /* Impede quebras de linha no alerta */
+                padding: 5px 10px; /* Aumenta a área do alerta */
+                box-sizing: border-box; /* Garante que o padding não ultrapasse os limites */
+            }
+
+            .bold-label {
+                font-weight: bold;
+            }
+
+            .normal-text {
+                font-size: 0.9rem;
+            }
+        </style>
+
+
+        <style>
+            .custom-alert {
+                border-radius: 8px;
+                font-size: 0.8rem;
+                white-space: nowrap; /* Impede quebra de linha no texto do alerta */
+            }
+
+            .bold-label {
+                font-weight: bold;
+            }
+
+            .normal-text {
+                font-size: 0.9rem;
+            }
+        </style>
+
+
+        <style>
+            .custom-alert {
+                border-radius: 8px;
+                font-size: 0.8rem;
+            }
+        </style>
+
+
+        <style>
+            .custom-alert {
+                border-radius: 8px;
+                font-size: 0.8rem; /* Ajustar o tamanho do texto do alerta */
+            }
+        </style>
+
 
     }
 }
@@ -207,7 +283,8 @@
                 Goal = "Emagrecimento",
                 Name = "Treino ABC",
                 PersonalName = "Zé",
-                Activate = false
+                Activate = false,
+                TrainningDays = new List<TrainningDayReturnVO>()
             },
              new TrainningReturnVO()
             {
@@ -216,7 +293,8 @@
                 Goal = "Condicionamento",
                 Name = "Treino AB",
                 PersonalName = "Léo",
-                Activate = false
+                Activate = false,
+                TrainningDays = new List<TrainningDayReturnVO>()
             },
 
         };
