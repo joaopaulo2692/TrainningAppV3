@@ -362,7 +362,7 @@
     {
         StateHasChanged();
 
-        if (TrainningToEdit != null)
+        if (TrainningToEdit != null && TrainningToEdit.TrainningDays.Count > 0)
         {
             foreach(var trainningDayIndex in TrainningToEdit.TrainningDays)
             {
