@@ -130,18 +130,8 @@
         _uniqueKey++;
     }
 
-    // private async Task HandleChangeOrdenationExercise(List<DropZoneItem> dropNewOrdenation)
-    // {
 
-    //     // Encontrar a primeira sublista onde existe um item com o 'Name' desejado e removê-lo
-    //     DropzoneList
-    //         .Where(sublist => sublist.Any(x => x.Name == dropNewOrdenation[0].Name))  // Verifica se a sublista contém o item com o nome
-    //         .ToList()  // Converte para lista para realizar operações
-    //         .ForEach(sublist => sublist.RemoveAll(x => x.Name == dropNewOrdenation[0].Name));  // Remove os itens com o nome desejado
 
-    //     DropzoneList.Add(dropNewOrdenation);
-    //     _uniqueKey++;
-    // }
     private async Task HandleChangeOrdenationExercise(List<DropZoneItem> dropNewOrdenation)
     {
         // Procurar a sublista que contém o item com o 'Name' desejado

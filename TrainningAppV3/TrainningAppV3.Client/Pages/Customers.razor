@@ -1,0 +1,174 @@
+﻿@page "/clientes"
+@using TrainningApp.Core.DTO.User
+<h3>Customers</h3>
+
+
+<div style="display: flex; justify-content: center; padding: 10px;">
+    <MudPaper Width="75%" Style="padding: 20px; display: flex; flex-direction: column; position: relative; overflow-y: auto; box-sizing: border-box;">
+        @foreach (var user in users)
+        {
+            <MudGrid AlignItems="AlignItems.Center" Class="profile-container hoverable">
+                <!-- Avatar -->
+                <MudItem>
+                    <MudAvatar Size="Size.Large" Image="https://via.placeholder.com/150" Class="mb-2" />
+                </MudItem>
+
+                <!-- Texto ao lado do avatar -->
+                <MudItem Class="profile-text">
+                    <!-- Nome em negrito e maior -->
+                    <MudText Typo="Typo.h6" Class="font-weight-bold">@user.Name</MudText>
+                        <!-- Idade e gênero abaixo do nome com tamanho menor -->
+                        <MudText Typo="Typo.body2" Class="text-muted">@user.Age anos, @user.Gender</MudText>
+                    </MudItem>
+
+                    <!-- Botão de edição -->
+                    <MudIconButton Icon="@Icons.Material.Outlined.Edit" />
+                </MudGrid>
+            <MudDivider Class="my-4" />
+        }
+    </MudPaper>
+</div>
+
+<style>
+    .hoverable {
+        transition: background-color 0.3s ease;
+    }
+
+        .hoverable:hover {
+            background-color: #f0f0f0; /* Altere a cor conforme desejado */
+            cursor: pointer;
+        }
+
+</style>
+
+@code {
+    List<UserVO> users = new List<UserVO>();
+
+    protected override void OnInitialized()
+    {
+        users = new List<UserVO>()
+{
+    new UserVO()
+    {
+        Name = "João",
+        Age = 32,
+        Gender = "Masculino"
+    },
+    new UserVO()
+    {
+        Name = "Letícia",
+        Age = 27,
+        Gender = "Feminino"
+    },
+    new UserVO()
+    {
+        Name = "Carlos",
+        Age = 45,
+        Gender = "Masculino"
+    },
+    new UserVO()
+    {
+        Name = "Mariana",
+        Age = 22,
+        Gender = "Feminino"
+    },
+    new UserVO()
+    {
+        Name = "Pedro",
+        Age = 38,
+        Gender = "Masculino"
+    },
+    new UserVO()
+    {
+        Name = "Sofia",
+        Age = 29,
+        Gender = "Feminino"
+    },
+    new UserVO()
+    {
+        Name = "Gabriel",
+        Age = 34,
+        Gender = "Masculino"
+    },
+    new UserVO()
+    {
+        Name = "Ana",
+        Age = 24,
+        Gender = "Feminino"
+    },
+    new UserVO()
+    {
+        Name = "Lucas",
+        Age = 31,
+        Gender = "Masculino"
+    },
+    new UserVO()
+    {
+        Name = "Camila",
+        Age = 28,
+        Gender = "Feminino"
+    },
+    new UserVO()
+    {
+        Name = "Ricardo",
+        Age = 41,
+        Gender = "Masculino"
+    },
+    new UserVO()
+    {
+        Name = "Beatriz",
+        Age = 26,
+        Gender = "Feminino"
+    },
+    new UserVO()
+    {
+        Name = "Mateus",
+        Age = 35,
+        Gender = "Masculino"
+    },
+    new UserVO()
+    {
+        Name = "Larissa",
+        Age = 30,
+        Gender = "Feminino"
+    },
+    new UserVO()
+    {
+        Name = "Felipe",
+        Age = 39,
+        Gender = "Masculino"
+    },
+    new UserVO()
+    {
+        Name = "Isabela",
+        Age = 25,
+        Gender = "Feminino"
+    },
+    new UserVO()
+    {
+        Name = "Thiago",
+        Age = 37,
+        Gender = "Masculino"
+    },
+    new UserVO()
+    {
+        Name = "Patrícia",
+        Age = 33,
+        Gender = "Feminino"
+    },
+    new UserVO()
+    {
+        Name = "André",
+        Age = 40,
+        Gender = "Masculino"
+    },
+    new UserVO()
+    {
+        Name = "Juliana",
+        Age = 36,
+        Gender = "Feminino"
+    }
+};
+
+    }
+}
