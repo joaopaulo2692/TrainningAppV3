@@ -19,6 +19,7 @@ namespace TrainningApp.Core.Entities
         public int FrequencyWeekly { get; set; }
         public string Observation {  get; set; }
         public bool Activate { get; set; }
+        public string? Gender { get; set; }
         public virtual List<ApplicationUser> Users { get; set; }
 
         public virtual List<TrainningDay> TrainningDays { get; set; }
