@@ -1,9 +1,9 @@
 ﻿@page "/exercicios"
 @using TrainningApp.Core.DTO.Exercise
-
+@inject IDialogService DialogService
 
 <div style="display: flex; justify-content: center; margin-top: 20px;">
-    <MudButton Variant="Variant.Filled" Color="Color.Success">Novo Exercício</MudButton>
+    <MudButton Variant="Variant.Filled" OnClick="AddExercise" Color="Color.Success">Novo Exercício</MudButton>
 </div>
 <br />
 <br />
@@ -40,7 +40,7 @@
                             @muscle
                         </MudAlert>
                     }
-                    <MudIconButton Icon="@Icons.Material.Outlined.Edit" Style="margin-left: auto;" />
+                                <MudIconButton OnClick="()=>EditExercise(exercise)" Icon="@Icons.Material.Outlined.Edit" Style="margin-left: auto;" />
                 </div>
             </MudGrid>
         </MudItem>
@@ -118,6 +118,25 @@
 @code {
     List<ExerciseVO> exercisesList = new List<ExerciseVO>();
 
+    private async Task AddExercise()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        var dialog = DialogService.Show<NewExerciseDialog>("Adicionar Exercício", options);
+        var result = await dialog.Result;
+    }
+
+    private async Task EditExercise(ExerciseVO exerciseToEditModel)
+    {
+        var parameters = new DialogParameters
+    {
+        { "ExerciseToEdit", exerciseToEditModel}
+    
+    };
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        var dialog = DialogService.Show<NewExerciseDialog>("Editar Exercício", parameters, options);
+        var result = await dialog.Result;
+    }
+
     protected override void OnInitialized()
     {
         exercisesList = new List<ExerciseVO>
@@ -125,7 +144,7 @@
     new ExerciseVO
     {
         Name = "Supino",
-        Muscles = new List<string> { "Peito", "Tríceps" }
+        Muscles = new List<string> { "Peitoral", "Tríceps" }
     },
     new ExerciseVO
     {

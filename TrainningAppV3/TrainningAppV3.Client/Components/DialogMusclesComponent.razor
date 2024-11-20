@@ -1,0 +1,55 @@
+﻿<MudDialog MaxWidth="MaxWidth.ExtraLarge" FullWidth="true" Class="custom-dialog rounded-lg">
+    <DialogContent>
+        <div class="d-flex flex-column py-1" style="min-height: @dialogScreen;">
+            <!-- Renderizar uma lista de MudCheckboxes com dicionário -->
+            @foreach (var muscle in musclesList)
+            {
+                <MudCheckBox @bind-Value="musclesSelected[muscle]"
+                             Label="@muscle"
+                             Color="Color.Primary" />
+            }
+        </div>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Filled" Color="Color.Success" OnClick="SubmitSelection">Adicionar</MudButton>
+        <MudButton Color="Color.Primary">Fechar</MudButton>
+    </DialogActions>
+</MudDialog>
+
+<style>
+    .custom-dialog {
+        max-width: 800px;
+        margin: 20px auto; /* Adiciona 20px de margem superior e inferior e centraliza horizontalmente */
+        width: 90%; /* Ajusta a largura para 90% */
+    }
+</style>
+
+@code {
+    private string dialogScreen = "420px";
+
+    // Lista de músculos disponíveis
+    private List<string> musclesList = new List<string> { "Bíceps", "Tríceps", "Peito", "Costas", "Ombros" };
+
+    // Dicionário que armazena o estado dos checkboxes
+    private Dictionary<string, bool> musclesSelected = new Dictionary<string, bool>();
+
+    // Inicializar o dicionário com valores padrão
+    protected override void OnInitialized()
+    {
+        foreach (var muscle in musclesList)
+        {
+            musclesSelected[muscle] = false; // Inicializa como não selecionado
+        }
+    }
+
+    // Método para manipular a seleção
+    private void SubmitSelection()
+    {
+        var selectedMuscles = musclesSelected
+            .Where(kv => kv.Value) // Filtra apenas os que estão selecionados
+            .Select(kv => kv.Key) // Obtém as chaves (nomes dos músculos)
+            .ToList();
+
+        Console.WriteLine($"Selecionados: {string.Join(", ", selectedMuscles)}");
+    }
+}

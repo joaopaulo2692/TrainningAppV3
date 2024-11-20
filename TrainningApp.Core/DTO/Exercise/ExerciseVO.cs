@@ -13,7 +13,8 @@ namespace TrainningApp.Core.DTO.Exercise
         public string Name { get; set; }
         public string Video { get; set; }
         //public virtual List<int> MusclesIds { get; set; }
-
+        public string Level { get; set; }
+        public string Description { get; set; }
         public virtual List<string> Muscles { get; set; }
     }
 }
