@@ -1,0 +1,178 @@
+﻿@page "/exercicios"
+@using TrainningApp.Core.DTO.Exercise
+
+
+<div style="display: flex; justify-content: center; margin-top: 20px;">
+    <MudButton Variant="Variant.Filled" Color="Color.Success">Novo Exercício</MudButton>
+</div>
+<br />
+<br />
+
+
+<div style="display: flex; justify-content: center; padding: 10px;">
+    <MudPaper Width="75%" Style="padding: 20px; display: flex; flex-direction: column; position: relative; overflow-y: auto; box-sizing: border-box;">
+        @foreach (var exercise in exercisesList)
+        {
+           <!-- Contêiner externo para hover e MudDivider -->
+<div class="hover-container"
+     Style="transition: background-color 0.3s ease; padding: 0; margin-bottom: 2px; cursor: pointer;">
+
+    <MudGrid AlignItems="AlignItems.Center"
+             Class="profile-container"
+             Style="padding: 20px 30px 5px 30px;"> <!-- Menos espaço inferior -->
+
+        <!-- Nome e alertas -->
+        <MudItem Class="profile-text" Style="width: 100%;">
+            <MudGrid>
+                <MudText Typo="Typo.h6" Class="font-weight-bold">@exercise.Name</MudText>
+            </MudGrid>
+
+            <!-- Alertas e botão alinhados -->
+            <MudGrid Item Class="d-flex align-items-center" Style="margin-top: 8px; width: 100%;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    @foreach (var muscle in exercise.Muscles)
+                    {
+                        <MudAlert NoIcon="true"
+                                  Severity="Severity.Info"
+                                  HideIcon="true"
+                                  Square="false"
+                                  Style="border-radius: 8px; padding: 0.5px 6px; font-size: 12px; line-height: 1;">
+                            @muscle
+                        </MudAlert>
+                    }
+                    <MudIconButton Icon="@Icons.Material.Outlined.Edit" Style="margin-left: auto;" />
+                </div>
+            </MudGrid>
+        </MudItem>
+    </MudGrid>
+
+    <!-- Divisor alinhado com menos espaço -->
+    <MudDivider Class="mt-0" Style="margin-top: -2px;" />
+</div>
+
+
+        }
+    </MudPaper>
+
+
+
+
+</div>
+
+<style>
+    .hover-container {
+        background-color: transparent; /* Sem fundo inicial */
+    }
+
+        .hover-container:hover {
+            background-color: #f5f5f5; /* Cor de destaque no hover */
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra opcional */
+        }
+
+        .hover-container .mud-divider {
+            background-color: #e0e0e0; /* Ajuste a cor do divisor conforme necessário */
+        }
+
+    .profile-container.hoverable {
+        background-color: transparent; /* Sem fundo padrão */
+    }
+
+        .profile-container.hoverable:hover {
+            background-color: #f5f5f5; /* Cor de destaque no hover */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve opcional */
+            transition: background-color 0.3s ease;
+        }
+
+    .profile-container .mud-grid {
+        margin-bottom: 0 !important;
+    }
+
+    .profile-container .mud-alert {
+        margin-bottom: 0 !important;
+    }
+
+    .profile-container .mud-divider {
+        margin-top: 4px !important;
+        margin-bottom: 0 !important;
+    }
+        .custom-alert {
+        border-radius: 8px;
+        padding: 2px 6px;
+        font-size: 12px;
+        line-height: 1;
+        margin-right: 6px;
+        /* Caso o componente tenha margens internas invisíveis */
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    .hoverable {
+        transition: background-color 0.3s ease;
+    }
+
+        .hoverable:hover {
+            background-color: #f0f0f0; /* Altere a cor conforme desejado */
+            cursor: pointer;
+        }
+
+</style>
+@code {
+    List<ExerciseVO> exercisesList = new List<ExerciseVO>();
+
+    protected override void OnInitialized()
+    {
+        exercisesList = new List<ExerciseVO>
+{
+    new ExerciseVO
+    {
+        Name = "Supino",
+        Muscles = new List<string> { "Peito", "Tríceps" }
+    },
+    new ExerciseVO
+    {
+        Name = "Agachamento",
+        Muscles = new List<string> { "Pernas", "Glúteos", "Quadríceps" }
+    },
+    new ExerciseVO
+    {
+        Name = "Rosca Direta",
+        Muscles = new List<string> { "Bíceps" }
+    },
+    new ExerciseVO
+    {
+        Name = "Levantamento Terra",
+        Muscles = new List<string> { "Dorsais", "Glúteos", "Pernas" }
+    },
+    new ExerciseVO
+    {
+        Name = "Desenvolvimento com Halteres",
+        Muscles = new List<string> { "Ombros", "Tríceps" }
+    },
+    new ExerciseVO
+    {
+        Name = "Remada Curvada",
+        Muscles = new List<string> { "Costas", "Bíceps" }
+    },
+    new ExerciseVO
+    {
+        Name = "Cadeira Extensora",
+        Muscles = new List<string> { "Quadríceps" }
+    },
+    new ExerciseVO
+    {
+        Name = "Flexão de Braço",
+        Muscles = new List<string> { "Peito", "Tríceps", "Ombros" }
+    },
+    new ExerciseVO
+    {
+        Name = "Crucifixo",
+        Muscles = new List<string> { "Peito" }
+    },
+    new ExerciseVO
+    {
+        Name = "Abdominal",
+        Muscles = new List<string> { "Abdômen" }
+    }
+};
+
+    }
+}
