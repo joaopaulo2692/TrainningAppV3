@@ -13,61 +13,89 @@
     <MudPaper Width="75%" Style="padding: 20px; display: flex; flex-direction: column; position: relative; overflow-y: auto; box-sizing: border-box;">
         @foreach (var trainning in trainningsList)
         {
-            @* <MudGrid AlignItems="AlignItems.Center" Class="profile-container hoverable" Style="padding-left: 30px;"> *@
-            <MudGrid AlignItems="AlignItems.Center" Class="profile-container hoverable" Style="padding-left: 30px; padding-top: 20px; padding-bottom: 18px;">
+            <!-- Contêiner externo para hover e MudDivider -->
+            <div class="hover-container"
+                 Style="transition: background-color 0.3s ease; padding: 0; margin-bottom: 2px; cursor: pointer;">
 
-                <!-- Aqui adicionamos padding -->
-                <!-- Texto ao lado do avatar -->
-                <MudItem Class="profile-text">
-                    <!-- Nome em negrito e maior -->
-                    <MudGrid>
-                        <MudText Typo="Typo.h6" Class="font-weight-bold">@trainning.Name</MudText>
-                            
-                    </MudGrid>
-                    
-                        <br />
-                        <!-- MudAlerts lado a lado -->
-                        <MudGrid Item Class="d-flex">
-                            <MudAlert NoIcon="true" Severity="Severity.Info" HideIcon="true" Square="false"
-                                      Style="border-radius: 8px; padding: 4px 6px 2px 6px; font-size: 12px; margin-right: 6px;">
-                                @trainning.Gender
-                        </MudAlert>
-                        <MudAlert NoIcon="true" Severity="Severity.Info" HideIcon="true" Square="false"
-                                  Style="border-radius: 8px; padding: 4px 6px 2px 6px; font-size: 12px; margin-right: 6px;">
-                            @trainning.PersonalName
-                        </MudAlert>
-                        <MudAlert NoIcon="true" Severity="Severity.Info" HideIcon="true" Square="false"
-                                  Style="border-radius: 8px; padding: 4px 6px 2px 6px; font-size: 12px; margin-right: 6px;">
-                            @trainning.Goal
-                        </MudAlert>
-                        <MudAlert NoIcon="true" Severity="Severity.Info" HideIcon="true" Square="false"
-                                  Style="border-radius: 8px; padding: 4px 6px 2px 6px; font-size: 12px; margin-right: 6px;">
-                            @trainning.Level
-                        </MudAlert>
-                        <MudIconButton Icon="@Icons.Material.Outlined.Edit" />
-                    </MudGrid>
+                <MudGrid AlignItems="AlignItems.Center" Class="profile-container" Style="padding: 20px 30px 5px 30px;">
+                    <!-- Menos espaço inferior -->
+                    <!-- Nome e alertas -->
+                    <MudItem Class="profile-text" Style="width: 100%;">
+                        <MudGrid>
+                            <MudText Typo="Typo.h6" Class="font-weight-bold">@trainning.Name</MudText>
+                            </MudGrid>
 
+                            <!-- Alertas e botão alinhados -->
+                            <MudGrid Item Class="d-flex align-items-center" Style="margin-top: 8px; width: 100%;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <!-- MudAlerts lado a lado -->
+                                    <MudAlert NoIcon="true" Severity="Severity.Info" HideIcon="true" Square="false"
+                                              Style="border-radius: 8px; padding: 3px 6px; font-size: 15px; line-height: 1;">
+                                        @trainning.Gender
+                                </MudAlert>
+                                <MudAlert NoIcon="true" Severity="Severity.Info" HideIcon="true" Square="false"
+                                          Style="border-radius: 8px; padding: 3px 6px; font-size: 15px; line-height: 1;">
+                                    @trainning.PersonalName
+                                </MudAlert>
+                                <MudAlert NoIcon="true" Severity="Severity.Info" HideIcon="true" Square="false"
+                                          Style="border-radius: 8px; padding: 3px 6px; font-size: 15px; line-height: 1;">
+                                    @trainning.Goal
+                                </MudAlert>
+                                <MudAlert NoIcon="true" Severity="Severity.Info" HideIcon="true" Square="false"
+                                          Style="border-radius: 8px; padding: 3px 6px; font-size: 15px; line-height: 1;">
+                                    @trainning.Level
+                                </MudAlert>
+                                <MudIconButton Icon="@Icons.Material.Outlined.Edit" Style="margin-left: auto;" />
+                            </div>
+                        </MudGrid>
+                    </MudItem>
+                </MudGrid>
 
-                </MudItem>
-            </MudGrid>
-            <MudDivider Class="my-4" />
+                <!-- Divisor alinhado com menos espaço -->
+                <MudDivider Class="mt-0" Style="margin-top: -2px;" />
+            </div>
         }
     </MudPaper>
-
-
 </div>
 
 <style>
-    .hoverable {
-        transition: background-color 0.3s ease;
+    .hover-container {
+        background-color: transparent; /* Sem fundo inicial */
     }
 
-        .hoverable:hover {
-            background-color: #f0f0f0; /* Altere a cor conforme desejado */
-            cursor: pointer;
+        .hover-container:hover {
+            background-color: #f5f5f5; /* Cor de destaque no hover */
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra opcional */
         }
 
+        .hover-container .mud-divider {
+            background-color: #e0e0e0; /* Ajuste a cor do divisor conforme necessário */
+        }
+
+    .profile-container.hoverable {
+        background-color: transparent; /* Sem fundo padrão */
+    }
+
+        .profile-container.hoverable:hover {
+            background-color: #f5f5f5; /* Cor de destaque no hover */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve opcional */
+            transition: background-color 0.3s ease;
+        }
+
+    .profile-container .mud-grid {
+        margin-bottom: 0 !important;
+    }
+
+    .profile-container .mud-alert {
+        margin-bottom: 0 !important;
+    }
+
+    .profile-container .mud-divider {
+        margin-top: 4px !important;
+        margin-bottom: 0 !important;
+    }
 </style>
+
 
 @code {
     List<TrainningReturnVO> trainningsList = new List<TrainningReturnVO>();
