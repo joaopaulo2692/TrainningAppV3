@@ -152,11 +152,11 @@
         if (!result.Canceled)
         {
             // Pega o dado retornado pelo DialogResult
-            var exerciseToSave = (ExerciseVO)result.Data;
-            if (exerciseToSave != null)
-            {
-                AddExerciseToList(exerciseToSave);
-            }
+            // var exerciseToSave = (ExerciseVO)result.Data;
+            // if (exerciseToSave != null)
+            // {
+            //     AddExerciseToList(exerciseToSave);
+            // }
         }
      
     }
@@ -166,7 +166,7 @@
         var options = new DialogOptions { CloseOnEscapeKey = true };
         var parameters = new DialogParameters
         {
-            { "OnAddExercise", EventCallback.Factory.Create<ExerciseVO>(this, EditExerciseToList) },
+            { "OnEditExercise", EventCallback.Factory.Create<ExerciseVO>(this, EditExerciseToList) },
             {"ExerciseToEdit", exerciseToEditModel}
         };
 
@@ -176,12 +176,12 @@
 
         if (!result.Canceled)
         {
-            // Pega o dado retornado pelo DialogResult
-            var exerciseToSave = (ExerciseVO)result.Data;
-            if (exerciseToSave != null)
-            {
-                EditExerciseToList(exerciseToSave);
-            }
+            // // Pega o dado retornado pelo DialogResult
+            // var exerciseToSave = (ExerciseVO)result.Data;
+            // if (exerciseToSave != null)
+            // {
+            //     EditExerciseToList(exerciseToSave);
+            // }
         }
     }
 

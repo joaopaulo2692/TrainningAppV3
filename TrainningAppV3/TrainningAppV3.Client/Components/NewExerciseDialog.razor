@@ -170,6 +170,7 @@
         {
 
             await OnEditExercise.InvokeAsync(exerciseToSave);
+            MudDialog.Close(DialogResult.Ok(exerciseToSave));
         }
         
         else if (ExerciseToEdit == null) await OnAddExercise.InvokeAsync(exerciseToSave);
