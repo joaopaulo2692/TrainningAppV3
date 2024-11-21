@@ -65,7 +65,7 @@
 
 @code {
     private string SelectedRole { get; set; }
-    private List<string> Roles = new() { "Admin", "User", "Guest" };
+    private List<string> Roles = new() { "Admin", "User", "Personal" };
 
     private Task<IEnumerable<string>> SearchRoles(string value)
     {
@@ -100,6 +100,15 @@
         }
 
         Logger.LogInformation("User created a new account with password.");
+        foreach(var role in Roles)
+        {
+            var roleResult = await UserManager.AddToRoleAsync(user, role);
+            if (!roleResult.Succeeded)
+            {
+                identityErrors = roleResult.Errors;
+                return;
+            }
+        }
 
         var userId = await UserManager.GetUserIdAsync(user);
         var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);

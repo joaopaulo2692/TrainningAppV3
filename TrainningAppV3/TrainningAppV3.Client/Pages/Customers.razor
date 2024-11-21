@@ -1,7 +1,13 @@
 ﻿@page "/clientes"
 @inject NavigationManager NavigationManager
 @using TrainningApp.Core.DTO.User
-<h3>Customers</h3>
+
+<div style="display: flex; justify-content: center;">
+    <MudButton  Variant="Variant.Filled" Color="Color.Success">Novo Usuário</MudButton>
+</div>
+<br />
+<br />
+<br />
 
 
 <div style="display: flex; justify-content: center; padding: 10px;">
@@ -47,7 +53,7 @@
 
     private void NavigateToEditPage()
     {
-        NavigationManager.NavigateTo("/trainning"); // Substitua "/edit-page" pela rota desejada
+        NavigationManager.NavigateTo("/cliente"); // Substitua "/edit-page" pela rota desejada
     }
     protected override void OnInitialized()
     {

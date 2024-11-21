@@ -1,4 +1,5 @@
-﻿<div class="parent-container">
+﻿@using TrainningApp.Core.DTO.User
+<div class="parent-container">
 <h2>Dados do Usuário</h2>
 </div>
 <div class="parent-container">
@@ -98,6 +99,7 @@
 
 
 @code {
+    private UserVO user;
     private string name;
     private string email;
     private string observation;
@@ -117,4 +119,23 @@
     {
         "Hipertrofia", "Emagrecimento", "Condicionamento", "Funcional"
     };
+
+    protected override void OnInitialized()
+    {
+        user = new UserVO()
+            {
+                Age = 32,
+                Cpf = "111.111.111-11",
+                Email = "joaopaulo2692@gmail.com",
+                Goal = "Hipertrofia",
+                Name = "João Paulo",
+                Gender = "Masculino",
+                Phone = "(99)999999999"
+
+            };
+        name = user.Name;
+        email = user.Email;
+        goal = user.Goal;
+        phone = user.Phone;
+    }
 }

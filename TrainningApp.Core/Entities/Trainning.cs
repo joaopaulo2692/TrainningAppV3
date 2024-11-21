@@ -20,10 +20,12 @@ namespace TrainningApp.Core.Entities
         public string Observation {  get; set; }
         public bool Activate { get; set; }
         public string? Gender { get; set; }
+        public int ManagementId { get; set; }
         public virtual List<ApplicationUser> Users { get; set; }
 
         public virtual List<TrainningDay> TrainningDays { get; set; }
         public virtual Gym Gym { get; set; }
+        public virtual Management Management { get; set; }
 
         //public virtual List<TrainningExercise> TrainningExercises { get; set; }
 
