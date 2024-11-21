@@ -118,23 +118,71 @@
 @code {
     List<ExerciseVO> exercisesList = new List<ExerciseVO>();
 
+
+    private void AddExerciseToList(ExerciseVO exerciseToAdd)
+    {
+        exercisesList.Add(exerciseToAdd);
+
+    }
+
+    private void EditExerciseToList(ExerciseVO exerciseToEdit)
+    {
+        for (int i = 0; i < exercisesList.Count; i++)
+        {
+            if (exercisesList[i].Id == exerciseToEdit.Id)
+            {
+                exercisesList[i] = exerciseToEdit;
+                break;
+            }
+        }
+    }
+
     private async Task AddExercise()
     {
         var options = new DialogOptions { CloseOnEscapeKey = true };
-        var dialog = DialogService.Show<NewExerciseDialog>("Adicionar Exercício", options);
+        var parameters = new DialogParameters
+        {
+            { "OnAddExercise", EventCallback.Factory.Create<ExerciseVO>(this, AddExerciseToList) }
+        };
+
+        // Mostra o diálogo e passa os parâmetros
+        var dialog = DialogService.Show<NewExerciseDialog>("Adicionar Exercício", parameters);
         var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            // Pega o dado retornado pelo DialogResult
+            var exerciseToSave = (ExerciseVO)result.Data;
+            if (exerciseToSave != null)
+            {
+                AddExerciseToList(exerciseToSave);
+            }
+        }
+     
     }
 
     private async Task EditExercise(ExerciseVO exerciseToEditModel)
     {
-        var parameters = new DialogParameters
-    {
-        { "ExerciseToEdit", exerciseToEditModel}
-    
-    };
         var options = new DialogOptions { CloseOnEscapeKey = true };
-        var dialog = DialogService.Show<NewExerciseDialog>("Editar Exercício", parameters, options);
+        var parameters = new DialogParameters
+        {
+            { "OnAddExercise", EventCallback.Factory.Create<ExerciseVO>(this, EditExerciseToList) },
+            {"ExerciseToEdit", exerciseToEditModel}
+        };
+
+        // Mostra o diálogo e passa os parâmetros
+        var dialog = DialogService.Show<NewExerciseDialog>("Editar Exercício", parameters);
         var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            // Pega o dado retornado pelo DialogResult
+            var exerciseToSave = (ExerciseVO)result.Data;
+            if (exerciseToSave != null)
+            {
+                EditExerciseToList(exerciseToSave);
+            }
+        }
     }
 
     protected override void OnInitialized()
@@ -143,51 +191,61 @@
 {
     new ExerciseVO
     {
+        Id = 1,
         Name = "Supino",
         Muscles = new List<string> { "Peitoral", "Tríceps" }
     },
     new ExerciseVO
     {
+        Id = 2,
         Name = "Agachamento",
         Muscles = new List<string> { "Pernas", "Glúteos", "Quadríceps" }
     },
     new ExerciseVO
     {
+        Id = 3,
         Name = "Rosca Direta",
         Muscles = new List<string> { "Bíceps" }
     },
     new ExerciseVO
     {
+        Id = 4,
         Name = "Levantamento Terra",
         Muscles = new List<string> { "Dorsais", "Glúteos", "Pernas" }
     },
     new ExerciseVO
     {
+        Id = 5,
         Name = "Desenvolvimento com Halteres",
         Muscles = new List<string> { "Ombros", "Tríceps" }
     },
     new ExerciseVO
     {
+        Id = 6,
         Name = "Remada Curvada",
         Muscles = new List<string> { "Costas", "Bíceps" }
     },
     new ExerciseVO
     {
+        Id = 7,
         Name = "Cadeira Extensora",
         Muscles = new List<string> { "Quadríceps" }
     },
     new ExerciseVO
     {
+        Id = 8,
         Name = "Flexão de Braço",
         Muscles = new List<string> { "Peito", "Tríceps", "Ombros" }
     },
     new ExerciseVO
     {
+        Id = 9,
         Name = "Crucifixo",
         Muscles = new List<string> { "Peito" }
     },
     new ExerciseVO
     {
+        Id = 10,
         Name = "Abdominal",
         Muscles = new List<string> { "Abdômen" }
     }

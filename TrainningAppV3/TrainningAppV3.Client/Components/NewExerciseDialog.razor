@@ -33,7 +33,7 @@
         </div>
     </DialogContent>
     <DialogActions>
-        <MudButton Variant="Variant.Filled" Color="Color.Success" OnClick="SaveExercise">Salvar</MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Success" OnClick="SaveExerciseAsync">Salvar</MudButton>
         <MudButton Color="Color.Primary" OnClick="CloseDialog">Fechar</MudButton>
     </DialogActions>
 </MudDialog>
@@ -58,16 +58,10 @@
 
 @code 
 {
-    // [Parameter]
-    // public string NameToEdit { get; set; }
-    // [Parameter]
-    // public string DescriptionToEdit { get; set; }
-    // [Parameter]
-    // public string LevelToEdit { get; set; }
-    // [Parameter]
-    // public string LinkToEdit { get; set; }
-    // [Parameter]
-    // public List<string> MusclesToEdit { get; set; }
+    [Parameter]
+    public EventCallback<ExerciseVO> OnAddExercise { get; set; }
+    [Parameter]
+    public EventCallback<ExerciseVO> OnEditExercise { get; set; }
     [Parameter]
     public ExerciseVO ExerciseToEdit { get; set; }
 
@@ -143,7 +137,7 @@
             {
                 musclesSelected[muscle.Name] = false; // Inicializa como não selecionado
             }
-            
+
         }
 
     }
@@ -155,13 +149,31 @@
 
 
 
-    private void SaveExercise()
+    private async Task SaveExerciseAsync()
     {
         selectedMuscles = musclesSelected
             .Where(kv => kv.Value) // Filtra apenas os selecionados
             .Select(kv => kv.Key) // Obtém os nomes (chaves)
             .ToList();
         ValidateExercise(name, selectedMuscles, selectedLevel);
+        ExerciseVO exerciseToSave = new ExerciseVO()
+            {
+                Name = name,
+                Description = description,
+                Level = selectedLevel,
+                Muscles = selectedMuscles,
+                Video = link,
+                Id = ExerciseToEdit == null ? 0 : ExerciseToEdit.Id
+            };
+
+        if (ExerciseToEdit != null)
+        {
+
+            await OnEditExercise.InvokeAsync(exerciseToSave);
+        }
+        
+        else if (ExerciseToEdit == null) await OnAddExercise.InvokeAsync(exerciseToSave);
+        MudDialog.Close(DialogResult.Ok(exerciseToSave));
     }
 
     private bool ValidateExercise(string nameModel, List<string> listMuscleModel, string levelModel)
