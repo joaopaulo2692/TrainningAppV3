@@ -3,6 +3,8 @@
 @using TrainningApp.Core.DTO.TrainningDay
 @using TrainningApp.Core.DTO.TrainningExercise
 @using TrainningAppV3.Client.Pages
+@inject IDialogService DialogService
+
 
 @if(AddTrainning == false && EditTrainning == false)
 {
@@ -56,10 +58,12 @@
                 <!-- Botões alinhados à direita e mais para cima -->
                 <div style="position: absolute; right: 20px; top: 10px; display: flex; flex-direction: column; align-items: flex-end;">
                     <MudFab OnClick="()=> OnEditTrainning(trainning)" Color="Color.Secondary" StartIcon="@Icons.Material.Filled.Edit" Style="margin-bottom: 10px;" />
-                    <MudIconButton OnClick="()=> OnDeleteTrainning(trainning)" Icon="@Icons.Material.Filled.Delete" aria-label="delete" />
+                    <MudIconButton OnClick="()=> DeleteDialogAsync(trainning)" Icon="@Icons.Material.Filled.Delete" aria-label="delete" />
                 </div>
             </MudPaper>
         </div>
+
+
 
         <style>
             .custom-alertPurple {
@@ -138,6 +142,36 @@
 </style>
 
 @code {
+
+    private async Task DeleteDialogAsync(TrainningReturnVO trainning)
+    {
+        var parameters = new DialogParameters
+    {
+        { nameof(DialogRemove.ContentText), "Você quer realmente apagar esse treino?" },
+        { nameof(DialogRemove.ButtonText), "Deletar" },
+        { nameof(DialogRemove.Color), Color.Error }
+    };
+
+        var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+        // Exibe o diálogo e aguarda o resultado
+        var dialogReference = DialogService.Show<DialogRemove>("Deletar", parameters, options);
+
+        var dialogResult = await dialogReference.Result; // Aguarda até o usuário interagir com o diálogo
+
+        // Verifica se o resultado foi cancelado
+        if (dialogResult.Canceled)
+        {
+            Console.WriteLine("Ação cancelada.");
+        }
+        else
+        {
+            Console.WriteLine("Ação confirmada. Excluindo treino...");
+            OnDeleteTrainning(trainning); // Executa a ação de exclusão
+        }
+    }
+
+
     // TrainningReturnVO trainning = new TrainningReturnVO();
     private TrainningReturnVO TrainningEditing { get; set; }
     List<TrainningReturnVO> trainningsList = new List<TrainningReturnVO>();
