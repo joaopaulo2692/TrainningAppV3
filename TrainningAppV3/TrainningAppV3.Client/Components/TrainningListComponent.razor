@@ -47,7 +47,10 @@
                                           Style="border-radius: 8px; padding: 3px 6px; font-size: 15px; line-height: 1;">
                                     @trainning.Level
                                 </MudAlert>
+                                <div class="action-icons">
                                 <MudIconButton Icon="@Icons.Material.Outlined.Edit" Style="margin-left: auto;" />
+                                <MudIconButton Icon="@Icons.Material.Filled.Delete" aria-label="delete" />
+                                </div>
                             </div>
                         </MudGrid>
                     </MudItem>
@@ -61,12 +64,24 @@
 </div>
 
 <style>
+    /* Oculta os ícones inicialmente */
+    .hover-container .action-icons {
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    /* Mostra os ícones quando em hover */
+    .hover-container:hover .action-icons {
+        visibility: visible;
+        opacity: 1;
+    }
     .hover-container {
         background-color: transparent; /* Sem fundo inicial */
     }
 
         .hover-container:hover {
-            background-color: #f5f5f5; /* Cor de destaque no hover */
+            background-color: #2a2a3d; /* Cor de destaque no hover */
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra opcional */
         }
 

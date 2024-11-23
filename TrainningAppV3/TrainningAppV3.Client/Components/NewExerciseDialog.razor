@@ -21,7 +21,7 @@
                         </MudGrid>
                     </MudCollapse>
                 </MudStack>
-                <MudSelect T="string" Label="Selecionar Level" @bind-Value="selectedLevel">
+                <MudSelect T="string" Label="Selecionar Nível" @bind-Value="selectedLevel">
                     @foreach (var level in levels)
                     {
                         <MudSelectItem Value="@level">@level</MudSelectItem>
