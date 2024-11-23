@@ -1,6 +1,9 @@
 ﻿@page "/"
+@using TrainningAppV3.Client.Layout
 @inject NavigationManager Navigation
-@* @attribute [Layout(typeof(SecondaryLayout))] *@
+@attribute [Layout(typeof(UserLayout))]
+
+
 <PageTitle>Home</PageTitle>
 
 <MudCarousel Class="mud-width-full" Style="height:300px;" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
