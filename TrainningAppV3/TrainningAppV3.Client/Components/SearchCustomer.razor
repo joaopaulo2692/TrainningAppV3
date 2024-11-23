@@ -1,12 +1,16 @@
 ﻿@using TrainningApp.Core.DTO.User
+@inject NavigationManager Navigation
+
 <MudAutocomplete T="string"
                  Label="Buscar aluno"
-                 @bind-Value="customerSelected"
+                 Value="@customerSelected"
+                 ValueChanged="OnCustomerSelected"
                  SearchFunc="@SearchuCustomer"
                  ResetValueOnEmptyText="@resetValueOnEmptyText"
                  CoerceText="@coerceText"
                  CoerceValue="@coerceValue"
-                 Class="custom-autocomplete" />
+                 Class="custom-autocomplete" 
+                 />
 
 <style>
     .custom-autocomplete {
@@ -17,7 +21,7 @@
         .mud-autocomplete .mud-input-label,
         .custom-autocomplete .mud-input-control,
         .custom-autocomplete .mud-input-underline {
-            background-color: #6F74FF !important; /* Cor de fundo roxa */
+            background-color: #2a2a3d !important; /* Cor de fundo roxa */
             color: white !important; /* Cor do texto */
             border-color: antiquewhite !important; /* Cor da borda */
         }
@@ -30,32 +34,21 @@
     private bool coerceText;
     private bool coerceValue;
 
+    private async Task OnCustomerSelected(string customer)
+    {
+        Navigation.NavigateTo("/cliente");
+    }
+
     private async Task<IEnumerable<string>> SearchuCustomer(string value, CancellationToken token)
     {
-        // exerciseList = exerciseListCopy;
-        // await Task.Delay(5, token); // Simulação de chamada assíncrona
-        // StateHasChanged();
-        // MuscleVO muscleVO = musclesList.Where(x => x.Name == muscleSelected).FirstOrDefault();
 
-
-        // if (muscleVO != null) exerciseList = exerciseList.Where(x => x.Muscles.Contains(muscleVO.Name)).ToList();
-        // if (string.IsNullOrEmpty(value))
-        //     return exerciseList.Select(x => x.Name);
-        // ExerciseReturnVO exerciseVO = exerciseList.Where(x => x.Name == value).FirstOrDefault();
-        // if (exerciseVO != null)
-        // {
-        //     if (exerciseVO.Video == null) exerciseNotHasVideo = true;
-        //     else if (exerciseVO.Video == "") exerciseNotHasVideo = true;
-        //     else if (exerciseVO.Video != null && exerciseVO.Video != "") exerciseNotHasVideo = false;
-
-        // }
         if (string.IsNullOrEmpty(value))
         {
             return users.Select(x => x.Name);
         }
         UserVO userSelected = users.Where(x => x.Name == value).FirstOrDefault();
         customerSelected = userSelected.Name;
-
+      
         return users.Select(x => x.Name).Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
         StateHasChanged();
 

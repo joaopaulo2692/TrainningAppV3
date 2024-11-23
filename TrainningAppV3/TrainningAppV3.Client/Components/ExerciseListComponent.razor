@@ -44,7 +44,7 @@
                                 <!-- Ícones que aparecem no hover -->
                                 <div class="action-icons">
                                     <MudIconButton OnClick="()=>EditExercise(exercise)" Icon="@Icons.Material.Outlined.Edit" />
-                                    <MudIconButton Icon="@Icons.Material.Filled.Delete" aria-label="delete" />
+                                    <MudIconButton OnClick="()=>RemoveExercise(exercise)" Icon="@Icons.Material.Filled.Delete" aria-label="delete" />
                                 </div>
                             </div>
                         </MudGrid>
@@ -145,6 +145,11 @@
 @code {
     List<ExerciseVO> exercisesList = new List<ExerciseVO>();
 
+
+    private void RemoveExercise(ExerciseVO exerciseToRemove)
+    {
+        exercisesList.Remove(exerciseToRemove);
+    }
 
     private void AddExerciseToList(ExerciseVO exerciseToAdd)
     {
