@@ -13,7 +13,13 @@
         <MudSpacer />
          @if (ShowSearchCustomer)
         {
-            <SearchCustomer></SearchCustomer>
+            @if (_isDarkMode)
+            {
+                <SearchCustomer IsLightMode=false></SearchCustomer>
+            }
+            @if (!_isDarkMode) {
+                <SearchCustomer IsLightMode=true></SearchCustomer>
+            }
         } 
         
         <MudSpacer />

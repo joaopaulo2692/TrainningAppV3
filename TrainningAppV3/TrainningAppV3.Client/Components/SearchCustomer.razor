@@ -1,7 +1,7 @@
 ﻿@using TrainningApp.Core.DTO.User
 @inject NavigationManager Navigation
 
-<MudAutocomplete T="string"
+ <MudAutocomplete T="string"
                  Label="Buscar aluno"
                  Value="@customerSelected"
                  ValueChanged="OnCustomerSelected"
@@ -9,25 +9,44 @@
                  ResetValueOnEmptyText="@resetValueOnEmptyText"
                  CoerceText="@coerceText"
                  CoerceValue="@coerceValue"
-                 Class="custom-autocomplete" 
-                 />
+                 Class="@(IsLightMode == true ? "custom-autocompleteLightMode" : "custom-autocomplete")" /> 
+
+
 
 <style>
+    /* Estilo para o modo escuro */
     .custom-autocomplete {
         margin-top: -10px; /* Ajuste este valor para mover o componente para cima */
     }
 
         .custom-autocomplete .mud-input-root,
-        .mud-autocomplete .mud-input-label,
+        .custom-autocomplete .mud-input-label,
         .custom-autocomplete .mud-input-control,
         .custom-autocomplete .mud-input-underline {
-            background-color: #2a2a3d !important; /* Cor de fundo roxa */
+            background-color: #2a2a3d !important; /* Cor de fundo para o modo escuro */
             color: white !important; /* Cor do texto */
             border-color: antiquewhite !important; /* Cor da borda */
+        }
+
+    /* Estilo para o modo claro */
+    .custom-autocompleteLightMode {
+        margin-top: -10px; /* Ajuste este valor para mover o componente para cima */
+    }
+
+        .custom-autocompleteLightMode .mud-input-root,
+        .custom-autocompleteLightMode .mud-input-label,
+        .custom-autocompleteLightMode .mud-input-control,
+        .custom-autocompleteLightMode .mud-input-underline {
+            background-color: #dcdcdc !important; /* Cor de fundo para o modo claro */
+            color: black !important; /* Cor do texto */
+            border-color: grey !important; /* Cor da borda */
         }
 </style>
 
 @code {
+
+    [Parameter]
+    public bool IsLightMode { get; set; }
 
     private string customerSelected { get; set; }
     private bool resetValueOnEmptyText;
