@@ -2,7 +2,7 @@
 @inject IDialogService DialogService
 
 <div style="display: flex; justify-content: center; margin-top: 20px;">
-    <MudButton Variant="Variant.Filled" Color="Color.Success">Novo Avaliação</MudButton>
+    <MudButton OnClick="()=>CreatePhysical()" Variant="Variant.Filled" Color="Color.Success">Novo Avaliação</MudButton>
 </div>
 <br />
 <br />
@@ -27,14 +27,17 @@
                 <div>
                     <MudText>
                         <span class="bold-label">Data:</span>
-                        <span class="normal-text">@physical.AssessmentDate</span>
+                        <span class="normal-text">@physical.AssessmentDate.Value.ToString("yyyy/MM/dd")</span>
                     </MudText>
                 </div>
             </div>
 
             <!-- Ícone -->
             <div class="action-icons">
-                <MudIconButton OnClick="()=>EditPhysical(physical)" Icon="@Icons.Material.Filled.MedicalInformation" Style="font-size: 48px; color: var(--mud-palette-primary);" />
+                <MudIconButton OnClick="()=>EditPhysical(physical)" Icon="@Icons.Material.Filled.MedicalInformation" Style="font-size: 68px; color: var(--mud-palette-primary);" />
+
+                <MudIconButton OnClick="()=>DeleteDialogAsync(physical)" Icon="@Icons.Material.Filled.Delete" aria-label="delete" />
+
                 @* <MudIcon Icon="@Icons.Material.Filled.MedicalInformation"  Style="font-size: 48px; color: var(--mud-palette-primary);" /> *@
             </div>
 
@@ -81,10 +84,44 @@
 
 
 @code {
+
+    private async Task DeleteDialogAsync(PhysicalAssessmentVO physicalToRemove)
+    {
+        var parameters = new DialogParameters
+    {
+        { nameof(DialogRemove.ContentText), "Você quer realmente apagar essa avaliação?" },
+        { nameof(DialogRemove.ButtonText), "Deletar" },
+        { nameof(DialogRemove.Color), Color.Error }
+    };
+
+        var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+        // Exibe o diálogo e aguarda o resultado
+        var dialogReference = DialogService.Show<DialogRemove>("Deletar", parameters, options);
+
+        var dialogResult = await dialogReference.Result; // Aguarda até o usuário interagir com o diálogo
+
+        // Verifica se o resultado foi cancelado
+        if (dialogResult.Canceled)
+        {
+            Console.WriteLine("Ação cancelada.");
+        }
+        else
+        {
+            Console.WriteLine("Ação confirmada. Excluindo treino...");
+            RemovePhysicalToList(physicalToRemove); // Executa a ação de exclusão
+        }
+    }
+
     private List<PhysicalAssessmentVO> physicalList = new List<PhysicalAssessmentVO>();
 
     // private PhysicalAssessmentVO physicalSelected { get; set; }
 
+    private void RemovePhysicalToList(PhysicalAssessmentVO physicalToRemove)
+    {
+        physicalList.Remove(physicalToRemove);
+    }
+    
 
     private void EditPhysicalToList(PhysicalAssessmentVO physicalToEdit)
     {
@@ -95,6 +132,34 @@
                 physicalList[i] = physicalToEdit;
                 break;
             }
+        }
+    }
+
+    private void CreatePhysicalToList(PhysicalAssessmentVO physicalToCreate)
+    {
+        physicalList.Add(physicalToCreate);
+    }
+
+    private async Task CreatePhysical()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        var parameters = new DialogParameters
+        {
+            { "OnSavePhysical", EventCallback.Factory.Create<PhysicalAssessmentVO>(this, CreatePhysicalToList) },
+        };
+
+        // Mostra o diálogo e passa os parâmetros
+        var dialog = DialogService.Show<PhysicalDialog>("Criar Avaliação", parameters);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            // // Pega o dado retornado pelo DialogResult
+            // var exerciseToSave = (ExerciseVO)result.Data;
+            // if (exerciseToSave != null)
+            // {
+            //     EditExerciseToList(exerciseToSave);
+            // }
         }
     }
 

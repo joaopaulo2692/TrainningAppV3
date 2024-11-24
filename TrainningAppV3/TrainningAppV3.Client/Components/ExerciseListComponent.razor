@@ -44,7 +44,7 @@
                                 <!-- Ícones que aparecem no hover -->
                                 <div class="action-icons">
                                     <MudIconButton OnClick="()=>EditExercise(exercise)" Icon="@Icons.Material.Outlined.Edit" />
-                                    <MudIconButton OnClick="()=>RemoveExercise(exercise)" Icon="@Icons.Material.Filled.Delete" aria-label="delete" />
+                                    <MudIconButton OnClick="()=>DeleteDialogAsync(exercise)" Icon="@Icons.Material.Filled.Delete" aria-label="delete" />
                                 </div>
                             </div>
                         </MudGrid>
@@ -146,6 +146,34 @@
 @code {
     List<ExerciseVO> exercisesList = new List<ExerciseVO>();
 
+
+    private async Task DeleteDialogAsync(ExerciseVO exerciseToRemove)
+    {
+        var parameters = new DialogParameters
+    {
+        { nameof(DialogRemove.ContentText), "Você quer realmente apagar esse exercício?" },
+        { nameof(DialogRemove.ButtonText), "Deletar" },
+        { nameof(DialogRemove.Color), Color.Error }
+    };
+
+        var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+        // Exibe o diálogo e aguarda o resultado
+        var dialogReference = DialogService.Show<DialogRemove>("Deletar", parameters, options);
+
+        var dialogResult = await dialogReference.Result; // Aguarda até o usuário interagir com o diálogo
+
+        // Verifica se o resultado foi cancelado
+        if (dialogResult.Canceled)
+        {
+            Console.WriteLine("Ação cancelada.");
+        }
+        else
+        {
+            Console.WriteLine("Ação confirmada. Excluindo treino...");
+            RemoveExercise(exerciseToRemove); // Executa a ação de exclusão
+        }
+    }
 
     private void RemoveExercise(ExerciseVO exerciseToRemove)
     {
