@@ -39,7 +39,7 @@ namespace TrainningApp.Core.DTO.PhysicalAssessment
 
         // Outras informações importantes
         public decimal BodyFatPercentage { get; set; } // Porcentagem de gordura corporal
-        public DateTime AssessmentDate { get; set; } // Data da avaliação
+        public DateTime? AssessmentDate { get; set; } // Data da avaliação
     }
 
 }

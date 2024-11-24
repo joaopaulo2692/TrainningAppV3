@@ -1,5 +1,13 @@
 ﻿@using TrainningApp.Core.DTO.PhysicalAssessment
-<h3>PhysicalAssessment</h3>
+@inject IDialogService DialogService
+
+<div style="display: flex; justify-content: center; margin-top: 20px;">
+    <MudButton Variant="Variant.Filled" Color="Color.Success">Novo Avaliação</MudButton>
+</div>
+<br />
+<br />
+
+
 @foreach (var physical in physicalList)
 {
     <div class="hover-container" style="display: flex; justify-content: center; margin-bottom: 10px;">
@@ -19,14 +27,15 @@
                 <div>
                     <MudText>
                         <span class="bold-label">Data:</span>
-                        <span class="normal-text">@physical.AssessmentDate.ToString("dd/MM/yyyy")</span>
+                        <span class="normal-text">@physical.AssessmentDate</span>
                     </MudText>
                 </div>
             </div>
 
             <!-- Ícone -->
             <div class="action-icons">
-                <MudIcon Icon="@Icons.Material.Filled.MedicalInformation" Style="font-size: 48px; color: var(--mud-palette-primary);" />
+                <MudIconButton OnClick="()=>EditPhysical(physical)" Icon="@Icons.Material.Filled.MedicalInformation" Style="font-size: 48px; color: var(--mud-palette-primary);" />
+                @* <MudIcon Icon="@Icons.Material.Filled.MedicalInformation"  Style="font-size: 48px; color: var(--mud-palette-primary);" /> *@
             </div>
 
         </MudPaper>
@@ -73,6 +82,46 @@
 
 @code {
     private List<PhysicalAssessmentVO> physicalList = new List<PhysicalAssessmentVO>();
+
+    // private PhysicalAssessmentVO physicalSelected { get; set; }
+
+
+    private void EditPhysicalToList(PhysicalAssessmentVO physicalToEdit)
+    {
+        for (int i = 0; i < physicalList.Count; i++)
+        {
+            if (physicalList[i].Id == physicalToEdit.Id)
+            {
+                physicalList[i] = physicalToEdit;
+                break;
+            }
+        }
+    }
+
+    private async Task EditPhysical(PhysicalAssessmentVO physicalSelected)
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        var parameters = new DialogParameters
+        {
+            { "OnEditPhysical", EventCallback.Factory.Create<PhysicalAssessmentVO>(this, EditPhysicalToList) },
+            {"Physical", physicalSelected}
+        };
+
+        // Mostra o diálogo e passa os parâmetros
+        var dialog = DialogService.Show<PhysicalDialog>("Editar Avaliação", parameters);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            // // Pega o dado retornado pelo DialogResult
+            // var exerciseToSave = (ExerciseVO)result.Data;
+            // if (exerciseToSave != null)
+            // {
+            //     EditExerciseToList(exerciseToSave);
+            // }
+        }
+    }
+
 
     protected override void OnInitialized()
     {

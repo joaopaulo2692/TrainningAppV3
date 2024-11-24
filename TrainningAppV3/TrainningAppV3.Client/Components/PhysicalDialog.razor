@@ -1,0 +1,117 @@
+﻿@using TrainningApp.Core.DTO.PhysicalAssessment
+@inject IDialogService DialogService
+
+
+<MudDialog MaxWidth="MaxWidth.ExtraLarge" FullWidth="true" Class="custom-dialog rounded-lg">
+    <DialogContent>
+        <MudForm @bind-Model="model">
+            <MudGrid>
+                <MudItem xs="12">
+                    <MudText Typo="Typo.h5" Align="Align.Center">Avaliação Física</MudText>
+                </MudItem>
+
+                <MudItem xs="12" md="6">
+                    <MudTextField Label="Nome do Personal" @bind-Value="model.PersonalName" FullWidth="true" />
+                </MudItem>
+                <MudItem xs="6" md="3">
+                    <MudTextField Label="Altura (m)" @bind-Value="model.Height" FullWidth="true" />
+                </MudItem>
+                <MudItem xs="6" md="3">
+                    <MudTextField Label="Peso (kg)" @bind-Value="model.Weight" FullWidth="true" />
+                </MudItem>
+
+                <MudItem xs="12">
+                    <MudText Typo="Typo.subtitle1">Circunferências Corporais (cm)</MudText>
+                </MudItem>
+                <MudItem xs="6" md="3">
+                    <MudTextField Label="Peitoral" @bind-Value="model.Chest" FullWidth="true" />
+                </MudItem>
+                <MudItem xs="6" md="3">
+                    <MudTextField Label="Cintura" @bind-Value="model.Waist" FullWidth="true" />
+                </MudItem>
+                <MudItem xs="6" md="3">
+                    <MudTextField Label="Quadril" @bind-Value="model.Hips" FullWidth="true" />
+                </MudItem>
+                <MudItem xs="6" md="3">
+                    <MudTextField Label="Pescoço" @bind-Value="model.Neck" FullWidth="true" />
+                </MudItem>
+
+                <MudItem xs="12">
+                    <MudText Typo="Typo.subtitle1">Membros Superiores (cm)</MudText>
+                </MudItem>
+                <MudItem xs="6" md="3">
+                    <MudTextField Label="Braço Dir. Relaxado" @bind-Value="model.RightArmRelaxed" FullWidth="true" />
+                </MudItem>
+                <MudItem xs="6" md="3">
+                    <MudTextField Label="Braço Esq. Relaxado" @bind-Value="model.LeftArmRelaxed" FullWidth="true" />
+                </MudItem>
+                <MudItem xs="6" md="3">
+                    <MudTextField Label="Braço Dir. Flexionado" @bind-Value="model.RightArmFlexed" FullWidth="true" />
+                </MudItem>
+                <MudItem xs="6" md="3">
+                    <MudTextField Label="Braço Esq. Flexionado" @bind-Value="model.LeftArmFlexed" FullWidth="true" />
+                </MudItem>
+                <MudItem xs="6" md="3">
+                    <MudTextField Label="Antebraço Dir." @bind-Value="model.RightForearm" FullWidth="true" />
+                </MudItem>
+                <MudItem xs="6" md="3">
+                    <MudTextField Label="Antebraço Esq." @bind-Value="model.LeftForearm" FullWidth="true" />
+                </MudItem>
+
+                <MudItem xs="12">
+                    <MudText Typo="Typo.subtitle1">Membros Inferiores (cm)</MudText>
+                </MudItem>
+                <MudItem xs="6" md="3">
+                    <MudTextField Label="Coxa Dir." @bind-Value="model.RightThigh" FullWidth="true" />
+                </MudItem>
+                <MudItem xs="6" md="3">
+                    <MudTextField Label="Coxa Esq." @bind-Value="model.LeftThigh" FullWidth="true" />
+                </MudItem>
+                <MudItem xs="6" md="3">
+                    <MudTextField Label="Panturrilha Dir." @bind-Value="model.RightCalf" FullWidth="true" />
+                </MudItem>
+                <MudItem xs="6" md="3">
+                    <MudTextField Label="Panturrilha Esq." @bind-Value="model.LeftCalf" FullWidth="true" />
+                </MudItem>
+
+                <MudItem xs="6">
+                    <MudTextField Label="Gordura Corporal (%)" @bind-Value="model.BodyFatPercentage" FullWidth="true" />
+                </MudItem>
+                <MudItem xs="6">
+                    <MudDatePicker Label="Data da Avaliação" @bind-Date="model.AssessmentDate" FullWidth="true" />
+                </MudItem>
+
+                <MudItem xs="12" class="mt-4">
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Save">Salvar</MudButton>
+                    <MudButton Variant="Variant.Outlined" Color="Color.Secondary" OnClick="Cancel" Class="ml-2">Cancelar</MudButton>
+                </MudItem>
+            </MudGrid>
+        </MudForm>
+    </DialogContent>
+</MudDialog>
+
+
+@code {
+    private PhysicalAssessmentVO model = new PhysicalAssessmentVO();
+
+    [Parameter]
+    public PhysicalAssessmentVO Physical { get; set; }
+
+    [Parameter]
+    public EventCallback<PhysicalAssessmentVO> OnEditPhysical { get; set; }
+
+    private void Save()
+    {
+        // Lógica para salvar os dados
+    }
+
+    private void Cancel()
+    {
+        DialogService.Close(null);
+    }
+
+    protected override void OnInitialized()
+    {
+        if (Physical != null) model = Physical;
+    }
+}
