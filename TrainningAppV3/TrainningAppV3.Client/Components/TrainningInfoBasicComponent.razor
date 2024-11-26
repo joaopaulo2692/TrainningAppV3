@@ -11,31 +11,31 @@
             <MudTextField T="string" Label="Nome" @bind-Value="nameTrainning" Typo="Typo.input" />
             <MudAutocomplete T="string" Label="Responsável" @bind-Value="personalSelected" SearchFunc="@SearchByPersonal"
                              ResetValueOnEmptyText="@resetValueOnEmptyText"
-                             CoerceText="@coerceText" CoerceValue="@coerceValue" Class="custom-autocomplete" />
+                             CoerceText="@coerceText" CoerceValue="@coerceValue" Class="custom-autocomplete" TextChanged="OnChanged" />
 
 
             <!-- Linha 2: Tipo de Treino, Nível e Frequência -->
-            <MudSelect Label="Tipo de Treino" @bind-Value="typeTrainning">
+            <MudSelect Label="Tipo de Treino" @bind-Value="typeTrainning" TextChanged="OnChanged">
                 @foreach (var state in typesTrainningList)
                 {
                     <MudSelectItem Value="state">@state</MudSelectItem>
                 }
             </MudSelect>
 
-            <MudSelect Class="custom-nivel" Label="Nível" @bind-Value="levelTrainning">
+            <MudSelect Class="custom-nivel" Label="Nível" @bind-Value="levelTrainning" TextChanged="OnChanged">
                 @foreach (var level in levelsTrainningList)
                 {
                     <MudSelectItem Value="level">@level</MudSelectItem>
                 }
             </MudSelect>
 
-            <MudNumericField Class="custom-freq" @bind-Value="frequency" Label="Frequência" Variant="Variant.Text" Min="0" Max="10" />
+            <MudNumericField Class="custom-freq" @bind-Value="frequency" Label="Frequência" Variant="Variant.Text" Min="0" Max="10" TextChanged="OnChanged" />
 
             <!-- Linha 3: MudSwitch -->
-            <MudSwitch @bind-Value="isActivate" Label="Ativado" Color="Color.Secondary" Class="switch-field" />
+            <MudSwitch @bind-Value="isActivate" Label="Ativado" Color="Color.Secondary" Class="switch-field" @oninput="OnChanged" />
 
             <!-- Linha 4: Observação -->
-            <MudTextField Label="Observação" @bind-Value="observation" />
+            <MudTextField Label="Observação" @bind-Value="observation" TextChanged="OnChanged" />
         </div>
     </MudPaper>
 </div>
@@ -95,7 +95,10 @@
 @code
 {
     [Parameter]
-    public TrainningReturnVO Trainning { get; set; }
+    public TrainningReturnVO TrainningVO { get; set; }
+
+    [Parameter]
+    public EventCallback<TrainningReturnVO> TrainningToSave { get; set; }
 
     private bool isActivate = false;
     private bool resetValueOnEmptyText;
@@ -119,9 +122,23 @@
 
     private List<UserVO> PersonalUsers { get; set;}
 
+    private void OnChanged()
+    {
+        if (TrainningVO == null) TrainningVO = new TrainningReturnVO();
+        TrainningVO.PersonalName =  personalSelected;
+        TrainningVO.Observation  = observation ;
+        TrainningVO.Goal = typeTrainning ;
+        TrainningVO.FrequencyWeekly = frequency;
+        TrainningVO.Name  = nameTrainning;
+        TrainningVO.Activate = isActivate;
+        TrainningVO.PersonalName = personalSelected;
+
+        TrainningToSave.InvokeAsync(TrainningVO);
+    }
+
     protected override void OnInitialized()
     {
-        if (Trainning != null && Trainning.Activate) isActivate = true;
+        if (TrainningVO != null && TrainningVO.Activate) isActivate = true;
         PersonalUsers = new List<UserVO>()
         {
             new UserVO
@@ -141,13 +158,13 @@
             },
         };
 
-        if (Trainning != null)
+        if (TrainningVO != null)
         {
-            personalSelected = Trainning.PersonalName != null ? Trainning.PersonalName : "";
-            observation = Trainning.Observation != null ? Trainning.Observation : "";
-            typeTrainning = Trainning.Goal != null ? Trainning.Goal : "";
-            frequency = Trainning.FrequencyWeekly;
-            nameTrainning = Trainning.Name != null ? Trainning.Name : "";
+            personalSelected = TrainningVO.PersonalName != null ? TrainningVO.PersonalName : "";
+            observation = TrainningVO.Observation != null ? TrainningVO.Observation : "";
+            typeTrainning = TrainningVO.Goal != null ? TrainningVO.Goal : "";
+            frequency = TrainningVO.FrequencyWeekly;
+            nameTrainning = TrainningVO.Name != null ? TrainningVO.Name : "";
         }
     }
 

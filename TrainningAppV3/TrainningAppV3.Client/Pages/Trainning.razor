@@ -8,6 +8,7 @@
 @layout UserLayout
 
 
+<TrainningInfoBasicComponent TrainningToSave="HandleInfoTrainning" TrainningVO="TrainningToEdit"></TrainningInfoBasicComponent>
 
 <h3>Sessões do treino</h3>
 <div class="parent-container">
@@ -59,7 +60,7 @@
        <br/>
        <br/>
        <br/>
-        <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="Color.Info" Size="Size.Small">Salvar Treino</MudButton>
+        <MudButton OnClick="OnSaveTrainning" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="Color.Info" Size="Size.Small">Salvar Treino</MudButton>
     </MudTabs>
 </div>
 @* <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="Color.Info" Size="Size.Small">Salvar Treino</MudButton> *@
@@ -102,7 +103,9 @@
     [Parameter]
     public TrainningReturnVO TrainningToEdit { get; set; }
 
-
+    private TrainningReturnVO TrainningVO { get; set; }
+    [Parameter]
+    public EventCallback<TrainningReturnVO> TrainningToUpdateOrCreate { get; set; }
 
     private int _selectedTabIndex = 0;
     private int _uniqueKey = 0;
@@ -132,7 +135,39 @@
         _uniqueKey++;
     }
 
+    private async Task HandleInfoTrainning(TrainningReturnVO trainningToSave)
+    {
+        if (TrainningVO == null) TrainningVO = new TrainningReturnVO();
+        TrainningVO.PersonalName = trainningToSave.PersonalName;
+        TrainningVO.Observation = trainningToSave.Observation;
+        TrainningVO.Goal = trainningToSave.Goal;
+        TrainningVO.FrequencyWeekly = trainningToSave.FrequencyWeekly;
+        TrainningVO.Name = trainningToSave.Name;
+        TrainningVO.Activate = trainningToSave.Activate;
+        TrainningVO.PersonalName = trainningToSave.PersonalName;
 
+    }
+
+    private async Task OnSaveTrainning()
+    {
+
+        if (TrainningVO == null) TrainningVO = new TrainningReturnVO();
+        TrainningVO.CreatedAt = DateTime.Now;
+        TrainningVO.TrainningDays = new List<TrainningDayReturnVO>();
+        // TrainningVO.TrainningDays = DropzoneList.SelectMany(x => x.Select(x => x.TrainningDayReturn)).ToList();
+
+        // foreach (var drop in DropzoneList)
+        // {
+        //     foreach(var trainningList in drop)
+        //     {
+        //         TrainningVO.TrainningDays.Add(trainningList.TrainningDayReturn);
+        //     }
+        // }
+
+        if (TrainningToEdit != null) TrainningVO.Id = TrainningToEdit.Id;
+
+        TrainningToUpdateOrCreate.InvokeAsync(TrainningVO);
+    }
 
     private async Task HandleChangeOrdenationExercise(List<DropZoneItem> dropNewOrdenation)
     {
@@ -360,15 +395,31 @@
         {
             foreach(var trainningDayIndex in TrainningToEdit.TrainningDays)
             {
-                foreach (var exerciseIndex in trainningDayIndex.TrainningExercises)
+                if(trainningDayIndex != null)
                 {
-                    DropZoneItem newDropZone = new DropZoneItem()
-                        {
-                            Zone = "Drop Zone 1", TrainningDayOrdenation = trainningDayIndex.Ordenation, TrainningDayId = trainningDayIndex.Id, 
-                            Name = trainningDayIndex.Name, Exercise = exerciseIndex 
-                        };
-                    _items.Add(newDropZone);
+                    foreach (var exerciseIndex in trainningDayIndex.TrainningExercises)
+                    {
+                        DropZoneItem newDropZone = new DropZoneItem()
+                            {
+                                Zone = "Drop Zone 1",
+                                TrainningDayOrdenation = trainningDayIndex.Ordenation,
+                                TrainningDayId = trainningDayIndex.Id,
+                                Name = trainningDayIndex.Name,
+                                Exercise = exerciseIndex
+                            };
+                        _items.Add(newDropZone);
+                    }
                 }
+                else
+                {
+                    _items = new List<DropZoneItem>
+                    {
+                        new() { Zone = "Drop Zone 1", TrainningDayOrdenation=1, TrainningDayId =1, Name = "A" }
+                    };
+                    DropzoneList.Add(_items);
+                    break;
+                }
+
                 DropzoneList.Add(_items);
                 _items = new List<DropZoneItem>();
             }

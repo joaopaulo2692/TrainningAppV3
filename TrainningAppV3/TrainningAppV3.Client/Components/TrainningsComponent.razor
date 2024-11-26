@@ -126,8 +126,8 @@
 }
 @if (AddTrainning == true || EditTrainning == true)
 {
-    <TrainningInfoBasicComponent Trainning="TrainningEditing"></TrainningInfoBasicComponent>
-    <Trainning TrainningToEdit="TrainningEditing"></Trainning>
+   @*  <TrainningInfoBasicComponent Trainning="TrainningEditing"></TrainningInfoBasicComponent>  *@
+    <Trainning TrainningToUpdateOrCreate="UpdateOrCreateTrainning" TrainningToEdit="TrainningEditing"></Trainning>
 }
 
 <style>
@@ -177,6 +177,42 @@
     List<TrainningReturnVO> trainningsList = new List<TrainningReturnVO>();
 
 
+    private void UpdateOrCreateTrainning(TrainningReturnVO trainningToSave)
+    {
+        if (trainningToSave.Activate)
+        {
+            foreach (var item in trainningsList.Where(x => x.Activate))
+            {
+                if (trainningToSave.Id != item.Id) item.Activate = false;
+                 // Altera o valor para false
+            }
+        }
+        if (trainningToSave.Id != 0)
+        {
+            var trainningToUpdate = trainningsList.FirstOrDefault(x => x.Id == trainningToSave.Id);
+            if (trainningToUpdate != null)
+            {
+                // Atualizar as propriedades do item encontrado
+                trainningToUpdate.Name = trainningToSave.Name;
+                trainningToUpdate.Goal = trainningToSave.Goal;
+                trainningToUpdate.FrequencyWeekly = trainningToSave.FrequencyWeekly;
+                trainningToUpdate.Observation = trainningToSave.Observation;
+                trainningToUpdate.PersonalName = trainningToSave.PersonalName;
+                trainningToUpdate.Activate = trainningToSave.Activate;
+                trainningToUpdate.TrainningDays = trainningToSave.TrainningDays;
+
+                // Se precisar de algo mais, adicione aqui, como salvar ou outras atualizações
+            }
+        }
+        else
+        {
+            trainningToSave.Id = trainningsList.Count + 1;
+            trainningsList.Add(trainningToSave);
+        }
+        EditTrainning = false;
+        AddTrainning = false;
+        trainningsList = trainningsList.OrderByDescending(x => x.CreatedAt).ToList();
+    }
 
     private bool AddTrainning { get; set; } = false;
     private bool EditTrainning { get; set; } = false;
@@ -194,7 +230,7 @@
             new TrainningReturnVO()
             {
                 Id = 1,
-                CreatedAt = DateTime.Now,
+                CreatedAt = new DateTime(2024, 11, 20),
                 Goal = "Hipertrofia",
                 Name = "Treino 2024",
                 PersonalName = "José",
@@ -315,7 +351,7 @@
              new TrainningReturnVO()
             {
                  Id = 2,
-                CreatedAt = DateTime.Now,
+                CreatedAt = new DateTime(2024, 10, 5),
                 Goal = "Emagrecimento",
                 Name = "Treino ABC",
                 PersonalName = "Fernando",
@@ -325,7 +361,7 @@
              new TrainningReturnVO()
             {
                  Id = 3,
-                CreatedAt = DateTime.Now,
+                CreatedAt = new DateTime(2024, 9, 4),
                 Goal = "Condicionamento",
                 Name = "Treino AB",
                 PersonalName = "Arthur",
@@ -345,6 +381,7 @@
 
     private void OndAddTrainning()
     {
+        TrainningEditing = null;
         AddTrainning = true;
     }
 

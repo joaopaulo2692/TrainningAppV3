@@ -18,6 +18,7 @@
         }
         <div class="d-flex flex-column py-1" style="min-height: @dialogScreen;">
             <MudAutocomplete T="string" Label="Filtro por músculo" @bind-Value="muscleSelected" SearchFunc="@SearchByMuscle"
+                             MaxItems="50"
                              ResetValueOnEmptyText="@resetValueOnEmptyText"
                              CoerceText="@coerceText" CoerceValue="@coerceValue" />
 
@@ -29,6 +30,7 @@
             }
             <MudAutocomplete T="string" Label="Exercício" @bind-Value="exerciseSelected" SearchFunc="@SearchExercise"           
                              ResetValueOnEmptyText="@resetValueOnEmptyText"
+                             MaxItems="50"
                              CoerceText="@coerceText" CoerceValue="@coerceValue" HelperText="@(hasError ? errorMessage : null)" Error="@hasError" />
             @if (hasError)
             {
@@ -176,7 +178,7 @@
     private List<string> reps = new List<string> { "", "", "", "", "" };
     private List<string> weights = new List<string> { "", "", "", "", "" };
     // private List<string> weights = new List<string> { "", "", "", "", "" };
-    ExerciseReturnVO exerciseVO = new ExerciseReturnVO();
+    ExerciseVO exerciseVO = new ExerciseVO();
     MuscleVO muscleVO = new MuscleVO();
 
     [CascadingParameter] MudDialogInstance MudDialog { get; set; }
@@ -190,7 +192,7 @@
     private void OpenVideo()
     {
         videoOn = true;
-        ExerciseReturnVO exerciseVO = exerciseList.FirstOrDefault();
+        ExerciseVO exerciseVO = exerciseList.FirstOrDefault();
         StateHasChanged();
     }
 
@@ -310,7 +312,7 @@
         if (muscleVO != null) exerciseList = exerciseList.Where(x => x.Muscles.Contains(muscleVO.Name)).ToList();
         if (string.IsNullOrEmpty(value))
             return exerciseList.Select(x => x.Name);
-        ExerciseReturnVO exerciseVO = exerciseList.Where(x => x.Name == value).FirstOrDefault();
+        ExerciseVO exerciseVO = exerciseList.Where(x => x.Name == value).FirstOrDefault();
         if (exerciseVO != null)
         {
             if (exerciseVO.Video == null) exerciseNotHasVideo = true;
@@ -330,7 +332,7 @@
         {
             muscleSelected = string.Empty;
             exerciseList = exerciseListCopy.ToList();
-            return musclesList.Select(x => x.Name);
+            return musclesList.Select(x => x.Name).ToList();
         }     
         
      
@@ -350,24 +352,172 @@
         }
     }
 
-    List<ExerciseReturnVO> exerciseList = new List<ExerciseReturnVO>
+    List<ExerciseVO> exerciseList = new List<ExerciseVO>
     {
-        new ExerciseReturnVO { Id = 1, Name = "Supino reto", Muscles = new List<string>{"Peito" },Video = "https://www.youtube.com/embed/dQw4w9WgXcQ"  },
-        new ExerciseReturnVO { Id = 2, Name = "Tríceps testa" ,Muscles = new List<string>{"Tríceps" } },
-        new ExerciseReturnVO { Id = 3, Name = "Rosca" ,Muscles = new List<string>{"Bíceps" } }
+        // new ExerciseReturnVO { Id = 1, Name = "Supino reto", Muscles = new List<string>{"Peito" },Video = "https://www.youtube.com/embed/dQw4w9WgXcQ"  },
+        // new ExerciseReturnVO { Id = 2, Name = "Tríceps testa" ,Muscles = new List<string>{"Tríceps" } },
+        // new ExerciseReturnVO { Id = 3, Name = "Rosca" ,Muscles = new List<string>{"Bíceps" } }
+         new ExerciseVO
+    {
+        Id = 1,
+        Name = "Supino",
+        Muscles = new List<string> { "Peito", "Tríceps" }
+    },
+    new ExerciseVO
+    {
+        Id = 2,
+        Name = "Agachamento",
+        Muscles = new List<string> { "Pernas", "Glúteos", "Quadríceps" }
+    },
+    new ExerciseVO
+    {
+        Id = 3,
+        Name = "Rosca Direta",
+        Muscles = new List<string> { "Bíceps" }
+    },
+    new ExerciseVO
+    {
+        Id = 4,
+        Name = "Levantamento Terra",
+        Muscles = new List<string> { "Dorsais", "Glúteos", "Pernas" }
+    },
+    new ExerciseVO
+    {
+        Id = 5,
+        Name = "Desenvolvimento com Halteres",
+        Muscles = new List<string> { "Ombros", "Tríceps" }
+    },
+    new ExerciseVO
+    {
+        Id = 6,
+        Name = "Remada Curvada",
+        Muscles = new List<string> { "Costas", "Bíceps" }
+    },
+    new ExerciseVO
+    {
+        Id = 7,
+        Name = "Cadeira Extensora",
+        Muscles = new List<string> { "Quadríceps" }
+    },
+    new ExerciseVO
+    {
+        Id = 8,
+        Name = "Flexão de Braço",
+        Muscles = new List<string> { "Peito", "Tríceps", "Ombros" }
+    },
+    new ExerciseVO
+    {
+        Id = 9,
+        Name = "Crucifixo",
+        Muscles = new List<string> { "Peito" }
+    },
+    new ExerciseVO
+    {
+        Id = 10,
+        Name = "Abdominal",
+        Muscles = new List<string> { "Abdômen" }
+    }
     };
 
-    List<ExerciseReturnVO> exerciseListCopy = new List<ExerciseReturnVO>
+    List<ExerciseVO> exerciseListCopy = new List<ExerciseVO>
     {
-        new ExerciseReturnVO { Id = 1, Name = "Supino reto", Muscles = new List<string>{"Peito" }, Video = "https://www.youtube.com/embed/dQw4w9WgXcQ" },
-        new ExerciseReturnVO { Id = 2, Name = "Tríceps testa" ,Muscles = new List<string>{"Tríceps" } },
-        new ExerciseReturnVO { Id = 3, Name = "Rosca" ,Muscles = new List<string>{"Bíceps" } }
+        // new ExerciseVO { Id = 1, Name = "Supino reto", Muscles = new List<string>{"Peito" }, Video = "https://www.youtube.com/embed/dQw4w9WgXcQ" },
+        // new ExerciseVO { Id = 2, Name = "Tríceps testa" ,Muscles = new List<string>{"Tríceps" } },
+        // new ExerciseVO { Id = 3, Name = "Rosca" ,Muscles = new List<string>{"Bíceps" } }
+                new ExerciseVO
+    {
+        Id = 1,
+        Name = "Supino",
+        Muscles = new List<string> { "Peito", "Tríceps" }
+    },
+    new ExerciseVO
+    {
+        Id = 2,
+        Name = "Agachamento",
+        Muscles = new List<string> { "Pernas", "Glúteos", "Quadríceps" }
+    },
+    new ExerciseVO
+    {
+        Id = 3,
+        Name = "Rosca Direta",
+        Muscles = new List<string> { "Bíceps" }
+    },
+    new ExerciseVO
+    {
+        Id = 4,
+        Name = "Levantamento Terra",
+        Muscles = new List<string> { "Dorsais", "Glúteos", "Pernas" }
+    },
+    new ExerciseVO
+    {
+        Id = 5,
+        Name = "Desenvolvimento com Halteres",
+        Muscles = new List<string> { "Ombros", "Tríceps" }
+    },
+    new ExerciseVO
+    {
+        Id = 6,
+        Name = "Remada Curvada",
+        Muscles = new List<string> { "Costas", "Bíceps" }
+    },
+    new ExerciseVO
+    {
+        Id = 7,
+        Name = "Cadeira Extensora",
+        Muscles = new List<string> { "Quadríceps" }
+    },
+    new ExerciseVO
+    {
+        Id = 8,
+        Name = "Flexão de Braço",
+        Muscles = new List<string> { "Peito", "Tríceps", "Ombros" }
+    },
+    new ExerciseVO
+    {
+        Id = 9,
+        Name = "Crucifixo",
+        Muscles = new List<string> { "Peito" }
+    },
+    new ExerciseVO
+    {
+        Id = 10,
+        Name = "Abdominal",
+        Muscles = new List<string> { "Abdômen" }
+    }
     };
 
     List<MuscleVO> musclesList = new List<MuscleVO>
     {
-        new MuscleVO{Id = 1, Name ="Peito",exerciseIds=new List<int>(){1} },
-        new MuscleVO{Id = 2, Name ="Tríceps",exerciseIds=new List<int>(){2} },
-        new MuscleVO{Id = 3, Name ="Bíceps",exerciseIds=new List<int>(){3} },
+        // new MuscleVO{Id = 1, Name ="Peito",exerciseIds=new List<int>(){1} },
+        // new MuscleVO{Id = 2, Name ="Tríceps",exerciseIds=new List<int>(){2} },
+        // new MuscleVO{Id = 3, Name ="Bíceps",exerciseIds=new List<int>(){3} },
+          new MuscleVO { Id = 1, Name = "Abdômen" },
+    new MuscleVO { Id = 2, Name = "Aeróbico" },
+    new MuscleVO { Id = 3, Name = "Agilidade" },
+    new MuscleVO { Id = 4, Name = "Alongamento" },
+    new MuscleVO { Id = 5, Name = "Antebraço" },
+    new MuscleVO { Id = 6, Name = "Aquecimento" },
+    new MuscleVO { Id = 7, Name = "Bíceps" },
+    new MuscleVO { Id = 8, Name = "Cardiovasculares" },
+    new MuscleVO { Id = 9, Name = "Coordenação motora" },
+    new MuscleVO { Id = 10, Name = "Core" },
+    new MuscleVO { Id = 11, Name = "Dorsal" },
+    new MuscleVO { Id = 12, Name = "Funcionais" },
+    new MuscleVO { Id = 13, Name = "Glúteo" },
+    new MuscleVO { Id = 14, Name = "Lombar" },
+    new MuscleVO { Id = 15, Name = "Mobilidade" },
+    new MuscleVO { Id = 16, Name = "Movimentos complexos" },
+    new MuscleVO { Id = 17, Name = "Movimentos cíclicos" },
+    new MuscleVO { Id = 18, Name = "Ombro" },
+    new MuscleVO { Id = 19, Name = "Outros" },
+    new MuscleVO { Id = 20, Name = "Panturrilha" },
+    new MuscleVO { Id = 21, Name = "Peito" },
+    new MuscleVO { Id = 22, Name = "Perna" },
+    new MuscleVO { Id = 23, Name = "Punho" },
+    new MuscleVO { Id = 24, Name = "Quadril" },
+    new MuscleVO { Id = 25, Name = "Resistência" },
+    new MuscleVO { Id = 26, Name = "Tornozelo" },
+    new MuscleVO { Id = 27, Name = "Trapézio" },
+    new MuscleVO { Id = 28, Name = "Tríceps" }
     };
 }
