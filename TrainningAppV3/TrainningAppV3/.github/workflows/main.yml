@@ -1,55 +1,61 @@
-name: Deploy to GitHub Pages
+name: Deploy
 
 on:
-  push:
-    branches:
-      - main  # Roda o workflow ao fazer push na branch main.
-  workflow_dispatch:  # Permite rodar o workflow manualmente também
+    push:
+        branches: ["main"]
 
-permissions:
-  contents: write
-  pages: write
-  id-token: write
+    workflow_dispatch:
+    
+permissions:    
+    contents: read
+    pages: write
+    id-token: write
 
 concurrency:
-  group: "pages"
-  cancel-in-progress: false
+    group: "pages"
+    cancel-in-progress: false
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+    deploy:
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+            - name: Setup .NET
+              uses: actions/setup-dotnet@v3
+              with:
+                dotnet-version: 8.0.x
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 8.0.x
 
-      - name: Install .NET Wasm Tools
-        run: dotnet workload install wasm-tools
+            - name: Install .NET Wasm Tools
+              run: dotnet workload install wasm-tools
 
-      - name: Restore Dependencies
-        run: dotnet restore
+            - name: Restore Dependencies
+              run: dotnet restore
 
-      - name: Build
-        run: dotnet build -c Release --no-restore
+            - name: Build
+              run: dotnet build -c Release --no-restore
 
-      - name: Publish .NET
-        run: dotnet publish TrainningAppV3.Client.csproj -c Release -o docs --no-logo
+            - name: Publish .NET
+              run: dotnet publish TrainningAppV3.Client.csproj -c:Release -o docs --nologo
 
-      - name: Update Base HREF for GitHub Pages
-        run: |
-          base_path="/TrainningAppV3/" # Substitua pelo nome do repositório
-          sed -i "s|<base href=\"/\"|<base href=\"$base_path\"|" docs/index.html
+            - name: Setup Pages
+              run: actions/configure-pages@v4
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs
+            - name: Upload
+              run: actions/upload-pages-artifact@v3
+              with:
+                path: 'docs/wwwroot'
+
+            - name: Deploy
+              id: deployment
+              uses: actions/deploy-pages@v4
+  
+
+
+    
+    
