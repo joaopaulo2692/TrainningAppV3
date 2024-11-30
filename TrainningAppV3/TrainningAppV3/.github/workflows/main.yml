@@ -41,7 +41,7 @@ jobs:
               run: dotnet build -c Release --no-restore
 
             - name: Publish .NET
-              run: dotnet publish TrainningAppV3.Client.csproj -c Release -o docs --no-logo
+              run: dotnet publish TrainningAppV3.Client.csproj -c:Release -o docs --nologo
 
             - name: Setup Pages
               run: actions/configure-pages@v4
