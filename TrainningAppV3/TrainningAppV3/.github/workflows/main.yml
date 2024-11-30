@@ -47,8 +47,7 @@ jobs:
         run: dotnet build --no-restore
   
       - name: Publish .NET Core Project
-        # run: dotnet publish BlazorApp01.csproj -c:Release -o docs --nologorun
-        run: dotnet publish TrainningAppV3.Client.csproj -c:Release -o docs --nologo
+        run: dotnet publish TrainningAppV3.csproj -c:Release -o docs --nologo
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -56,7 +55,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repositor
+          # Upload entire repository
           path: 'docs/wwwroot'
 
       - name: Deploy to GitHub Pages
