@@ -56,7 +56,8 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: 'docs/wwwroot'
+          path: 'TrainningAppV3.Client/docs/wwwroot'
+
 
       - name: Deploy to GitHub Pages
         id: deployment
