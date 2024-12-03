@@ -18,4 +18,6 @@
     <ProjectReference Include="..\..\TrainningApp.Core\TrainningApp.Core.csproj" />
   </ItemGroup>
 
+
+
 </Project>
