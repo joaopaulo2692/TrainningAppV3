@@ -46,8 +46,12 @@ jobs:
       - name: Build
         run: dotnet build --no-restore
   
+      #- name: Publish .NET Core Project
+       # run: dotnet publish TrainningAppV3/TrainningAppV3.Client/TrainningAppV3.Client.csproj -c:Release -o docs --nologo
+        
       - name: Publish .NET Core Project
-        run: dotnet publish TrainningAppV3/TrainningAppV3.Client/TrainningAppV3.Client.csproj -c:Release -o docs --nologo
+        run: dotnet publish TrainningAppV3/TrainningAppV3.Client/TrainningAppV3.Client.csproj -c:Release -o docs/wwwroot --nologo
+
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -56,7 +60,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: 'docs/wwwroot'
+          path: 'docs'
 
 
       - name: Deploy to GitHub Pages
