@@ -55,7 +55,11 @@ jobs:
       #- name: Remove compressed files
        # run: find docs -name '*.br' -delete && find docs -name '*.gz' -delete
 
-
+       - name: Copy static files to docs
+        run: |
+         cp ./TrainningAppV3/TrainningAppV3.Client/wwwroot/service-worker.js docs/wwwroot/
+         cp ./TrainningAppV3/TrainningAppV3.Client/wwwroot/manifest.json docs/wwwroot/
+     
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
