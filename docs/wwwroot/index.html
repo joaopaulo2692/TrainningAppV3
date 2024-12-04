@@ -5,28 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="favicon.ico" />
     <title>TrainningApp</title>
-    <!--<link href="manifest.webmanifest" rel="manifest" />-->
-    <link href="manifest" rel="manifest" />
+    <link href="manifest.json" rel="manifest" /> <!-- Ajuste para manifest.json -->
+
+    <base href="https://joaopaulo2692.github.io/TrainningAppV3/" />
+</head>
+<body>
+    <div id="app">Loading...de novo</div>
+    <script src="_framework/blazor.webassembly.js"></script> <!-- Remover duplicado -->
+    <script>navigator.serviceWorker.register('service-worker.js');</script> <!-- Ajuste para o caminho correto do service-worker.js -->
+
+</body>
+</html>
+
+
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>TrainningApp</title>-->
+<!--<link href="manifest.webmanifest" rel="manifest" />-->
+<!--<link href="manifest" rel="manifest" />
 
     <base href="https://joaopaulo2692.github.io/TrainningAppV3/" />
 </head>
 <body>
     <div id="app">Loading...de novo</div>
     <script src="_framework/blazor.webassembly.js"></script>
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('service-worker.js')
-                .then(function (registration) {
-                    console.log('Service Worker registrado com sucesso:', registration);
-                })
-                .catch(function (error) {
-                    console.log('Falha ao registrar o Service Worker:', error);
-                });
-        }
-    </script>
-</body>
-</html>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
 
+</body>
+</html>-->
 <!--<!DOCTYPE html>
 <html lang="en">
 
@@ -34,8 +45,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BlazorApp01</title>-->
-    <!-- 👇 -->
-    <!--<base href="https://joaopaulo2692.github.io/TrainningAppV3/" />
+<!-- 👇 -->
+<!--<base href="https://joaopaulo2692.github.io/TrainningAppV3/" />
 
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link rel="stylesheet" href="css/app.css" />
@@ -62,6 +73,6 @@
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
-
 </body>
-</html>
+
+</html>-->
