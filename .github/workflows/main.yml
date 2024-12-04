@@ -25,10 +25,6 @@ jobs:
       - name: Publish .NET Core Project
         run: dotnet publish TrainningAppV3/TrainningAppV3.Client/TrainningAppV3.Client.csproj -c:Release -o docs/wwwroot --nologo
       
-      - name: Copy static files to docs
-        run: |
-          cp ./TrainningAppV3/TrainningAppV3.Client/wwwroot/service-worker.js docs/wwwroot/
-          cp ./TrainningAppV3/TrainningAppV3.Client/wwwroot/manifest.json docs/wwwroot/
      
       - name: Setup Pages
         uses: actions/configure-pages@v4
