@@ -11,7 +11,7 @@ self.addEventListener('install', event => {
                 '/TrainningAppV3/index.html',
                 '/TrainningAppV3/_framework/blazor.webassembly.js',
                 '/TrainningAppV3/manifest.json',
-                // outros arquivos necess√°rios
+                // outros arquivos necess·rios
             ]);
         })
     );
