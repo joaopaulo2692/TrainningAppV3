@@ -20,11 +20,9 @@
   </ItemGroup>
 
 
-	<Target Name="StaticWebAssets" AfterTargets="Publish">
-		<Exec Command="dotnet msbuild /t:GenerateStaticWebAssets /p:Configuration=$(Configuration)" />
-	</Target>
 
-	
+
+
 	<ItemGroup>
     <ProjectReference Include="..\..\TrainningApp.Core\TrainningApp.Core.csproj" />
   </ItemGroup>
