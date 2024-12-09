@@ -1123,3 +1123,7 @@ C:\Users\joaop\source\repos\tentativa\TrainningAppV3\TrainningAppV3\TrainningApp
 C:\Users\joaop\source\repos\tentativa\TrainningAppV3\TrainningAppV3\TrainningAppV3.Client\obj\Release\net8.0\compressed\m19iylfjne.gz
 C:\Users\joaop\source\repos\tentativa\TrainningAppV3\TrainningAppV3\TrainningAppV3.Client\obj\Release\net8.0\compressed\n0zc4k9fsa.gz
 C:\Users\joaop\source\repos\tentativa\TrainningAppV3\TrainningAppV3\TrainningAppV3.Client\obj\Release\net8.0\compressed\9r8m3b633a.gz
+C:\Users\joaop\source\repos\tentativa\TrainningAppV3\TrainningAppV3\TrainningAppV3.Client\bin\Release\net8.0\wwwroot\service-worker-assets.js
+C:\Users\joaop\source\repos\tentativa\TrainningAppV3\TrainningAppV3\TrainningAppV3.Client\bin\Release\net8.0\wwwroot\service-worker.js
+C:\Users\joaop\source\repos\tentativa\TrainningAppV3\TrainningAppV3\TrainningAppV3.Client\obj\Release\net8.0\service-worker\service-worker.js
+C:\Users\joaop\source\repos\tentativa\TrainningAppV3\TrainningAppV3\TrainningAppV3.Client\obj\Release\net8.0\service-worker-assets.js.build

@@ -13,11 +13,10 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TrainningAppV3.Client")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6d0aff2a3c0e1d938147f505324f66664ea9a331")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9052b54649d8580b2d3e1c557608a6c2535c167e")]
 [assembly: System.Reflection.AssemblyProductAttribute("TrainningAppV3.Client")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TrainningAppV3.Client")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyMetadataAttribute("RepositoryUrl", "https://github.com/joaopaulo2692/TrainningAppV3.git")]
 
 // Gerado pela classe WriteCodeFragment do MSBuild.
 

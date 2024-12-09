@@ -9,6 +9,14 @@
       "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js.gz"
     },
     {
+      "Id": "C:\\Users\\joaop\\source\\repos\\tentativa\\TrainningAppV3\\TrainningAppV3\\TrainningAppV3.Client\\obj\\Release\\net8.0\\service-worker-assets.js",
+      "PackagePath": "staticwebassets\\service-worker-assets.js"
+    },
+    {
+      "Id": "C:\\Users\\joaop\\source\\repos\\tentativa\\TrainningAppV3\\TrainningAppV3\\TrainningAppV3.Client\\obj\\Release\\net8.0\\service-worker\\service-worker.published.js",
+      "PackagePath": "staticwebassets\\service-worker.js"
+    },
+    {
       "Id": "C:\\Users\\joaop\\source\\repos\\tentativa\\TrainningAppV3\\TrainningAppV3\\TrainningAppV3.Client\\wwwroot\\Images\\academia_musculacao.webp",
       "PackagePath": "staticwebassets\\Images\\academia_musculacao.webp"
     },
@@ -51,14 +59,6 @@
     {
       "Id": "C:\\Users\\joaop\\source\\repos\\tentativa\\TrainningAppV3\\TrainningAppV3\\TrainningAppV3.Client\\wwwroot\\manifest.json",
       "PackagePath": "staticwebassets\\manifest.json"
-    },
-    {
-      "Id": "C:\\Users\\joaop\\source\\repos\\tentativa\\TrainningAppV3\\TrainningAppV3\\TrainningAppV3.Client\\wwwroot\\service-worker.js",
-      "PackagePath": "staticwebassets\\service-worker.js"
-    },
-    {
-      "Id": "C:\\Users\\joaop\\source\\repos\\tentativa\\TrainningAppV3\\TrainningAppV3\\TrainningAppV3.Client\\wwwroot\\service-worker.published.js",
-      "PackagePath": "staticwebassets\\service-worker.published.js"
     },
     {
       "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.TrainningAppV3.Client.Microsoft.AspNetCore.StaticWebAssets.props",
