@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TrainningAppV3.Client")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3b79df6938a19ae7ef08858daf30ec67df5c5d01")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bb70221cda57ae6c3306b8ac695da73be777efa3")]
 [assembly: System.Reflection.AssemblyProductAttribute("TrainningAppV3.Client")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TrainningAppV3.Client")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
