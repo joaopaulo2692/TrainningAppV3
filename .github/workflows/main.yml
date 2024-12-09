@@ -14,6 +14,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
@@ -29,9 +30,17 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+
+      
+
       - name: Checkout
         uses: actions/checkout@v4
-
+      - name: Change base href in App.razor to match gh repo name 
+        run: |
+          cd ${{ env.SRC }}/Client
+          TrainningAppV3=$(echo "${{ github.repository }}" | awk -F '/' '{print $NF}')
+          sed -i 's/<base href="\/"[[:blank:]]*\/>/<base href="\/'$TrainningAppV3'\/" \/>/g' ./wwwroot/index.html
+      
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
