@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "TrainningAppV3.Client",
   "resources": {
-    "hash": "sha256-eERV+LAVmiwjJhJ63sZ5cn0dai3YjDIWy7RI053n85o=",
+    "hash": "sha256-bcxh7LKaQ7SpsV3YI2T1K17IZuQxm5BMu7h0w7UncmA=",
     "jsModuleNative": {
       "dotnet.native.8.0.11.hrdwnxqp0x.js": "sha256-VdKq87/z5NIxZKmuM+fv38XF+RcEb/bg3jVBwQSfwP4="
     },
@@ -225,12 +225,12 @@
       "mscorlib.wasm": "sha256-cDuLeL3OCtVtiid/dyex1MVgbuzDSRwZxKzuP2Dp4mg=",
       "netstandard.wasm": "sha256-A0h86SDieTMoU/wU2JTszWCsUmMuguDcbap0b0BzsmI=",
       "System.Private.CoreLib.wasm": "sha256-/0DNIm/T0C07X7Tuz5uR8JvVCoAfEE2MnfPUSjyS9xc=",
-      "TrainningApp.Core.wasm": "sha256-1t3vsTdwxYesG00nH2DazeZ1xDm4a+2e4FxwNICgmIs=",
-      "TrainningAppV3.Client.wasm": "sha256-7A1kJ3nTz9O6m6qTOq1xoSjxJVTAo+HzBWmlcVJ8WpA="
+      "TrainningApp.Core.wasm": "sha256-00dBm+VNDRzpkSxcUmye4JmVVbZVCpYuoVGU+vOH9WY=",
+      "TrainningAppV3.Client.wasm": "sha256-IksrNPSGG8Ahjryo/R4P4Z670mS7mvXnSCjk50biVHY="
     },
     "pdb": {
-      "TrainningApp.Core.pdb": "sha256-SQQ5GXcQcTujR4azCYDzZB6tDPrBLjvoyxS9lkTp0So=",
-      "TrainningAppV3.Client.pdb": "sha256-dBvqVlaEbdwbTavIsSsyVu97tfqdEjfR0s3YUqby1Ww="
+      "TrainningApp.Core.pdb": "sha256-wBHitGjMRQnGf1JvxYusgSZduo7K9ew7d+AZZtfK8mw=",
+      "TrainningAppV3.Client.pdb": "sha256-ntq37BOG9T1fdRGvc+fHdfLcm2Acb2f6SnCzrUTzK6I="
     }
   },
   "cacheBootResources": true,
