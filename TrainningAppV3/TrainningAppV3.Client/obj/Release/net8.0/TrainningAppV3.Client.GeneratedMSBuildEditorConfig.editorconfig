@@ -1,0 +1,158 @@
+is_global = true
+build_property.EnableAotAnalyzer = 
+build_property.EnableSingleFileAnalyzer = 
+build_property.EnableTrimAnalyzer = false
+build_property.IncludeAllContentForSelfExtract = 
+build_property.MudDebugAnalyzer = 
+build_property.MudAllowedAttributePattern = 
+build_property.MudIllegalParameters = 
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = browser
+build_property.RootNamespace = TrainningAppV3.Client
+build_property.RootNamespace = TrainningAppV3.Client
+build_property.ProjectDir = C:\Users\joaop\source\repos\tentativa\TrainningAppV3\TrainningAppV3\TrainningAppV3.Client\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = false
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\joaop\source\repos\tentativa\TrainningAppV3\TrainningAppV3\TrainningAppV3.Client
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Components/CustomerInfoComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDdXN0b21lckluZm9Db21wb25lbnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Components/CustomerResumeComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDdXN0b21lclJlc3VtZUNvbXBvbmVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Components/DialogRemove.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xEaWFsb2dSZW1vdmUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Components/DropZoneExercises.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xEcm9wWm9uZUV4ZXJjaXNlcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Components/ExerciseComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xFeGVyY2lzZUNvbXBvbmVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Components/ExerciseInput.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xFeGVyY2lzZUlucHV0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Components/ExerciseListComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xFeGVyY2lzZUxpc3RDb21wb25lbnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Components/MusclesList.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xNdXNjbGVzTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Components/NewExerciseDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xOZXdFeGVyY2lzZURpYWxvZy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Components/PhysicalAssessment.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQaHlzaWNhbEFzc2Vzc21lbnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Components/PhysicalDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQaHlzaWNhbERpYWxvZy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Components/SearchCustomer.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTZWFyY2hDdXN0b21lci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Components/TrainningInfoBasicComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xUcmFpbm5pbmdJbmZvQmFzaWNDb21wb25lbnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Components/TrainningListComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xUcmFpbm5pbmdMaXN0Q29tcG9uZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Components/TrainningsComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xUcmFpbm5pbmdzQ29tcG9uZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Layout/AdminLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XEFkbWluTGF5b3V0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Layout/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Layout/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Layout/UserLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XFVzZXJMYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Pages/Auth.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Pages/Component.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Pages/Counter.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Pages/Customers.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VzdG9tZXJzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Pages/Home.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Pages/Personal.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGVyc29uYWwucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Pages/Student.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Pages/Table.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGFibGUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Pages/Trainning.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVHJhaW5uaW5nLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Pages/Weather.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcV2VhdGhlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/RedirectToLogin.razor]
+build_metadata.AdditionalFiles.TargetPath = UmVkaXJlY3RUb0xvZ2luLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/Routes.razor]
+build_metadata.AdditionalFiles.TargetPath = Um91dGVzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/joaop/source/repos/tentativa/TrainningAppV3/TrainningAppV3/TrainningAppV3.Client/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 

@@ -1,0 +1,8 @@
+C:\Users\joaop\source\repos\tentativa\TrainningAppV3\TrainningAppV3\TrainningAppV3.Client\dist\index.html
+C:\Users\joaop\source\repos\tentativa\TrainningAppV3\TrainningAppV3\TrainningAppV3.Client\dist\docs\web.config
+C:\Users\joaop\source\repos\tentativa\TrainningAppV3\TrainningAppV3\TrainningAppV3.Client\dist\appsettingsToRemove.Development.json
+C:\Users\joaop\source\repos\tentativa\TrainningAppV3\TrainningAppV3\TrainningAppV3.Client\dist\appsettingsToRemove.json
+C:\Users\joaop\source\repos\tentativa\TrainningAppV3\TrainningAppV3\TrainningAppV3.Client\dist\docs\appsettingsToRemove.Development.json
+C:\Users\joaop\source\repos\tentativa\TrainningAppV3\TrainningAppV3\TrainningAppV3.Client\dist\docs\appsettingsToRemove.json
+C:\Users\joaop\source\repos\tentativa\TrainningAppV3\TrainningAppV3\TrainningAppV3.Client\dist\docs\wwwroot\_framework\blazor.boot.json
+C:\Users\joaop\source\repos\tentativa\TrainningAppV3\TrainningAppV3\TrainningAppV3.Client\dist\web.config

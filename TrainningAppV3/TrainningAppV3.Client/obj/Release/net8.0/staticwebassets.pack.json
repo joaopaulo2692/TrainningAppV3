@@ -1,0 +1,81 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\joaop\\source\\repos\\tentativa\\TrainningAppV3\\TrainningAppV3\\TrainningAppV3.Client\\bin\\Release\\net8.0\\wwwroot\\_framework\\blazor.webassembly.js",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js"
+    },
+    {
+      "Id": "C:\\Users\\joaop\\source\\repos\\tentativa\\TrainningAppV3\\TrainningAppV3\\TrainningAppV3.Client\\obj\\Release\\net8.0\\compressed\\pbazknpcor.gz",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js.gz"
+    },
+    {
+      "Id": "C:\\Users\\joaop\\source\\repos\\tentativa\\TrainningAppV3\\TrainningAppV3\\TrainningAppV3.Client\\wwwroot\\Images\\academia_musculacao.webp",
+      "PackagePath": "staticwebassets\\Images\\academia_musculacao.webp"
+    },
+    {
+      "Id": "C:\\Users\\joaop\\source\\repos\\tentativa\\TrainningAppV3\\TrainningAppV3\\TrainningAppV3.Client\\wwwroot\\Images\\alc-banner.png",
+      "PackagePath": "staticwebassets\\Images\\alc-banner.png"
+    },
+    {
+      "Id": "C:\\Users\\joaop\\source\\repos\\tentativa\\TrainningAppV3\\TrainningAppV3\\TrainningAppV3.Client\\wwwroot\\Images\\instrutor-na-academia.jpg",
+      "PackagePath": "staticwebassets\\Images\\instrutor-na-academia.jpg"
+    },
+    {
+      "Id": "C:\\Users\\joaop\\source\\repos\\tentativa\\TrainningAppV3\\TrainningAppV3\\TrainningAppV3.Client\\wwwroot\\Images\\instrutor-na-academia2.jpg",
+      "PackagePath": "staticwebassets\\Images\\instrutor-na-academia2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\joaop\\source\\repos\\tentativa\\TrainningAppV3\\TrainningAppV3\\TrainningAppV3.Client\\wwwroot\\Images\\treino-edit.jpg",
+      "PackagePath": "staticwebassets\\Images\\treino-edit.jpg"
+    },
+    {
+      "Id": "C:\\Users\\joaop\\source\\repos\\tentativa\\TrainningAppV3\\TrainningAppV3\\TrainningAppV3.Client\\wwwroot\\Images\\treino-edit2.jpg",
+      "PackagePath": "staticwebassets\\Images\\treino-edit2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\joaop\\source\\repos\\tentativa\\TrainningAppV3\\TrainningAppV3\\TrainningAppV3.Client\\wwwroot\\Images\\treino-edit3.jpg",
+      "PackagePath": "staticwebassets\\Images\\treino-edit3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\joaop\\source\\repos\\tentativa\\TrainningAppV3\\TrainningAppV3\\TrainningAppV3.Client\\wwwroot\\Images\\treino.jpg",
+      "PackagePath": "staticwebassets\\Images\\treino.jpg"
+    },
+    {
+      "Id": "C:\\Users\\joaop\\source\\repos\\tentativa\\TrainningAppV3\\TrainningAppV3\\TrainningAppV3.Client\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\joaop\\source\\repos\\tentativa\\TrainningAppV3\\TrainningAppV3\\TrainningAppV3.Client\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "C:\\Users\\joaop\\source\\repos\\tentativa\\TrainningAppV3\\TrainningAppV3\\TrainningAppV3.Client\\wwwroot\\manifest.json",
+      "PackagePath": "staticwebassets\\manifest.json"
+    },
+    {
+      "Id": "C:\\Users\\joaop\\source\\repos\\tentativa\\TrainningAppV3\\TrainningAppV3\\TrainningAppV3.Client\\wwwroot\\service-worker.js",
+      "PackagePath": "staticwebassets\\service-worker.js"
+    },
+    {
+      "Id": "C:\\Users\\joaop\\source\\repos\\tentativa\\TrainningAppV3\\TrainningAppV3\\TrainningAppV3.Client\\wwwroot\\service-worker.published.js",
+      "PackagePath": "staticwebassets\\service-worker.published.js"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.TrainningAppV3.Client.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.build.TrainningAppV3.Client.props",
+      "PackagePath": "build\\TrainningAppV3.Client.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.TrainningAppV3.Client.props",
+      "PackagePath": "buildMultiTargeting\\TrainningAppV3.Client.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildTransitive.TrainningAppV3.Client.props",
+      "PackagePath": "buildTransitive\\TrainningAppV3.Client.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\TrainningAppV3.Client.props" />
+</Project>

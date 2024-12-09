@@ -1,0 +1,3 @@
+C:\Users\joaop\source\repos\tentativa\TrainningAppV3\TrainningAppV3\TrainningAppV3.Client\bin\Release\net8.0\publish\appsettings.Development.json
+C:\Users\joaop\source\repos\tentativa\TrainningAppV3\TrainningAppV3\TrainningAppV3.Client\bin\Release\net8.0\publish\appsettings.json
+C:\Users\joaop\source\repos\tentativa\TrainningAppV3\TrainningAppV3\TrainningAppV3.Client\bin\Release\net8.0\publish\web.config
