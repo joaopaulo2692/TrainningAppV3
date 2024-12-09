@@ -62,5 +62,5 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
         
-      - name: Disable Jekyll
-        run: touch release/wwwroot/.nojekyll
+      - name: Create .nojekyll file
+        run: touch docs/wwwroot/.nojekyll
