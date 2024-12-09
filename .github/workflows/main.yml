@@ -36,11 +36,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         
-      - name: Change base href in App.razor to match gh repo name
-        run: |
-          cd TrainningAppV3.Client
-          TrainningAppV3=$(echo "${{ github.repository }}" | awk -F '/' '{print $NF}')
-          sed -i 's/<base href="\/"[[:blank:]]*\/>/<base href="\/'$TrainningAppV3'\/" \/>/g' ./wwwroot/index.html
+      
+      
       
       
       - name: Setup .NET
